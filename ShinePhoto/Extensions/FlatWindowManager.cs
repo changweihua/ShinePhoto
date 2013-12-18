@@ -5,6 +5,7 @@ using System.Text;
 using Caliburn.Micro;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace ShinePhoto.Extensions
 {
@@ -18,6 +19,7 @@ namespace ShinePhoto.Extensions
             //window.Icon = new BitmapImage(new Uri("Images/Photo.ico", UriKind.RelativeOrAbsolute));
             window.SizeToContent = SizeToContent.WidthAndHeight;
             window.ResizeMode = ResizeMode.NoResize;
+            //window.Background = new SolidColorBrush(Colors.Transparent);
 
             return window;
         }

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cal="http://www.caliburnproject.org"
+             xmlns:helper="clr-namespace:ShinePhoto.Helpers"
              mc:Ignorable="d" Width="500" Height="300">
     <Border BorderBrush="#2D91CF" BorderThickness="3" CornerRadius="4">
         <Grid>
@@ -22,7 +23,7 @@
                         </i:EventTrigger>
                     </i:Interaction.Triggers>-->
                     <TextBlock Margin="10,0,0,0" HorizontalAlignment="Left" Foreground="White" FontSize="16" VerticalAlignment="Center" Name="WindowTitle" />
-                    <Button Content="X" FontSize="16" x:Name="CloseButton" Foreground="White" Style="{DynamicResource myBtnStyle}" HorizontalAlignment="Right" Margin="0,0,5,0" Height="20" Width="20" />
+                    <Button Content="X" FontSize="16" x:Name="CloseButton" cal:Message.Attach="[Event Click] = [Action CloseWindow($view)]" Foreground="White" Style="{DynamicResource myBtnStyle}" HorizontalAlignment="Right" Margin="0,0,5,0" Height="20" Width="20" />
                 </Grid>
             </Border>
             <Grid Grid.Row="1" Background="White">
@@ -32,21 +33,22 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <StackPanel Margin="10"  Orientation="Horizontal">
+                    <StackPanel VerticalAlignment="Center" Margin="10"  Orientation="Horizontal">
                         <Label Style="{DynamicResource InputLabel}" Target="{Binding ElementName=UserName}">用户名(_N)</Label>
                         <Border CornerRadius="5" Height="35" BorderThickness="1" BorderBrush="#FF737070">
-                            <TextBox Name="UserName" Width="250" Background="{x:Null}" BorderThickness="0" FontSize="22" />
+                            <TextBox Tag="输入用户名" Style="{DynamicResource WaterMarkStyle}" Name="UserName" VerticalAlignment="Center" Width="250" Background="{x:Null}" BorderThickness="0" FontSize="22" />
                         </Border>
                     </StackPanel>
-                    <StackPanel Margin="10" Orientation="Horizontal" Grid.Row="1">
-                        <Label Style="{DynamicResource InputLabel}" Target="{Binding ElementName=tbUserName}">密  码(_P)</Label>
+                    <StackPanel VerticalAlignment="Center" Margin="10" Orientation="Horizontal" Grid.Row="1">
+                        <Label Style="{DynamicResource InputLabel}" Target="{Binding ElementName=Password}">密  码(_P)</Label>
                         <Border CornerRadius="5" Height="35" BorderThickness="1" BorderBrush="#FF737070">
-                            <PasswordBox Name="Password" Width="250" Background="{x:Null}" BorderThickness="0" FontSize="22" />
+                            <PasswordBox helper:PasswordHelper.Attach="True" helper:PasswordHelper.Password="{Binding Text, ElementName=Password, Mode=TwoWay}" VerticalAlignment="Center" Name="PasswordPB" Width="250" Background="{x:Null}" BorderThickness="0" FontSize="22" />
                         </Border>
+                        <TextBox Visibility="Collapsed" VerticalAlignment="Center" Name="Password" Width="250" Background="{x:Null}" BorderThickness="0" FontSize="22" />
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Center" Margin="10" Orientation="Horizontal" Grid.Row="2">
-                        <Button Style="{DynamicResource BlueButton}" Width="150" Height="35" x:Name="LoginButton" Margin="10" Content="登录" />
-                        <Button Style="{DynamicResource BlueButton}" Width="150" Height="35" x:Name="RegisterButton" Margin="10" Content="注册" />
+                        <Button IsEnabled="False" Style="{DynamicResource BlueButton}" Width="150" Height="35" x:Name="Login" cal:Message.Attach="[Event Click] = [Action Login]" Margin="10" Content="登录" />
+                        <Button Style="{DynamicResource BlueButton}" Width="150" Height="35" cal:Message.Attach="[Event Click] = [Action ShowRegist]" Margin="10" Content="注册" />
                     </StackPanel>
                 </Grid>
             </Grid>
