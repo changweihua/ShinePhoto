@@ -16,11 +16,13 @@ namespace ShinePhoto.ViewModels
     public class LoginViewModel : PropertyChangedBase
     {
         private readonly IWindowManager _windowManager;
+        private readonly IEventAggregator _events;
 
         [ImportingConstructor]
-        public LoginViewModel(IWindowManager windowManager)
+        public LoginViewModel(IWindowManager windowManager, IEventAggregator events)
         {
             _windowManager = windowManager;
+            _events = events;
         }
 
         private string _title = "登录窗体";
@@ -57,7 +59,7 @@ namespace ShinePhoto.ViewModels
 
         public void ShowRegist()
         {
-            _windowManager.ShowWindow(new RegistViewModel(), null);
+            _windowManager.ShowWindow(new RegistViewModel(_events), null);
         }
 
         public void Login()

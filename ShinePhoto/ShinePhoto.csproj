@@ -74,6 +74,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Events\RegistNextEvent.cs" />
     <Compile Include="Extensions\FlatWindowManager.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\GuidHelper.cs" />

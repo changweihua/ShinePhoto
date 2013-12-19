@@ -34,6 +34,7 @@
                 <PasswordBox helper:PasswordHelper.Attach="True" helper:PasswordHelper.Password="{Binding Text, ElementName=RePassword, Mode=TwoWay}" VerticalContentAlignment="Center" Width="250" Background="{x:Null}" BorderThickness="0" FontSize="22" />
             </Border>
             <TextBox Visibility="Collapsed" VerticalAlignment="Center" Name="RePassword" Width="250" Background="{x:Null}" BorderThickness="0" FontSize="22" />
+            <Button Visibility="Collapsed" x:Name="Go" />
         </Grid>
         <Label Content="请输入以下相关信息" FontSize="18" />
     </Grid>

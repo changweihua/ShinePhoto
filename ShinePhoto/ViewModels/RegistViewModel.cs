@@ -9,17 +9,26 @@ using System.Windows.Input;
 using System.Windows;
 using System.Windows.Media;
 using ShinePhoto.Models;
+using ShinePhoto.Events;
 
 namespace ShinePhoto.ViewModels
 {
     [Export(typeof(RegistViewModel))]
-    public class RegistViewModel : Conductor<object>.Collection.OneActive
+    public class RegistViewModel : Conductor<object>, IHandle<object> 
     {
-        private UserModel _user;
 
-        public RegistViewModel()
+        //public RegistViewModel()
+        //{
+        //    ActivateItem(new UserInfoViewModel());
+        //}
+        public UserModel User { get; private set; }
+        private IEventAggregator _eventAggregator;
+
+        public RegistViewModel(IEventAggregator eventAggregator)
         {
-            ActivateItem(new UserInfoViewModel());
+            _eventAggregator = eventAggregator;
+            eventAggregator.Subscribe(this);
+            ActivateItem(new UserInfoViewModel(eventAggregator));
         }
 
         public void OperationButtonClick(object source, object sender)
@@ -90,10 +99,31 @@ namespace ShinePhoto.ViewModels
 
         #endregion
 
-
-
         #region 底部按钮操作
 
+        public void Prev()
+        {
+            //得到的是窗体
+            var win = GetView() as Window;
+            var sp1 = FindVisualChildByName<StackPanel>(win, "sp1");
+            var sp2 = FindVisualChildByName<StackPanel>(win, "sp2");
+            sp2.Visibility = Visibility.Collapsed;
+            sp1.Visibility = Visibility.Visible;
+            ActivateItem(new UserInfoViewModel(_eventAggregator));
+        }
+
+        public bool CanPrev
+        {
+            get
+            {
+                //if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(RePassword))
+                //{
+                //    return false;
+                //}
+
+                return true;
+            }
+        }
 
         public void Next()
         {
@@ -101,111 +131,33 @@ namespace ShinePhoto.ViewModels
             var win = GetView() as Window;
             var sp1 = FindVisualChildByName<StackPanel>(win, "sp1");
             var sp2 = FindVisualChildByName<StackPanel>(win, "sp2");
-            ActivateItem(new UserInfoViewModel());
+            sp1.Visibility = Visibility.Collapsed;
+            sp2.Visibility = Visibility.Visible;
+            ActivateItem(new SettingViewModel(_eventAggregator));
         }
 
         public bool CanNext
         {
-            get
+            get;
+            private set;
+        }
+
+        public void Handle(object message)
+        {
+            if (message is RegistNextEvent)
             {
-                if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(RePassword))
+                User = (message as RegistNextEvent).User;
+                System.Diagnostics.Debug.WriteLine("已经监听到了" + (message as RegistNextEvent).CanGo);
+                if((message as RegistNextEvent).CanGo)
                 {
-                    return false;
+                    CanNext = true;
+                    NotifyOfPropertyChange(() => CanNext); 
                 }
-
-                return true;
             }
         }
 
         #endregion
-
-        #region 属性
-
-        private string _userName;
-        private string _password;
-        private string _rePassword;
-        private string _mainBackground;
-        private string _folder;
-        private string _waterMarkImage;
-        private string _logo;
-
-        public string UserName {
-            get { return _userName; }
-            set {
-                _userName = value;
-                NotifyOfPropertyChange(() => UserName);
-                NotifyOfPropertyChange(() => CanNext);
-            }
-        }
-
-        public string Password
-        {
-            get { return _password; }
-            set
-            {
-                _password = value;
-                NotifyOfPropertyChange(() => Password);
-                NotifyOfPropertyChange(() => CanNext);
-            }
-        }
-
-        public string RePassword
-        {
-            get { return _rePassword; }
-            set
-            {
-                _rePassword = value;
-                NotifyOfPropertyChange(() => RePassword);
-                NotifyOfPropertyChange(() => CanNext);
-            }
-        }
-
-        public string MainBackground
-        {
-            get { return _mainBackground; }
-            set
-            {
-                _mainBackground = value;
-                NotifyOfPropertyChange(() => MainBackground);
-                NotifyOfPropertyChange(() => CanRegist);
-            }
-        }
-
-        public string Folder
-        {
-            get { return _folder; }
-            set
-            {
-                _folder = value;
-                NotifyOfPropertyChange(() => Folder);
-                NotifyOfPropertyChange(() => CanRegist);
-            }
-        }
-
-        public string WaterMarkImage
-        {
-            get { return _waterMarkImage; }
-            set
-            {
-                _waterMarkImage = value;
-                NotifyOfPropertyChange(() => WaterMarkImage);
-                NotifyOfPropertyChange(() => CanRegist);
-            }
-        }
-
-        public string Logo
-        {
-            get { return _logo; }
-            set
-            {
-                _logo = value;
-                NotifyOfPropertyChange(() => Logo);
-                NotifyOfPropertyChange(() => CanRegist);
-            }
-        }
-
-        #endregion
-
+ 
         #region 方法
 
         public void Regist()
@@ -213,19 +165,8 @@ namespace ShinePhoto.ViewModels
 
         public bool CanRegist
         {
-            get {
-                return CheckValid();
-            }
-        }
-
-        public bool CheckValid()
-        {
-            if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(RePassword) || string.IsNullOrEmpty(MainBackground) || string.IsNullOrEmpty(Folder) || string.IsNullOrEmpty(WaterMarkImage) || string.IsNullOrEmpty(Logo))
-            {
-                return false;
-            }
-
-            return true;
+            get;
+            private set;
         }
 
 

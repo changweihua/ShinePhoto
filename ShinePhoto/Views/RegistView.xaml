@@ -29,12 +29,12 @@
                 </StackPanel>-->
 
                 <StackPanel VerticalAlignment="Bottom" x:Name="sp1" Margin="10" Orientation="Horizontal" HorizontalAlignment="Right" >
-                    <Button x:Name="BackButton" Tag="BACK" cal:Message.Attach="[Event Click] = [Action OperationButtonClick($source, $this)]" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="返回" />
-                    <Button IsEnabled="False"  x:Name="Next" Tag="NEXT" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="下一步" />
+                    <Button x:Name="BackButton" cal:Message.Attach="[Event Click] = [Action OperationButtonClick($source, $this)]" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="返回" />
+                    <Button IsEnabled="false" x:Name="Next" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="下一步" />
                 </StackPanel>
                 <StackPanel VerticalAlignment="Bottom" Visibility="Collapsed" x:Name="sp2" Margin="10" Orientation="Horizontal" HorizontalAlignment="Right" >
-                    <Button x:Name="PrevButton" Tag="PREV" cal:Message.Attach="[Event Click] = [Action OperationButtonClick($source, $this)]" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="上一步" />
-                    <Button IsEnabled="True" x:Name="FinishButton" Tag="Regist" cal:Message.Attach="[Event Click] = [Action Regist]" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="完成" />
+                    <Button x:Name="Prev" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="上一步" />
+                    <Button IsEnabled="True" x:Name="FinishButton" cal:Message.Attach="[Event Click] = [Action Regist]" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="完成" />
                 </StackPanel>
             </StackPanel>
         </Grid>
