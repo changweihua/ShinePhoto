@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="ShinePhoto.Views.MainView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600">
+    <UserControl.Background>
+        <ImageBrush ImageSource="/Images/Result1.jpg" />
+    </UserControl.Background>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="375" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <ContentControl x:Name="LeftViewModel" />
+        <ContentControl Grid.Column="1" x:Name="ShellViewModel" />
+    </Grid>
+</UserControl>

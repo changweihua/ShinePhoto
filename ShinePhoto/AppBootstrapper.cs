@@ -11,7 +11,7 @@ using ShinePhoto.Extensions;
 
 namespace ShinePhoto
 {
-    class AppBootstrapper : Bootstrapper<LoginViewModel>
+    class AppBootstrapper : Bootstrapper<MainViewModel>
     {
         private CompositionContainer _container;
 

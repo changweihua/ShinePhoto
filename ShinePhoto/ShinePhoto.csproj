@@ -39,6 +39,9 @@
     <Reference Include="Caliburn.Micro">
       <HintPath>..\packages\Caliburn.Micro.1.5.2\lib\net40\Caliburn.Micro.dll</HintPath>
     </Reference>
+    <Reference Include="Icons">
+      <HintPath>..\..\..\..\DLL\Icons.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Data" />
@@ -74,31 +77,58 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Events\ModuleChangedEvent.cs" />
     <Compile Include="Events\RegistNextEvent.cs" />
     <Compile Include="Extensions\FlatWindowManager.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\GuidHelper.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
+    <Compile Include="Helpers\TreeHelper.cs" />
+    <Compile Include="Interfaces\IShellView.cs" />
     <Compile Include="Models\LoginUserModel.cs" />
     <Compile Include="Models\ShinePhotoDataContext.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="ValidationRules\UserNameRule.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
+    <Compile Include="ViewModels\CaptureViewModel.cs" />
+    <Compile Include="ViewModels\LeftViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RegistViewModel.cs" />
+    <Compile Include="ViewModels\RightViewModel.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
+    <Compile Include="ViewModels\ShineDisplayViewModel.cs" />
+    <Compile Include="ViewModels\SignatureAlbumViewModel.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="Views\AppView.xaml.cs">
       <DependentUpon>AppView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\CaptureView.xaml.cs">
+      <DependentUpon>CaptureView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LeftView.xaml.cs">
+      <DependentUpon>LeftView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\LoginView.xaml.cs">
       <DependentUpon>LoginView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainView.xaml.cs">
+      <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RegistView.xaml.cs">
       <DependentUpon>RegistView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RightView.xaml.cs">
+      <DependentUpon>RightView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingView.xaml.cs">
       <DependentUpon>SettingView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ShineDisplayView.xaml.cs">
+      <DependentUpon>ShineDisplayView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SignatureAlbumView.xaml.cs">
+      <DependentUpon>SignatureAlbumView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserInfoView.xaml.cs">
       <DependentUpon>UserInfoView.xaml</DependentUpon>
@@ -142,7 +172,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\CaptureView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LeftView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LoginView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -150,7 +192,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\RightView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SettingView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShineDisplayView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SignatureAlbumView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -168,6 +222,17 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\BG.jpg" />
+    <Resource Include="Images\Left\Capture.png" />
+    <Resource Include="Images\Left\ShineDisplay.png" />
+    <Resource Include="Images\Left\SignatureAlbum.png" />
+    <Resource Include="Images\Left\Capture_Selected.png" />
+    <Resource Include="Images\Left\ShineDisplay_Selected.png" />
+    <Resource Include="Images\Left\SignatureAlbum_Selected.png" />
+    <Resource Include="Images\Left\Board.png" />
+    <Resource Include="Images\Result1.jpg" />
+    <Resource Include="Images\Result2.jpg" />
+    <Resource Include="Images\Result3.jpg" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
