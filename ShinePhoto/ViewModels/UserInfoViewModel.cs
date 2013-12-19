@@ -12,8 +12,21 @@ namespace ShinePhoto.ViewModels
     [Export(typeof(UserInfoViewModel))]
     public class UserInfoViewModel : Screen
     {
+        public RegistViewModel ParentViewModel{get;set;}
+
+        protected override void OnDeactivate(bool close)
+        {
+            //ParentViewModel = (this.Parent as RegistViewModel);
+            //UserName = ParentViewModel.User.UserName;
+            base.OnDeactivate(close);
+        }
+
         protected override void OnActivate()
         {
+            ParentViewModel = (this.Parent as RegistViewModel);
+            UserName = ParentViewModel.User.UserName;
+            Password = ParentViewModel.User.Password;
+            RePassword = ParentViewModel.User.Password;
             base.OnActivate();
         }
 
@@ -82,10 +95,10 @@ namespace ShinePhoto.ViewModels
             {
                 if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(RePassword) || string.Compare(Password, RePassword) != 0)
                 {
-                    _eventAggregator.Publish(new RegistNextEvent(new UserModel { }, false));
+                    _eventAggregator.Publish(new UserInfoEvent(new UserInfo { }, false));
                     return false;
                 }
-                _eventAggregator.Publish(new RegistNextEvent(new UserModel { }, true));
+                _eventAggregator.Publish(new UserInfoEvent(new UserInfo { UserName = UserName, Password = Password }, true));
                 return true;
             }
         }

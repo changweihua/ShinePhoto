@@ -29,5 +29,6 @@
                 <TextBox VerticalAlignment="Center" Name="Logo" Background="{x:Null}" BorderThickness="0" FontSize="18" />
             </Border>
         </StackPanel>
+        <Button Visibility="Collapsed" x:Name="Go" />
     </StackPanel>
 </UserControl>

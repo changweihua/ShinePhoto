@@ -12,8 +12,14 @@ namespace ShinePhoto.ViewModels
     [Export(typeof(SettingViewModel))]
     public class SettingViewModel : Screen
     {
+        public RegistViewModel ParentViewModel { get; set; }
         protected override void OnActivate()
         {
+            var parent = ParentViewModel = (this.Parent as RegistViewModel);
+            MainBackground = parent.User.MainBackground;
+            Folder = parent.User.Folder;
+            WaterMarkImage = parent.User.WaterMarkImage;
+            Logo = parent.User.Logo;
             base.OnActivate();
         }
 
@@ -43,7 +49,7 @@ namespace ShinePhoto.ViewModels
             {
                 _mainBackground = value;
                 NotifyOfPropertyChange(() => MainBackground);
-                //NotifyOfPropertyChange(() => CanRegist);
+                NotifyOfPropertyChange(() => CanGo);
             }
         }
 
@@ -54,7 +60,7 @@ namespace ShinePhoto.ViewModels
             {
                 _folder = value;
                 NotifyOfPropertyChange(() => Folder);
-                //NotifyOfPropertyChange(() => CanRegist);
+                NotifyOfPropertyChange(() => CanGo);
             }
         }
 
@@ -65,7 +71,7 @@ namespace ShinePhoto.ViewModels
             {
                 _waterMarkImage = value;
                 NotifyOfPropertyChange(() => WaterMarkImage);
-                //NotifyOfPropertyChange(() => CanRegist);
+                NotifyOfPropertyChange(() => CanGo);
             }
         }
 
@@ -76,7 +82,7 @@ namespace ShinePhoto.ViewModels
             {
                 _logo = value;
                 NotifyOfPropertyChange(() => Logo);
-                //NotifyOfPropertyChange(() => CanRegist);
+                NotifyOfPropertyChange(() => CanGo);
             }
         }
 
@@ -86,7 +92,9 @@ namespace ShinePhoto.ViewModels
         #region 方法
 
         public void Go()
-        { }
+        {
+            _eventAggregator.Publish(new SettingEvent(new Setting { Folder = Folder, Logo = Logo, MainBackground = MainBackground, WaterMarkImage = WaterMarkImage }, true));
+        }
 
         public bool CanGo
         {
@@ -94,14 +102,13 @@ namespace ShinePhoto.ViewModels
             {
                 if (string.IsNullOrEmpty(MainBackground) || string.IsNullOrEmpty(Folder) || string.IsNullOrEmpty(WaterMarkImage) || string.IsNullOrEmpty(Logo))
                 {
-                    _eventAggregator.Publish(new RegistNextEvent(new UserModel { }, false));
+                    _eventAggregator.Publish(new SettingEvent(new Setting {  }, false));
                     return false;
                 }
-                _eventAggregator.Publish(new RegistNextEvent(new UserModel { }, true));
+                _eventAggregator.Publish(new SettingEvent(new Setting { Folder = Folder, Logo = Logo, MainBackground = MainBackground, WaterMarkImage = WaterMarkImage }, true));
                 return true;
             }
         }
-
 
         #endregion
 

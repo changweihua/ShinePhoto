@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Media;
 using ShinePhoto.Models;
 using ShinePhoto.Events;
+using System.Data.SQLite;
 
 namespace ShinePhoto.ViewModels
 {
@@ -28,6 +29,7 @@ namespace ShinePhoto.ViewModels
         {
             _eventAggregator = eventAggregator;
             eventAggregator.Subscribe(this);
+            User = new UserModel();
             ActivateItem(new UserInfoViewModel(eventAggregator));
         }
 
@@ -101,6 +103,12 @@ namespace ShinePhoto.ViewModels
 
         #region 底部按钮操作
 
+        public void Back()
+        {
+            var win = GetView() as Window;
+            win.Close();
+        }
+
         public void Prev()
         {
             //得到的是窗体
@@ -109,18 +117,13 @@ namespace ShinePhoto.ViewModels
             var sp2 = FindVisualChildByName<StackPanel>(win, "sp2");
             sp2.Visibility = Visibility.Collapsed;
             sp1.Visibility = Visibility.Visible;
-            ActivateItem(new UserInfoViewModel(_eventAggregator));
+            this.ChangeActiveItem(new UserInfoViewModel(_eventAggregator), false);
         }
 
         public bool CanPrev
         {
             get
             {
-                //if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password) || string.IsNullOrEmpty(RePassword))
-                //{
-                //    return false;
-                //}
-
                 return true;
             }
         }
@@ -133,7 +136,25 @@ namespace ShinePhoto.ViewModels
             var sp2 = FindVisualChildByName<StackPanel>(win, "sp2");
             sp1.Visibility = Visibility.Collapsed;
             sp2.Visibility = Visibility.Visible;
-            ActivateItem(new SettingViewModel(_eventAggregator));
+            this.ChangeActiveItem(new SettingViewModel(_eventAggregator), false);
+        }
+
+        public bool CanFinish
+        {
+            get;
+            private set;
+        }
+
+        public void Finish()
+        {
+            User.CreateDate = DateTime.Now.ToString();
+            User.UserId = Guid.NewGuid().ToString();
+            User.Password = ShinePhoto.Helpers.MD5Helper.GetMD5StringLowerCase(User.Password);
+            using (ShinePhotoDataContext ctx = new ShinePhotoDataContext(new SQLiteConnection(@"data source=D:\db.sl3")))
+            {
+                ctx.Users.InsertOnSubmit(User);
+                ctx.SubmitChanges();
+            }
         }
 
         public bool CanNext
@@ -144,14 +165,32 @@ namespace ShinePhoto.ViewModels
 
         public void Handle(object message)
         {
-            if (message is RegistNextEvent)
+            if (message is UserInfoEvent)
             {
-                User = (message as RegistNextEvent).User;
-                System.Diagnostics.Debug.WriteLine("已经监听到了" + (message as RegistNextEvent).CanGo);
-                if((message as RegistNextEvent).CanGo)
+                System.Diagnostics.Debug.WriteLine("已经监听到了" + (message as UserInfoEvent).CanGo);
+
+                var evt = message as UserInfoEvent;
+
+                if (evt != null && evt.CanGo)
                 {
                     CanNext = true;
-                    NotifyOfPropertyChange(() => CanNext); 
+                    User.UserName = evt.UserInfo.UserName;
+                    User.Password = evt.UserInfo.Password;
+                    NotifyOfPropertyChange(() => CanNext);
+                }
+            }
+            if (message is SettingEvent)
+            {
+                var evt = message as SettingEvent;
+
+                if (evt != null && evt.CanGo)
+                {
+                    CanFinish = true;
+                    User.MainBackground = evt.Setting.MainBackground;
+                    User.Folder = evt.Setting.Folder;
+                    User.Logo = evt.Setting.Logo;
+                    User.WaterMarkImage = evt.Setting.WaterMarkImage;
+                    NotifyOfPropertyChange(() => CanFinish);
                 }
             }
         }
@@ -159,16 +198,6 @@ namespace ShinePhoto.ViewModels
         #endregion
  
         #region 方法
-
-        public void Regist()
-        { }
-
-        public bool CanRegist
-        {
-            get;
-            private set;
-        }
-
 
         #endregion
 

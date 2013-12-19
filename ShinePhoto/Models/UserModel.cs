@@ -17,7 +17,13 @@ namespace ShinePhoto.Models
         public string Password { get; set; }
         [Column(CanBeNull = false)]
         public string CreateDate { get; set; }
-        [Column(CanBeNull = true)]
-        public string ConfigInfo { get; set; }
+        [Column(CanBeNull = false)]
+        public string MainBackground { get; set; }
+        [Column(CanBeNull = false)]
+        public string Folder { get; set; }
+        [Column(CanBeNull = false)]
+        public string WaterMarkImage { get; set; }
+        [Column(CanBeNull = false)]
+        public string Logo { get; set; }
     }
 }

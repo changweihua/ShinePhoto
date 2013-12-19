@@ -64,7 +64,7 @@ namespace ShinePhoto.ViewModels
 
         public void Login()
         {
-            using (ShinePhotoDataContext ctx = new ShinePhotoDataContext(new SQLiteConnection(@"data source=db.sl3")))
+            using (ShinePhotoDataContext ctx = new ShinePhotoDataContext(new SQLiteConnection(@"data source=D:\db.sl3")))
             {
                 var user = ctx.Users.Where(_ => _.UserName == UserName && _.Password == ShinePhoto.Helpers.MD5Helper.GetMD5StringLowerCase(Password)).SingleOrDefault();
 
