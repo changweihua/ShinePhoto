@@ -41,5 +41,12 @@ namespace ShinePhoto
             throw new Exception(string.Format("无法加载契约 {0} 的任何实例.", contract));
 
         }
+
+        protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
+        {
+            //Application
+            base.OnStartup(sender, e);
+        }
+
     }
 }

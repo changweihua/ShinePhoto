@@ -3,9 +3,108 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:surface="clr-namespace:Microsoft.Surface.Presentation.Controls;assembly=Microsoft.Surface.Presentation" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Button Content="CaptureView" />
+             d:DesignHeight="600" d:DesignWidth="2000">
+    <UserControl.Resources>
+        <Style x:Key="ThumbnailImage" TargetType="Image">
+            <Setter Property="Margin" Value="10" />
+        </Style>
+        <Style x:Key="ThumbnailImageBorder" TargetType="Border">
+            <Setter Property="BorderBrush" Value="White" />
+            <Setter Property="Margin" Value="0" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="BorderThickness" Value="5" />
+            <Setter Property="Background" Value="Transparent" />
+        </Style>
+        <Style TargetType="surface:SurfaceListBoxItem">
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Margin" Value="3,0,3,0"/>
+            <Setter Property="Padding" Value="0,0,0,0"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid Margin="0, 50 ,0 ,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.75*" />
+            <RowDefinition Height="0.25*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Margin="85, 128, 0, 20">
+            <Border BorderBrush="Red" BorderThickness="2">
+                <Image Width="1098" Height="620" x:Name="CurrentImage" />
+            </Border>
+            <StackPanel Margin="20, 0, 0, 0">
+                <!--<StackPanel Width="244" Height="368" Name="menu">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/Images/Capture/Menu_BG.png" />
+                    </StackPanel.Background>
+                    <Border Height="80" BorderBrush="White" Margin="1,0,10,0" BorderThickness="0,0,0,2">
+                        <Image Width="138" Height="47" Source="/Images/Capture/Save.png" />
+                    </Border>
+                    <Border Height="80" BorderBrush="White" Margin="1,0,10,0" BorderThickness="0,0,0,2">
+                        <Image Width="140" Height="53" Source="/Images/Capture/Print.png" />
+                    </Border>
+                    <Border Height="80" BorderBrush="White" Margin="1,0,10,0" BorderThickness="0,0,0,2">
+                        <Image Width="139" Height="55" Source="/Images/Capture/Delete.png" />
+                    </Border>
+                    <Border Height="89" BorderBrush="White" Margin="1,0,10,0">
+                        <Border.Background>
+                            <ImageBrush ImageSource="/Images/Capture/Menu_Selectd.png" />
+                        </Border.Background>
+                        <Image Width="139"  Height="55" Source="/Images/Capture/Signature.png" />
+                    </Border>
+                </StackPanel>-->
+                <StackPanel Margin="0,-40,0,0" Width="244" Height="368">
+                    <StackPanel.Background>
+                        <ImageBrush ImageSource="/Images/Capture/Menu2_BG.png" />
+                    </StackPanel.Background>
+                    <UniformGrid Margin="0,50,0,0" Width="192" Height="83" Columns="4" Rows="2">
+                        <UniformGrid.Background>
+                            <ImageBrush ImageSource="/Images/Capture/Menu_Round_BG.png" />
+                        </UniformGrid.Background>
+                        <Rectangle Margin="5,5,0,0" Fill="#f20626" />
+                        <Rectangle Margin="5,5,0,0" Fill="#f34506" />
+                        <Rectangle Margin="5,5,0,0" Fill="#f3a706" />
+                        <Rectangle Margin="5,5,5,0" Fill="#65ac34" />
+                        <Rectangle Margin="5,5,0,5" Fill="#000" />
+                        <Rectangle Margin="5,5,0,5" Fill="#0543ca" />
+                        <Rectangle Margin="5,5,0,5" Fill="#ACACAC" />
+                        <Rectangle Margin="5,5,5,5" Fill="#fff" />
+                    </UniformGrid>
+                    <UniformGrid Width="192" Height="83" Columns="3" Rows="1">
+                        <UniformGrid.Background>
+                            <ImageBrush ImageSource="/Images/Capture/Menu_Round_BG.png" />
+                        </UniformGrid.Background>
+                        <Image Stretch="None" Source="/Images/Capture/Pen_Thin.png" />
+                        <Image Stretch="None" Source="/Images/Capture/Pen_Normal.png" />
+                        <Image Stretch="None" Source="/Images/Capture/Pen_Thick.png" />
+                    </UniformGrid>
+                    <UniformGrid Width="192" Height="83" Columns="1" Rows="1">
+                        <UniformGrid.Background>
+                            <ImageBrush ImageSource="/Images/Capture/Menu_Round_BG.png" />
+                        </UniformGrid.Background>
+                        <Image Stretch="None" Source="/Images/Capture/Clear.png" />
+                    </UniformGrid>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Margin="0, 12, 0, 0"  Grid.Row="1" Orientation="Horizontal">
+            <!--<Image x:Name="PrevImage"  Width="66" Height="65" Source="pack://application:,,,/Icons;Component/wp/light/appbar.navigate.previous.png" />-->
+            <Image x:Name="PrevImage"  Width="66" Height="65" Source="/Images/Capture/Prev_Enable.png" />
+            <surface:SurfaceListBox Height="170" Margin="15, 0, 5, 0" x:Name="FileModels" Background="Transparent" Width="1105" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled"  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <surface:SurfaceListBox.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Horizontal"></VirtualizingStackPanel>
+                    </ItemsPanelTemplate>
+                </surface:SurfaceListBox.ItemsPanel>
+                <surface:SurfaceListBox.ItemTemplate>
+                    <DataTemplate >
+                        <Border Width="{Binding Width}" Height="{Binding Height}" BorderThickness="4" BorderBrush="Yellow">
+                            <Image Stretch="Fill" Source="{Binding FileName}" />
+                        </Border>
+                    </DataTemplate>
+                </surface:SurfaceListBox.ItemTemplate>
+            </surface:SurfaceListBox>
+            <Image x:Name="NextImage" Width="66" Height="65" Source="/Images/Capture/Next_Enable.png" />
+        </StackPanel>
     </Grid>
 </UserControl>

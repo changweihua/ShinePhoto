@@ -42,8 +42,10 @@
     <Reference Include="Icons">
       <HintPath>..\..\..\..\DLL\Icons.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Surface.Presentation, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Data.SQLite">
@@ -52,6 +54,8 @@
     <Reference Include="System.Data.SQLite.Linq">
       <HintPath>..\packages\System.Data.SQLite.1.0.89.0\lib\net40\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity">
       <HintPath>..\packages\Caliburn.Micro.1.5.2\lib\net40\System.Windows.Interactivity.dll</HintPath>
     </Reference>
@@ -63,6 +67,8 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -85,9 +91,13 @@
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Helpers\TreeHelper.cs" />
     <Compile Include="Interfaces\IShellView.cs" />
+    <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\LoginUserModel.cs" />
     <Compile Include="Models\ShinePhotoDataContext.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="UC\RoundButton.xaml.cs">
+      <DependentUpon>RoundButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ValidationRules\UserNameRule.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\CaptureViewModel.cs" />
@@ -168,6 +178,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\RoundButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AppView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -233,6 +247,28 @@
     <Resource Include="Images\Result1.jpg" />
     <Resource Include="Images\Result2.jpg" />
     <Resource Include="Images\Result3.jpg" />
+    <Resource Include="Images\Capture\Next_Disable.png" />
+    <Resource Include="Images\Capture\Next_Enable.png" />
+    <Resource Include="Images\Capture\Prev_Disable.png" />
+    <Resource Include="Images\Capture\Prev_Enable.png" />
+    <Resource Include="Images\Capture\Delete.png" />
+    <Resource Include="Images\Capture\Print.png" />
+    <Resource Include="Images\Capture\Save.png" />
+    <Resource Include="Images\Capture\Signature.png" />
+    <Resource Include="Images\Capture\Signature_BG.png" />
+    <Resource Include="Images\Capture\Menu_BG.png" />
+    <Resource Include="Images\Capture\Menu_Selectd.png" />
+    <Resource Include="Images\Capture\Menu2_BG.png" />
+    <Resource Include="Images\Capture\Menu_Round_BG.png" />
+    <Resource Include="Images\Capture\Pen_Normal.png" />
+    <Resource Include="Images\Capture\Pen_Normal_Selected.png" />
+    <Resource Include="Images\Capture\Pen_Thick.png" />
+    <Resource Include="Images\Capture\Pen_Thick_Selected.png" />
+    <Resource Include="Images\Capture\Pen_Thin.png" />
+    <Resource Include="Images\Capture\Pen_Thin_Seleced.png" />
+    <Resource Include="Images\Capture\Clear.png" />
+    <Resource Include="Images\Capture\Clear_Selected.png" />
+    <Resource Include="Images\Capture\Divider.png" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
