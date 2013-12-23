@@ -265,7 +265,7 @@
     <Resource Include="Images\Capture\Pen_Thick.png" />
     <Resource Include="Images\Capture\Pen_Thick_Selected.png" />
     <Resource Include="Images\Capture\Pen_Thin.png" />
-    <Resource Include="Images\Capture\Pen_Thin_Seleced.png" />
+    <Resource Include="Images\Capture\Pen_Thin_Selected.png" />
     <Resource Include="Images\Capture\Clear.png" />
     <Resource Include="Images\Capture\Clear_Selected.png" />
     <Resource Include="Images\Capture\Divider.png" />

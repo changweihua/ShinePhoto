@@ -17,7 +17,7 @@
         <StackPanel x:Name="ImageStack" Margin="0,30,0,0" Grid.Row="1">
             <Image x:Name="ShineDisplay" Tag="0" Width="143" Height="179" Margin="-13, 20, 0, 20" Source="/Images/Left/ShineDisplay.png">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:EventTrigger EventName="MouseUp">
                         <cal:ActionMessage MethodName="ImageTouched">
                             <cal:Parameter Value="$source" />
                             <cal:Parameter Value="{Binding ElementName=ImageStack}" />
@@ -27,7 +27,7 @@
             </Image>
             <Image x:Name="SignatureAlbum" Tag="1" Width="153" Height="187" Margin="-5, 24, 0, 20" Source="/Images/Left/SignatureAlbum.png" >
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:EventTrigger EventName="MouseUp">
                         <cal:ActionMessage MethodName="ImageTouched">
                             <cal:Parameter Value="$source" />
                             <cal:Parameter Value="{Binding ElementName=ImageStack}" />
@@ -37,7 +37,7 @@
             </Image>
             <Image x:Name="Capture" Tag="2" Width="154" Height="191" Margin="-5, 19, 0, 20" Source="/Images/Left/Capture_Selected.png">
                 <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseLeftButtonDown">
+                    <i:EventTrigger EventName="MouseUp">
                         <cal:ActionMessage MethodName="ImageTouched">
                             <cal:Parameter Value="$source" />
                             <cal:Parameter Value="{Binding ElementName=ImageStack}" />

@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:surface="clr-namespace:Microsoft.Surface.Presentation.Controls;assembly=Microsoft.Surface.Presentation" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="2000">
     <UserControl.Resources>
@@ -33,7 +35,7 @@
                 <Image Width="1098" Height="620" x:Name="CurrentImage" />
             </Border>
             <StackPanel Margin="20, 0, 0, 0">
-                <!--<StackPanel Width="244" Height="368" Name="menu">
+                <StackPanel Width="244" Height="368" Name="menu">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Images/Capture/Menu_BG.png" />
                     </StackPanel.Background>
@@ -52,7 +54,7 @@
                         </Border.Background>
                         <Image Width="139"  Height="55" Source="/Images/Capture/Signature.png" />
                     </Border>
-                </StackPanel>-->
+                </StackPanel>
                 <StackPanel Margin="0,-40,0,0" Width="244" Height="368">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Images/Capture/Menu2_BG.png" />
@@ -70,19 +72,46 @@
                         <Rectangle Margin="5,5,0,5" Fill="#ACACAC" />
                         <Rectangle Margin="5,5,5,5" Fill="#fff" />
                     </UniformGrid>
-                    <UniformGrid Width="192" Height="83" Columns="3" Rows="1">
+                    <UniformGrid  x:Name="PenUniformGrid" Width="192" Height="83" Columns="3" >
                         <UniformGrid.Background>
                             <ImageBrush ImageSource="/Images/Capture/Menu_Round_BG.png" />
                         </UniformGrid.Background>
-                        <Image Stretch="None" Source="/Images/Capture/Pen_Thin.png" />
-                        <Image Stretch="None" Source="/Images/Capture/Pen_Normal.png" />
-                        <Image Stretch="None" Source="/Images/Capture/Pen_Thick.png" />
+                        <Image Tag="1" Stretch="None" Source="/Images/Capture/Pen_Thin_Selected.png">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseUp">
+                                    <cal:ActionMessage MethodName="ImageTouched">
+                                        <cal:Parameter Value="$source" />
+                                        <cal:Parameter Value="{Binding ElementName=PenUniformGrid}" />
+                                    </cal:ActionMessage>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Image>
+                        <Image Tag="0" Stretch="None" Source="/Images/Capture/Pen_Normal.png">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseUp">
+                                    <cal:ActionMessage MethodName="ImageTouched">
+                                        <cal:Parameter Value="$source" />
+                                        <cal:Parameter Value="{Binding ElementName=PenUniformGrid}" />
+                                    </cal:ActionMessage>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Image>
+                        <Image Tag="0" Stretch="None" Source="/Images/Capture/Pen_Thick.png">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseUp">
+                                    <cal:ActionMessage MethodName="ImageTouched">
+                                        <cal:Parameter Value="$source" />
+                                        <cal:Parameter Value="{Binding ElementName=PenUniformGrid}" />
+                                    </cal:ActionMessage>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Image>
                     </UniformGrid>
                     <UniformGrid Width="192" Height="83" Columns="1" Rows="1">
                         <UniformGrid.Background>
                             <ImageBrush ImageSource="/Images/Capture/Menu_Round_BG.png" />
                         </UniformGrid.Background>
-                        <Image Stretch="None" Source="/Images/Capture/Clear.png" />
+                        <Image Tag="0" cal:Message.Attach="[Event MouseUp] = [Action ClearTouched($source)]" Stretch="None" Source="/Images/Capture/Clear.png" />
                     </UniformGrid>
                 </StackPanel>
             </StackPanel>
