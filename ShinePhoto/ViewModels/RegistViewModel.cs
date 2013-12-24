@@ -14,6 +14,9 @@ using System.Data.SQLite;
 
 namespace ShinePhoto.ViewModels
 {
+    /// <summary>
+    /// 注册视图 ViewModel
+    /// </summary>
     [Export(typeof(RegistViewModel))]
     public class RegistViewModel : Conductor<object>, IHandle<object> 
     {

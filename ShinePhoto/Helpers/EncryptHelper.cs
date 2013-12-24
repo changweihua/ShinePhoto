@@ -6,6 +6,9 @@ using System.Security.Cryptography;
 
 namespace ShinePhoto.Helpers
 {
+    /// <summary>
+    /// MD5 加密帮助类
+    /// </summary>
     public class MD5Helper
     {/// <summary>
         /// MD5 16位加密 加密后代码为大写

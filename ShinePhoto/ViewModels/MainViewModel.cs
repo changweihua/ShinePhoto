@@ -10,6 +10,9 @@ using ShinePhoto.Interfaces;
 
 namespace ShinePhoto.ViewModels
 {
+    /// <summary>
+    /// 主视图
+    /// </summary>
     [Export(typeof(MainViewModel))]
     public class MainViewModel : PropertyChangedBase, IHandle<ModuleChangedEvent>
     {
@@ -24,8 +27,14 @@ namespace ShinePhoto.ViewModels
             _eventAggregator.Subscribe(this);
         }
 
+        /// <summary>
+        /// 左侧视图
+        /// </summary>
         public LeftViewModel LeftViewModel { get; private set; }
 
+        /// <summary>
+        /// 右侧视图
+        /// </summary>
         private IShellView _shellViewModel;
         public IShellView ShellViewModel
         {
@@ -40,6 +49,10 @@ namespace ShinePhoto.ViewModels
             }
         }
 
+        /// <summary>
+        /// 监听并处理左侧导航事件
+        /// </summary>
+        /// <param name="message"></param>
         public void Handle(ModuleChangedEvent message)
         {
             //ShellViewModel = message.ShellView;

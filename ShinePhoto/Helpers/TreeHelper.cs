@@ -8,6 +8,9 @@ using System.Windows.Controls;
 
 namespace ShinePhoto.Helpers
 {
+    /// <summary>
+    /// VisualTree 和 LogicalTree 帮助类
+    /// </summary>
     public class TreeHelper
     {
         /// <summary>

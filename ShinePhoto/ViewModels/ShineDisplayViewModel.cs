@@ -7,6 +7,9 @@ using System.ComponentModel.Composition;
 
 namespace ShinePhoto.ViewModels
 {
+    /// <summary>
+    /// 炫影展示视图 ViewModel
+    /// </summary>
     [Export(typeof(ShineDisplayViewModel))]
     public class ShineDisplayViewModel : IShellView
     {

@@ -12,6 +12,9 @@ using System.Data.Linq;
 
 namespace ShinePhoto.ViewModels
 {
+    /// <summary>
+    /// 登录视图 ViewModel
+    /// </summary>
     [Export(typeof(LoginViewModel))]
     public class LoginViewModel : PropertyChangedBase
     {

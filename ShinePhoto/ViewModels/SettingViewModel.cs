@@ -9,6 +9,9 @@ using ShinePhoto.Models;
 
 namespace ShinePhoto.ViewModels
 {
+    /// <summary>
+    /// 设置 Screen ViewModel
+    /// </summary>
     [Export(typeof(SettingViewModel))]
     public class SettingViewModel : Screen
     {

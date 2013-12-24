@@ -11,11 +11,20 @@ using System.Windows.Controls;
 
 namespace ShinePhoto.ViewModels
 {
+    /// <summary>
+    /// 即拍即得视图 ViewModel
+    /// </summary>
     [Export(typeof(CaptureViewModel))]
     public class CaptureViewModel : PropertyChangedBase, IShellView
     {
+        /// <summary>
+        /// 图片集合
+        /// </summary>
         public BindableCollection<FileModel> FileModels { get; private set; }
 
+        /// <summary>
+        /// 事件聚合器
+        /// </summary>
         private readonly IEventAggregator _eventAggregator;
 
         [ImportingConstructor]
@@ -35,6 +44,12 @@ namespace ShinePhoto.ViewModels
             }
         }
 
+        /// <summary>
+        /// 获取图片宽高
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         void GetWH(string path, out double width, out double height)
         {
             var bitmap = System.Windows.Media.Imaging.BitmapFrame.Create(new Uri(path, UriKind.RelativeOrAbsolute));

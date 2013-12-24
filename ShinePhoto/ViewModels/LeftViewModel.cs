@@ -12,6 +12,9 @@ using ShinePhoto.Events;
 
 namespace ShinePhoto.ViewModels
 {
+    /// <summary>
+    /// 左侧导航视图 ViewModel
+    /// </summary>
     [Export(typeof(LeftViewModel))]
     public class LeftViewModel : PropertyChangedBase
     {
@@ -23,6 +26,11 @@ namespace ShinePhoto.ViewModels
             _eventAggregator = eventAggregator;
         }
 
+        /// <summary>
+        /// 导航图片按钮单击事件
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="parent"></param>
         public void ImageTouched(object source, object parent)
         {
             var img = source as Image;
@@ -35,6 +43,11 @@ namespace ShinePhoto.ViewModels
             }
         }
 
+        /// <summary>
+        /// 根据按钮信息获取视图真实类型
+        /// </summary>
+        /// <param name="number"></param>
+        /// <returns></returns>
         Type TurnNumberIntoType(int number)
         {
             Type type = null;
@@ -58,6 +71,11 @@ namespace ShinePhoto.ViewModels
         }
 
 
+        /// <summary>
+        /// 调整图片按钮状态
+        /// </summary>
+        /// <param name="sp"></param>
+        /// <param name="img"></param>
         void AdjustImageStaus(StackPanel sp, Image img)
         {
             foreach (var item in sp.Children)

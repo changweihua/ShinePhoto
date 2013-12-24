@@ -9,6 +9,9 @@ using System.Windows.Media;
 
 namespace ShinePhoto.Extensions
 {
+    /// <summary>
+    /// 自定义窗体管理，实现扁平化效果
+    /// </summary>
     public class FlatWindowManager : WindowManager
     {
         protected override System.Windows.Window EnsureWindow(object model, object view, bool isDialog)

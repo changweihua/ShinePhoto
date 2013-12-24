@@ -9,6 +9,9 @@ using ShinePhoto.Models;
 
 namespace ShinePhoto.ViewModels
 {
+    /// <summary>
+    /// 用户信息 Screen ViewModel
+    /// </summary>
     [Export(typeof(UserInfoViewModel))]
     public class UserInfoViewModel : Screen
     {

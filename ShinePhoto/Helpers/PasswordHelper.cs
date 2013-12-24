@@ -7,6 +7,9 @@ using System.Windows.Controls;
 
 namespace ShinePhoto.Helpers
 {
+    /// <summary>
+    /// 密码框控件扩展类，实现依赖属性
+    /// </summary>
     public static class PasswordHelper
     {
         public static readonly DependencyProperty PasswordProperty =
