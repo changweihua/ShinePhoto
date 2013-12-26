@@ -5,6 +5,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <!--<ResourceDictionary Source="/Styles/ErrorStyle.xaml"/>-->
                 <ResourceDictionary Source="/Styles/FlatStyle.xaml"/>
                 <ResourceDictionary>
                     <local:AppBootstrapper x:Key="bootstrapper" />

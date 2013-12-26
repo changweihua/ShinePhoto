@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.ComponentModel.Composition;
 using Caliburn.Micro;
 using System.Windows.Input;
 using System.Windows;
 using ShinePhoto.Models;
 using System.Data.SQLite;
-using System.Data.Linq;
+using System.ComponentModel.DataAnnotations;
+using System;
+using System.Collections.Generic;
 
 namespace ShinePhoto.ViewModels
 {
@@ -24,8 +23,10 @@ namespace ShinePhoto.ViewModels
         [ImportingConstructor]
         public LoginViewModel(IWindowManager windowManager, IEventAggregator events)
         {
+            user = new LoginUserModel();
             _windowManager = windowManager;
             _events = events;
+
         }
 
         private string _title = "登录窗体";
@@ -67,6 +68,7 @@ namespace ShinePhoto.ViewModels
 
         public void Login()
         {
+            
             using (ShinePhotoDataContext ctx = new ShinePhotoDataContext(new SQLiteConnection(@"data source=D:\db.sl3")))
             {
                 var user = ctx.Users.Where(_ => _.UserName == UserName && _.Password == ShinePhoto.Helpers.MD5Helper.GetMD5StringLowerCase(Password)).SingleOrDefault();
@@ -87,25 +89,47 @@ namespace ShinePhoto.ViewModels
 
         #region 属性
 
+        private LoginUserModel user = null;
+
         private string _userName = "";
+
+        [Required(ErrorMessage = "用户名必须填写")]
         public string UserName
         {
             get { return _userName; }
             set
             {
+                //user.UserName = value;
+                //Validator.ValidateProperty(_userName, new ValidationContext(user, null, null) { MemberName = "UserName" });
+
+                //Validator.TryValidateObject(this, new ValidationContext(this, null, null) { MemberName = "UserName" }, null, false);
+                //var isValid = Validator.TryValidateProperty(value, new ValidationContext(this, null, null) { MemberName = "UserName" }, null);
+
+                //if (isValid)
+                //{
+
+                //}
+
+                //Validator.ValidateProperty(value, new ValidationContext(this, null, null) { MemberName = "UserName" });
                 _userName = value;
+                
                 NotifyOfPropertyChange(() => UserName);
                 NotifyOfPropertyChange(() => CanLogin);
             }
         }
 
         private string _password = "";
+        [Required(ErrorMessage = "密码必须填写")]
         public string Password
         {
             get { return _password; }
             set
             {
+
+                //Validator.ValidateProperty(value, new ValidationContext(this, null, null) { MemberName = "Password" });
+
                 _password = value;
+
                 NotifyOfPropertyChange(() => Password);
                 NotifyOfPropertyChange(() => CanLogin);
             }
@@ -117,11 +141,18 @@ namespace ShinePhoto.ViewModels
 
         bool CheckValid()
         {
-            if (string.IsNullOrEmpty(UserName))
-            {
-                return false;
-            }
-            if (string.IsNullOrEmpty(Password))
+            //var errors = new List<ValidationResult>();
+            //var isValid = Validator.TryValidateObject(this, new ValidationContext(this, null, null), errors, true);
+
+            //if (!isValid)
+            //{
+            //    return false;
+            //    throw new AggregateException(
+            //        errors.Select((e) => new ValidationException(e.ErrorMessage)
+            //    ));
+            //}
+
+            if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password))
             {
                 return false;
             }
@@ -130,6 +161,7 @@ namespace ShinePhoto.ViewModels
         }
 
         #endregion
+
 
     }
 }

@@ -29,7 +29,13 @@ namespace ShinePhoto
             batch.AddExportedValue<IWindowManager>(new FlatWindowManager());
             batch.AddExportedValue<IEventAggregator>(new EventAggregator());
             batch.AddExportedValue(_container);
-
+            //模型验证
+            ConventionManager.ApplyValidation = (binding, viewModelType, property) =>
+            {
+                //binding.ValidatesOnDataErrors = true;
+                //binding.NotifyOnValidationError = true;
+                binding.ValidatesOnExceptions = true;
+            };
             _container.Compose(batch);
         }
 
