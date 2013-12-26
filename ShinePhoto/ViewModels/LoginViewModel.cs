@@ -26,7 +26,6 @@ namespace ShinePhoto.ViewModels
             user = new LoginUserModel();
             _windowManager = windowManager;
             _events = events;
-
         }
 
         private string _title = "登录窗体";
@@ -74,8 +73,9 @@ namespace ShinePhoto.ViewModels
                 var user = ctx.Users.Where(_ => _.UserName == UserName && _.Password == ShinePhoto.Helpers.MD5Helper.GetMD5StringLowerCase(Password)).SingleOrDefault();
 
                 if (user != null)
-                { 
-                    System.Diagnostics.Debug.WriteLine("登录成功");
+                {
+                    _windowManager.ShowWindow(ViewLocator.LocateTypeForModelType(typeof(MainViewModel),null,null), null, null);
+                    //System.Diagnostics.Debug.WriteLine("登录成功");
                 }
             }
         }
@@ -151,7 +151,7 @@ namespace ShinePhoto.ViewModels
             //        errors.Select((e) => new ValidationException(e.ErrorMessage)
             //    ));
             //}
-
+           
             if (string.IsNullOrEmpty(UserName) || string.IsNullOrEmpty(Password))
             {
                 return false;

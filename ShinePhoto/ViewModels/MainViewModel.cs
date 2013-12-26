@@ -18,6 +18,11 @@ namespace ShinePhoto.ViewModels
     {
         private readonly IEventAggregator _eventAggregator;
 
+        public MainViewModel()
+        {
+
+        }
+
         [ImportingConstructor]
         public MainViewModel(LeftViewModel leftViewModel, CaptureViewModel captureViewModel, IEventAggregator eventAggregator)
         {

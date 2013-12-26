@@ -8,10 +8,11 @@ using System.ComponentModel.Composition.Hosting;
 using System.ComponentModel.Composition;
 using System.ComponentModel.Composition.Primitives;
 using ShinePhoto.Extensions;
+using ShinePhoto.Helpers;
 
 namespace ShinePhoto
 {
-    class AppBootstrapper : Bootstrapper<LoginViewModel>
+    class AppBootstrapper : Bootstrapper<MainViewModel>
     {
         /// <summary>
         /// 聚合容器，可以考虑使用 MEF
@@ -36,6 +37,9 @@ namespace ShinePhoto
                 //binding.NotifyOnValidationError = true;
                 binding.ValidatesOnExceptions = true;
             };
+
+            LogManager.GetLog = (type) => new Log4netLogger(type);
+
             _container.Compose(batch);
         }
 

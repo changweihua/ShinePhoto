@@ -30,6 +30,8 @@ namespace ShinePhoto.ViewModels
         [ImportingConstructor]
         public CaptureViewModel(IEventAggregator eventAggregator)
         {
+            ILog logger = LogManager.GetLog(typeof(CaptureViewModel));
+            logger.Info("Something Happened");
              _eventAggregator = eventAggregator;
             FileModels = new BindableCollection<FileModel>();
             

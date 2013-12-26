@@ -20,10 +20,11 @@ namespace ShinePhoto.Extensions
 
             window.WindowStyle = WindowStyle.None;
             //window.Icon = new BitmapImage(new Uri("Images/Photo.ico", UriKind.RelativeOrAbsolute));
-            //window.SizeToContent = SizeToContent.WidthAndHeight;
-            window.SizeToContent = SizeToContent.Manual;
+            window.SizeToContent = SizeToContent.WidthAndHeight;
+            //window.SizeToContent = SizeToContent.Manual;
             window.ResizeMode = ResizeMode.NoResize;
-            window.WindowState = WindowState.Maximized;
+            //window.WindowState = WindowState.Maximized;
+            window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             //window.Background = new SolidColorBrush(Colors.Transparent);
 
             return window;

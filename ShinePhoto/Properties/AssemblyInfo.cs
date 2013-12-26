@@ -15,6 +15,8 @@ using System.Windows;
 [assembly: AssemblyCopyright("Copyright © Microsoft 2013")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
+// Configure log4net using the app.config file
+[assembly: log4net.Config.XmlConfigurator(Watch = true)]
 
 // 将 ComVisible 设置为 false 使此程序集中的类型
 // 对 COM 组件不可见。如果需要从 COM 访问此程序集中的类型，
