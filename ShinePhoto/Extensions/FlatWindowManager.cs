@@ -23,7 +23,7 @@ namespace ShinePhoto.Extensions
             window.SizeToContent = SizeToContent.WidthAndHeight;
             //window.SizeToContent = SizeToContent.Manual;
             window.ResizeMode = ResizeMode.NoResize;
-            //window.WindowState = WindowState.Maximized;
+            window.WindowState = WindowState.Maximized;
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             //window.Background = new SolidColorBrush(Colors.Transparent);
 

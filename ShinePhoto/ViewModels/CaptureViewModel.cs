@@ -8,6 +8,8 @@ using Caliburn.Micro;
 using ShinePhoto.Models;
 using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
+using ShinePhoto.Loaders;
+using Microsoft.Surface.Presentation.Controls;
 
 namespace ShinePhoto.ViewModels
 {
@@ -30,21 +32,48 @@ namespace ShinePhoto.ViewModels
         [ImportingConstructor]
         public CaptureViewModel(IEventAggregator eventAggregator)
         {
-            ILog logger = LogManager.GetLog(typeof(CaptureViewModel));
-            logger.Info("Something Happened");
+            //Caliburn.Micro.Coroutine.BeginExecute((new[] { new ImageLoader("") }).ToList<IResult>().GetEnumerator());
+            
              _eventAggregator = eventAggregator;
-            FileModels = new BindableCollection<FileModel>();
-            
-            double width, height;
 
-            var arr = System.IO.Directory.GetFiles(@"C:\Users\ChangWeihua\Pictures\Eye-Fi\2013-12-13");
-            
-            for (int i = 0; i < arr.Length; i++)
-            {
-                GetWH(arr[i], out width, out height);
-                FileModels.Add(new FileModel { FileName = arr[i], Height = height, Width = width });
-            }
+             //Caliburn.Micro.Coroutine.BeginExecute(LoadData().GetEnumerator());
+             Caliburn.Micro.Coroutine.BeginExecute(LoadDataAsync().GetEnumerator());
         }
+
+        #region 异步事件
+
+        public IEnumerable<IResult> LoadDataAsync()
+        {
+            var loader = new ImageLoaderAsync(@"C:\Users\ChangWeihua\Pictures\Eye-Fi\2013-12-13");
+            yield return loader;
+            var result = loader.FileModels;
+            LogManager.GetLog(typeof(CaptureViewModel)).Info("取得 {0} 条数据", result.Count);
+
+            if (result != null || result.Count > 0)
+            {
+                FileModels = new BindableCollection<FileModel>(result);
+
+                //比较费时
+                NotifyOfPropertyChange(() => FileModels);
+            }
+
+        }
+
+        public IEnumerable<IResult> LoadData()
+        {
+            var loader = new ImageLoader(@"C:\Users\ChangWeihua\Pictures\Eye-Fi\2013-12-13");
+            yield return loader;
+
+            var result = loader.FileModels;
+
+            if (result != null || result.Count > 0)
+            {
+                FileModels = new BindableCollection<FileModel>(result);
+            }
+
+        }
+
+        #endregion
 
         /// <summary>
         /// 获取图片宽高
@@ -63,29 +92,27 @@ namespace ShinePhoto.ViewModels
             width = doa * 158;
             height = 158;
         }
+ 
 
-        private string _currentImageSource;
-
-        public string CurrentImageSource
-        {
-            get { return _currentImageSource; }
-            set {
-                _currentImageSource = value;
-                NotifyOfPropertyChange(() => CurrentImageSource);
-            }
-        }
+        #region 右侧工具栏事件
 
         public System.Drawing.Color _penColor;
 
         public System.Drawing.Color PenColor
         {
             get { return _penColor; }
-            set {
+            set
+            {
                 _penColor = value;
                 NotifyOfPropertyChange(() => PenColor);
             }
         }
 
+        /// <summary>
+        /// 图片点击事件
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="parent"></param>
         public void ImageTouched(object source, object parent)
         {
             var img = source as Image;
@@ -96,6 +123,11 @@ namespace ShinePhoto.ViewModels
             }
         }
 
+        /// <summary>
+        /// 调整图片状态
+        /// </summary>
+        /// <param name="sp"></param>
+        /// <param name="img"></param>
         void AdjustImageStaus(UniformGrid sp, Image img)
         {
             foreach (var item in sp.Children)
@@ -122,6 +154,10 @@ namespace ShinePhoto.ViewModels
             }
         }
 
+        /// <summary>
+        /// 清除选中状态
+        /// </summary>
+        /// <param name="source"></param>
         public void ClearTouched(object source)
         {
             var image = source as Image;
@@ -145,6 +181,53 @@ namespace ShinePhoto.ViewModels
                 }
             }
         }
+
+        #endregion
+
+        #region 图片列表导航事件
+
+        public void CurrentImageChanged(object sender)
+        {
+            var listBox = (SurfaceListBox)sender;
+            if (listBox.SelectedIndex == -1)
+                return;
+
+            CurrentImage = ((FileModel)listBox.SelectedItem).FileName;
+        }
+
+        public void Prev()
+        {
+
+        }
+
+        public void Next()
+        {
+
+        }
+
+        #endregion
+       
+
+        #region CLR 属性
+
+        /// <summary>
+        /// 可视元素个数
+        /// </summary>
+        private int _index = 3;
+
+        private string _currentImage = @"/Images/Default.jpg";
+
+        public string CurrentImage
+        {
+            get { return _currentImage; }
+            set
+            {
+                _currentImage = value;
+                NotifyOfPropertyChange(() => CurrentImage);
+            }
+        }
+
+        #endregion
 
     }
 }

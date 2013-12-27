@@ -35,6 +35,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Images\PHOTOSHOP.ICO</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Caliburn.Micro">
       <HintPath>..\packages\Caliburn.Micro.1.5.2\lib\net40\Caliburn.Micro.dll</HintPath>
@@ -283,6 +286,8 @@
     <Resource Include="Images\Capture\Clear.png" />
     <Resource Include="Images\Capture\Clear_Selected.png" />
     <Resource Include="Images\Capture\Divider.png" />
+    <Resource Include="Images\Default.jpg" />
+    <Resource Include="Images\PHOTOSHOP.ICO" />
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
