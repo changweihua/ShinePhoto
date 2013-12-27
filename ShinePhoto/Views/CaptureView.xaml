@@ -39,9 +39,12 @@
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Images/Capture/Menu_BG.png" />
                     </StackPanel.Background>
-                    <Border Height="80" BorderBrush="White" Margin="1,0,10,0" BorderThickness="0,0,0,2">
-                        <Image Width="138" Height="47" Source="/Images/Capture/Save.png" />
-                    </Border>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.delete.png" />
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.disk.png" />
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.microphone.png" />
+                    </StackPanel>
+                    
                     <Border Height="80" BorderBrush="White" Margin="1,0,10,0" BorderThickness="0,0,0,2">
                         <Image Width="140" Height="53" Source="/Images/Capture/Print.png" />
                     </Border>
