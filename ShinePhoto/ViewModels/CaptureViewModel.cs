@@ -75,6 +75,8 @@ namespace ShinePhoto.ViewModels
 
         #endregion
 
+        #region 公共方法
+
         /// <summary>
         /// 获取图片宽高
         /// </summary>
@@ -92,7 +94,105 @@ namespace ShinePhoto.ViewModels
             width = doa * 158;
             height = 158;
         }
- 
+
+        void ToggleImageSource(Image image)
+        {
+            string path = image.Source.ToString();
+            var flag = System.Text.RegularExpressions.Regex.IsMatch(path, @"light");
+
+          
+
+            //选中状态
+            if (flag)
+            {
+                path = System.Text.RegularExpressions.Regex.Replace(path, "light", "dark");
+            }
+            else
+            {
+                path = System.Text.RegularExpressions.Regex.Replace(path, "dark", "light");
+            }
+
+            image.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
+        }
+
+        void ToggleStackPanel(StackPanel parent, string name)
+        {
+            var sp = parent as StackPanel;
+            if (sp != null)
+            {
+                foreach (var p in sp.Children)
+                {
+                    if (p is StackPanel)
+                    {
+                        if (((StackPanel)p).Name == name)
+                        {
+                            ((StackPanel)p).Visibility = System.Windows.Visibility.Visible;
+                        }
+                        else
+                        {
+                            ((StackPanel)p).Visibility = System.Windows.Visibility.Collapsed;
+                        }
+                    }
+                }
+            }
+        }
+
+        #endregion
+        
+        #region 工具栏第一行
+
+        public void Edit(object sender, object parent, object child)
+        {
+            var image = sender as Image;
+            if (image != null)
+            {
+                ToggleImageSource(image);
+            }
+
+            ToggleStackPanel(parent as StackPanel, "EditStackPanel");
+
+            //var sp = parent as StackPanel;
+            //if (sp != null)
+            //{
+            //    foreach (var p in sp.Children)
+            //    {
+            //        if (p is StackPanel)
+            //        {
+            //            if (((StackPanel)p).Name == "EditStackPanel")
+            //            {
+            //                ((StackPanel)p).Visibility = System.Windows.Visibility.Visible;
+            //            }
+            //            else
+            //            {
+            //                ((StackPanel)p).Visibility = System.Windows.Visibility.Collapsed;
+            //            }
+            //        }
+            //    }
+            //}
+
+
+        }
+
+        public void About()
+        {
+            System.Windows.Forms.MessageBox.Show("About");
+        }
+
+        public void Voice(object sender, object parent, object child)
+        {
+            var image = sender as Image;
+            if (image != null)
+            {
+                ToggleImageSource(image);
+            }
+
+            ToggleStackPanel(parent as StackPanel, "ShareStackPanel");
+
+            //ShinePhoto.Helpers.TreeHelper.FindVisualChildByName<StackPanel>(parent as StackPanel, "ShareStackPanel").Visibility = System.Windows.Visibility.Visible;
+
+        }
+
+        #endregion
 
         #region 右侧工具栏事件
 
@@ -206,7 +306,6 @@ namespace ShinePhoto.ViewModels
         }
 
         #endregion
-       
 
         #region CLR 属性
 
@@ -226,6 +325,12 @@ namespace ShinePhoto.ViewModels
                 NotifyOfPropertyChange(() => CurrentImage);
             }
         }
+
+        #endregion
+
+        #region 部分组件
+
+       
 
         #endregion
 

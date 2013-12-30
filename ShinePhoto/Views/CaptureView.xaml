@@ -35,87 +35,96 @@
                 <Image Width="1098" Height="620" Source="{Binding CurrentImage}" x:Name="CurrentImage" />
             </Border>
             <StackPanel Margin="20, 0, 0, 0">
-                <StackPanel Width="244" Height="368" Name="menu">
+                <StackPanel Width="244" Name="menu">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Images/Capture/Menu_BG.png" />
                     </StackPanel.Background>
                     <StackPanel Orientation="Horizontal">
-                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.delete.png" />
-                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.disk.png" />
-                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.microphone.png" />
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.quill.png">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseUp">
+                                    <cal:ActionMessage MethodName="Edit">
+                                        <cal:Parameter Value="$source" />
+                                        <cal:Parameter Value="{Binding ElementName=DetailStackPanel}" />
+                                        <cal:Parameter Value="{Binding ElementName=EditStackPanel}" />
+                                    </cal:ActionMessage>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Image>
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.microphone.png">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseUp">
+                                    <cal:ActionMessage MethodName="Voice">
+                                        <cal:Parameter Value="$source" />
+                                        <cal:Parameter Value="{Binding ElementName=DetailStackPanel}" />
+                                        <cal:Parameter Value="{Binding ElementName=EditStackPanel}" />
+                                    </cal:ActionMessage>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Image>
+                        <Image Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.question.png" />
                     </StackPanel>
-                    
-                    <Border Height="80" BorderBrush="White" Margin="1,0,10,0" BorderThickness="0,0,0,2">
-                        <Image Width="140" Height="53" Source="/Images/Capture/Print.png" />
-                    </Border>
-                    <Border Height="80" BorderBrush="White" Margin="1,0,10,0" BorderThickness="0,0,0,2">
-                        <Image Width="139" Height="55" Source="/Images/Capture/Delete.png" />
-                    </Border>
-                    <Border Height="89" BorderBrush="White" Margin="1,0,10,0">
-                        <Border.Background>
-                            <ImageBrush ImageSource="/Images/Capture/Menu_Selectd.png" />
-                        </Border.Background>
-                        <Image Width="139"  Height="55" Source="/Images/Capture/Signature.png" />
-                    </Border>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.sharethis.png" />
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.email.hardedge.png" />
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.picasa.png" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.microphone.png" />
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.email.hardedge.png" />
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.picasa.png" />
+                    </StackPanel>
                 </StackPanel>
-                <StackPanel Margin="0,-40,0,0" Width="244" Height="368">
-                    <StackPanel.Background>
-                        <ImageBrush ImageSource="/Images/Capture/Menu2_BG.png" />
-                    </StackPanel.Background>
-                    <UniformGrid Margin="0,50,0,0" Width="192" Height="83" Columns="4" Rows="2">
-                        <UniformGrid.Background>
-                            <ImageBrush ImageSource="/Images/Capture/Menu_Round_BG.png" />
-                        </UniformGrid.Background>
-                        <Rectangle Margin="5,5,0,0" Fill="#f20626" />
-                        <Rectangle Margin="5,5,0,0" Fill="#f34506" />
-                        <Rectangle Margin="5,5,0,0" Fill="#f3a706" />
-                        <Rectangle Margin="5,5,5,0" Fill="#65ac34" />
-                        <Rectangle Margin="5,5,0,5" Fill="#000" />
-                        <Rectangle Margin="5,5,0,5" Fill="#0543ca" />
-                        <Rectangle Margin="5,5,0,5" Fill="#ACACAC" />
-                        <Rectangle Margin="5,5,5,5" Fill="#fff" />
-                    </UniformGrid>
-                    <UniformGrid  x:Name="PenUniformGrid" Width="192" Height="83" Columns="3" >
-                        <UniformGrid.Background>
-                            <ImageBrush ImageSource="/Images/Capture/Menu_Round_BG.png" />
-                        </UniformGrid.Background>
-                        <Image Tag="1" Stretch="None" Source="/Images/Capture/Pen_Thin_Selected.png">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseUp">
-                                    <cal:ActionMessage MethodName="ImageTouched">
-                                        <cal:Parameter Value="$source" />
-                                        <cal:Parameter Value="{Binding ElementName=PenUniformGrid}" />
-                                    </cal:ActionMessage>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Image>
-                        <Image Tag="0" Stretch="None" Source="/Images/Capture/Pen_Normal.png">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseUp">
-                                    <cal:ActionMessage MethodName="ImageTouched">
-                                        <cal:Parameter Value="$source" />
-                                        <cal:Parameter Value="{Binding ElementName=PenUniformGrid}" />
-                                    </cal:ActionMessage>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Image>
-                        <Image Tag="0" Stretch="None" Source="/Images/Capture/Pen_Thick.png">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseUp">
-                                    <cal:ActionMessage MethodName="ImageTouched">
-                                        <cal:Parameter Value="$source" />
-                                        <cal:Parameter Value="{Binding ElementName=PenUniformGrid}" />
-                                    </cal:ActionMessage>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Image>
-                    </UniformGrid>
-                    <UniformGrid Width="192" Height="83" Columns="1" Rows="1">
-                        <UniformGrid.Background>
-                            <ImageBrush ImageSource="/Images/Capture/Menu_Round_BG.png" />
-                        </UniformGrid.Background>
-                        <Image Tag="0" cal:Message.Attach="[Event MouseUp] = [Action ClearTouched($source)]" Stretch="None" Source="/Images/Capture/Clear.png" />
-                    </UniformGrid>
+                <StackPanel x:Name="DetailStackPanel">
+                    <!-- Edit Panel Start -->
+                    <StackPanel Visibility="Collapsed" x:Name="EditStackPanel" Margin="0,2,0,0" Width="244">
+                        <StackPanel.Background>
+                            <ImageBrush ImageSource="/Images/Capture/Menu_BG.png" />
+                        </StackPanel.Background>
+                        <UniformGrid Width="192" Height="83" Columns="4" Rows="2">
+                            <Rectangle Margin="5,5,0,0" Fill="#f20626" />
+                            <Rectangle Margin="5,5,0,0" Fill="#f34506" />
+                            <Rectangle Margin="5,5,0,0" Fill="#f3a706" />
+                            <Rectangle Margin="5,5,5,0" Fill="#65ac34" />
+                            <Rectangle Margin="5,5,0,5" Fill="#000" />
+                            <Rectangle Margin="5,5,0,5" Fill="#0543ca" />
+                            <Rectangle Margin="5,5,0,5" Fill="#ACACAC" />
+                            <Rectangle Margin="5,5,5,5" Fill="#fff" />
+                        </UniformGrid>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.undo.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.redo.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.picasa.png" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.app.remove.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.delete.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.save.png" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pen.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.marker.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pencil.png" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pen.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.marker.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pencil.png" />
+                        </StackPanel>
+                    </StackPanel>
+                    <!-- Edit Panel End -->
+                    <!-- Share Panel Start -->
+                    <StackPanel Visibility="Collapsed" x:Name="ShareStackPanel" Orientation="Horizontal">
+                        <StackPanel.Background>
+                            <ImageBrush ImageSource="/Images/Capture/Menu_BG.png" />
+                        </StackPanel.Background>
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.undo.png" />
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.redo.png" />
+                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.picasa.png" />
+                    </StackPanel>
+                    <!-- Share Panel End -->
+                    <!-- Picasa Panel Start -->
+                    <!-- Picasa Panel End -->
                 </StackPanel>
             </StackPanel>
         </StackPanel>

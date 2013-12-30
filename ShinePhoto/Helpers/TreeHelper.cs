@@ -20,7 +20,7 @@ namespace ShinePhoto.Helpers
         /// <param name="parent"></param>
         /// <param name="name"></param>
         /// <returns></returns>
-        public T FindVisualChildByName<T>(DependencyObject parent, string name) where T : DependencyObject
+        public static T FindVisualChildByName<T>(DependencyObject parent, string name) where T : DependencyObject
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {
@@ -40,7 +40,7 @@ namespace ShinePhoto.Helpers
             return null;
         }
 
-        public T FindVisualChildByType<T>(DependencyObject parent) where T : DependencyObject
+        public static T FindVisualChildByType<T>(DependencyObject parent) where T : DependencyObject
         {
             for (int i = 0; i < VisualTreeHelper.GetChildrenCount(parent); i++)
             {

@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShinePhoto", "ShinePhoto\Sh
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShinePhoto.Icons", "ShinePhoto.Icons\ShinePhoto.Icons.csproj", "{8F050A33-D450-4071-9780-A205F3906DA0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShinePhoto.ConsoleOut", "ShinePhoto.ConsoleOut\ShinePhoto.ConsoleOut.csproj", "{568C9C56-A74A-4284-870D-33F228CE51D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,16 @@ Global
 		{8F050A33-D450-4071-9780-A205F3906DA0}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8F050A33-D450-4071-9780-A205F3906DA0}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8F050A33-D450-4071-9780-A205F3906DA0}.Release|x86.ActiveCfg = Release|Any CPU
+		{568C9C56-A74A-4284-870D-33F228CE51D4}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{568C9C56-A74A-4284-870D-33F228CE51D4}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{568C9C56-A74A-4284-870D-33F228CE51D4}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{568C9C56-A74A-4284-870D-33F228CE51D4}.Debug|x86.ActiveCfg = Debug|x86
+		{568C9C56-A74A-4284-870D-33F228CE51D4}.Debug|x86.Build.0 = Debug|x86
+		{568C9C56-A74A-4284-870D-33F228CE51D4}.Release|Any CPU.ActiveCfg = Release|x86
+		{568C9C56-A74A-4284-870D-33F228CE51D4}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{568C9C56-A74A-4284-870D-33F228CE51D4}.Release|Mixed Platforms.Build.0 = Release|x86
+		{568C9C56-A74A-4284-870D-33F228CE51D4}.Release|x86.ActiveCfg = Release|x86
+		{568C9C56-A74A-4284-870D-33F228CE51D4}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
