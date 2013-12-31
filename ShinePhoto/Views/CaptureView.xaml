@@ -234,8 +234,8 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Margin="0, 12, 0, 0"  Grid.Row="1" Orientation="Horizontal">
-            <!--<Image x:Name="PrevImage"  Width="66" Height="65" Source="pack://application:,,,/Icons;Component/wp/light/appbar.navigate.previous.png" />-->
-            <Image x:Name="Prev"  Width="66" Height="65" Source="/Images/Capture/Prev_Enable.png" />
+            <Image x:Name="Prev"  Width="66" Height="65" Source="pack://application:,,,/ShinePhoto.Icons;C;Component/light/appbar.chevron.left.png" />
+            <!--<Image x:Name="Prev"  Width="66" Height="65" Source="/Images/Capture/Prev_Enable.png" />-->
             <surface:SurfaceListBox Height="170" Margin="15, 0, 5, 0" cal:Message.Attach="[Event SelectionChanged] = [CurrentImageChanged($source)]" x:Name="FileModels" Background="Transparent" Width="1105" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled"  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                 <surface:SurfaceListBox.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -250,7 +250,7 @@
                     </DataTemplate>
                 </surface:SurfaceListBox.ItemTemplate>
             </surface:SurfaceListBox>
-            <Image x:Name="Next" Width="66" Height="65" Source="/Images/Capture/Next_Enable.png" />
+            <Image x:Name="Next"  Width="66" Height="65" Source="pack://application:,,,/ShinePhoto.Icons;C;Component/light/appbar.chevron.right.png" />
         </StackPanel>
     </Grid>
 </UserControl>

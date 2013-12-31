@@ -66,6 +66,7 @@ namespace ShinePhoto
         protected override void OnStartup(object sender, System.Windows.StartupEventArgs e)
         {
             //Application
+            LogManager.GetLog(typeof(AppBootstrapper)).Info("\r\n操作系统信息\r\n序列号 {0}\r\nCPU 编号 {1}\r\n硬盘编号 {2}\r\n主板编号 {3}\r\n网卡编号 {4}\r\n用户组 {5}\r\n驱动器情况 {6}", SystemInfoHelper.GetSerialNumber(), SystemInfoHelper.GetCpuID(), SystemInfoHelper.GetMainHardDiskId(), SystemInfoHelper.GetMainBoardId(), SystemInfoHelper.GetNetworkAdapterId(), SystemInfoHelper.GetGroupName(), SystemInfoHelper.GetDriverInfo());
             base.OnStartup(sender, e);
         }
 
