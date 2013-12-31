@@ -32,29 +32,38 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="85, 128, 0, 20">
             <Border BorderBrush="Red" BorderThickness="2">
-                <Image Width="1098" Height="620" Source="{Binding CurrentImage}" x:Name="CurrentImage" />
+                <!--<Canvas x:Name="SignCanvas"  Width="1098" Height="620">
+                    <Image Width="1098" Height="620" Source="{Binding CurrentImage}" />
+                </Canvas>-->
+                <InkCanvas x:Name="SignCanvas" EditingMode="None" Width="1098" Height="620" Background="{Binding CurrentImageSource}">
+                    
+                </InkCanvas>
             </Border>
             <StackPanel Margin="20, 0, 0, 0">
+                <!-- 菜单栏 -->
                 <StackPanel Width="244" Name="menu">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Images/Capture/Menu_BG.png" />
                     </StackPanel.Background>
-                    <StackPanel Orientation="Horizontal">
-                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.quill.png">
+                    <StackPanel x:Name="Toolbar1" Orientation="Horizontal">
+                        <Image Tag="0" Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.quill.png">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseUp">
                                     <cal:ActionMessage MethodName="Edit">
+                                        <cal:Parameter Value="{Binding ElementName=Toolbar1}" />
                                         <cal:Parameter Value="$source" />
                                         <cal:Parameter Value="{Binding ElementName=DetailStackPanel}" />
                                         <cal:Parameter Value="{Binding ElementName=EditStackPanel}" />
+                                        <cal:Parameter Value="{Binding ElementName=SignCanvas}" />
                                     </cal:ActionMessage>
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Image>
-                        <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.microphone.png">
+                        <Image Tag="0" Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.microphone.png">
                             <i:Interaction.Triggers>
                                 <i:EventTrigger EventName="MouseUp">
                                     <cal:ActionMessage MethodName="Voice">
+                                        <cal:Parameter Value="{Binding ElementName=Toolbar1}" />
                                         <cal:Parameter Value="$source" />
                                         <cal:Parameter Value="{Binding ElementName=DetailStackPanel}" />
                                         <cal:Parameter Value="{Binding ElementName=EditStackPanel}" />
@@ -62,7 +71,18 @@
                                 </i:EventTrigger>
                             </i:Interaction.Triggers>
                         </Image>
-                        <Image Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.question.png" />
+                        <Image Tag="0" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.question.png">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="MouseUp">
+                                    <cal:ActionMessage MethodName="About">
+                                        <cal:Parameter Value="{Binding ElementName=Toolbar1}" />
+                                        <cal:Parameter Value="$source" />
+                                        <cal:Parameter Value="{Binding ElementName=DetailStackPanel}" />
+                                        <cal:Parameter Value="{Binding ElementName=EditStackPanel}" />
+                                    </cal:ActionMessage>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </Image>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.sharethis.png" />
@@ -75,6 +95,7 @@
                         <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.picasa.png" />
                     </StackPanel>
                 </StackPanel>
+                <!-- 具体工具栏 -->
                 <StackPanel x:Name="DetailStackPanel">
                     <!-- Edit Panel Start -->
                     <StackPanel Visibility="Collapsed" x:Name="EditStackPanel" Margin="0,2,0,0" Width="244">
@@ -92,19 +113,81 @@
                             <Rectangle Margin="5,5,5,5" Fill="#fff" />
                         </UniformGrid>
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.undo.png" />
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.redo.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.undo.png">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <cal:ActionMessage MethodName="Undo">
+                                            <cal:Parameter Value="{Binding ElementName=SignCanvas}" />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Image>
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.redo.png">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <cal:ActionMessage MethodName="Redo">
+                                            <cal:Parameter Value="{Binding ElementName=SignCanvas}" />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Image>
                             <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.picasa.png" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.app.remove.png" />
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.delete.png" />
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.save.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.unlock.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.delete.png">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <cal:ActionMessage MethodName="Reset">
+                                            <cal:Parameter Value="{Binding ElementName=SignCanvas}" />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Image>
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.save.png">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <cal:ActionMessage MethodName="Save">
+                                            <cal:Parameter Value="{Binding ElementName=SignCanvas}" />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Image>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pen.png" />
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.marker.png" />
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pencil.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pen.png">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <cal:ActionMessage MethodName="PenMode1">
+                                            <cal:Parameter Value="$source" />
+                                            <cal:Parameter Value="{Binding ElementName=SignCanvas}" />
+                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}}" />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Image>
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.marker.png">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <cal:ActionMessage MethodName="PenMode2">
+                                            <cal:Parameter Value="$source" />
+                                            <cal:Parameter Value="{Binding ElementName=SignCanvas}" />
+                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}}" />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Image>
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pencil.png">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <cal:ActionMessage MethodName="PenMode3">
+                                            <cal:Parameter Value="$source" />
+                                            <cal:Parameter Value="{Binding ElementName=SignCanvas}" />
+                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}}" />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Image>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pen.png" />
@@ -124,6 +207,28 @@
                     </StackPanel>
                     <!-- Share Panel End -->
                     <!-- Picasa Panel Start -->
+                    <StackPanel Visibility="Collapsed" x:Name="PicasaStackPanel">
+                        <StackPanel.Background>
+                            <ImageBrush ImageSource="/Images/Capture/Menu_BG.png" />
+                        </StackPanel.Background>
+                        <GroupBox Margin="5, 5, 15, 5" BorderThickness="0">
+                            <GroupBox.Header>
+                                <TextBlock Background="Blue" Foreground="White" Text="照片 EXIF 信息" />
+                            </GroupBox.Header>
+                            <GroupBox.Content>
+                                <StackPanel DataContext="{Binding ExifModel}">
+                                    <TextBlock Text="{Binding Manufacturer, StringFormat='相机: {0}' }" />
+                                    <TextBlock Text="{Binding ShootTime, StringFormat='时间: {0}' }" />
+                                    <TextBlock Text="{Binding ExposureTime, StringFormat='曝光度: {0}' }" />
+                                    <TextBlock Text="{Binding DeviceType, StringFormat='型号: {0}' }" />
+                                    <TextBlock Text="{Binding ISO, StringFormat='ISO: {0}' }" />
+                                    <TextBlock Text="{Binding FocalLength, StringFormat='焦距: {0}' }" />
+                                    <TextBlock Text="{Binding Aperture, StringFormat='光圈: {0}' }" />
+                                    <TextBlock Text="{Binding Description, StringFormat='描述: {0}' }" />
+                                </StackPanel>
+                            </GroupBox.Content>
+                        </GroupBox>
+                    </StackPanel>
                     <!-- Picasa Panel End -->
                 </StackPanel>
             </StackPanel>

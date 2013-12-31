@@ -5,7 +5,7 @@ ShinePhoto
 
 ## ShinePhoto ##
 
-> 基于 Caliburn.Micro 的 MVVM 设计模式
+> 基于 Caliburn.Micro 的 MVVM 设计模式 <br />
 > 使用 Sqlite 数据库存储配置信息
 
 ## ShinePhoto.ConsoleOut ##

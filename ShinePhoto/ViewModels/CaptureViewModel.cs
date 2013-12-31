@@ -10,6 +10,11 @@ using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
 using ShinePhoto.Loaders;
 using Microsoft.Surface.Presentation.Controls;
+using System.Windows.Media.Imaging;
+using System.Windows.Media;
+using System.IO;
+using System.Collections;
+using System.Windows.Ink;
 
 namespace ShinePhoto.ViewModels
 {
@@ -95,12 +100,14 @@ namespace ShinePhoto.ViewModels
             height = 158;
         }
 
+        /// <summary>
+        /// 切换选中状态
+        /// </summary>
+        /// <param name="image"></param>
         void ToggleImageSource(Image image)
         {
             string path = image.Source.ToString();
             var flag = System.Text.RegularExpressions.Regex.IsMatch(path, @"light");
-
-          
 
             //选中状态
             if (flag)
@@ -115,6 +122,71 @@ namespace ShinePhoto.ViewModels
             image.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
         }
 
+        /// <summary>
+        /// 去除选中状态
+        /// </summary>
+        /// <param name="image"></param>
+        void UnCheckImageSource(Image image)
+        {
+            string path = image.Source.ToString();
+            var flag = System.Text.RegularExpressions.Regex.IsMatch(path, @"light");
+
+            //选中状态
+            if (flag)
+            {
+                path = System.Text.RegularExpressions.Regex.Replace(path, "light", "dark");
+            }
+
+            image.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
+            image.Tag = 0;
+        }
+
+        /// <summary>
+        /// 添加选中状态
+        /// </summary>
+        /// <param name="image"></param>
+        void CheckImageSource(Image image)
+        {
+            string path = image.Source.ToString();
+            var flag = System.Text.RegularExpressions.Regex.IsMatch(path, @"dark");
+
+            //选中状态
+            if (flag)
+            {
+                path = System.Text.RegularExpressions.Regex.Replace(path, "dark", "light");
+            }
+
+            image.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
+            image.Tag = 1;
+        }
+
+
+        /// <summary>
+        /// 保证只有一个是选择状态
+        /// </summary>
+        void EnsureImageSource(object parent, Image image)
+        {
+            var sp = parent as StackPanel;
+            foreach (var img in sp.Children)
+            {
+                if (img is Image)
+                {
+                    if (((Image)img) == image)
+                    {
+                        CheckImageSource(image);
+                        continue;
+                    }
+
+                    UnCheckImageSource((Image)img);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 切换显示状态
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="name"></param>
         void ToggleStackPanel(StackPanel parent, string name)
         {
             var sp = parent as StackPanel;
@@ -137,19 +209,85 @@ namespace ShinePhoto.ViewModels
             }
         }
 
+
+        /// <summary>
+        /// 显示
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="name"></param>
+        void ShowStackPanel(StackPanel parent, string name)
+        {
+            var sp = parent as StackPanel;
+            if (sp != null)
+            {
+                foreach (var p in sp.Children)
+                {
+                    if (p is StackPanel)
+                    {
+                        if (((StackPanel)p).Name == name)
+                        {
+                            ((StackPanel)p).Visibility = System.Windows.Visibility.Visible;
+                        }
+                        else
+                        {
+                            ((StackPanel)p).Visibility = System.Windows.Visibility.Collapsed;
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 隐藏
+        /// </summary>
+        /// <param name="parent"></param>
+        /// <param name="name"></param>
+        void HideStackPanel(StackPanel parent, string name)
+        {
+            ShinePhoto.Helpers.TreeHelper.FindVisualChildByName<StackPanel>(parent, name).Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+
+  
+
         #endregion
         
         #region 工具栏第一行
 
-        public void Edit(object sender, object parent, object child)
+        public void Edit(object senderParent, object sender, object parent, object child, object cvs)
         {
             var image = sender as Image;
+            var sp = senderParent as StackPanel;
+            //画布
+            var canvas = cvs as InkCanvas;
             if (image != null)
             {
-                ToggleImageSource(image);
+                if (image.Tag.ToString() == "0")
+                {
+                    if (canvas != null)
+                    {
+                        canvas.EditingMode = InkCanvasEditingMode.Ink;
+                    }
+                    EnsureImageSource(sp, image);
+                    ShowStackPanel(parent as StackPanel, "EditStackPanel");
+                }
+                else
+                {
+                    if (canvas != null)
+                    {
+                        canvas.EditingMode = InkCanvasEditingMode.None;
+                    }
+                    UnCheckImageSource(image);
+                    HideStackPanel(parent as StackPanel, "EditStackPanel");
+                }
+
+              
+
+                
+
             }
 
-            ToggleStackPanel(parent as StackPanel, "EditStackPanel");
+            //ToggleStackPanel(parent as StackPanel, "EditStackPanel");
 
             //var sp = parent as StackPanel;
             //if (sp != null)
@@ -173,20 +311,59 @@ namespace ShinePhoto.ViewModels
 
         }
 
-        public void About()
-        {
-            System.Windows.Forms.MessageBox.Show("About");
-        }
-
-        public void Voice(object sender, object parent, object child)
+        //public bool CanAbout
+        //{
+        //    get
+        //    {
+        //        if (System.IO.File.Exists(CurrentImage))
+        //        {
+        //            return true;
+        //        }
+        //        return false;
+        //    }
+        //}
+        
+        public void About(object senderParent, object sender, object parent, object child)
         {
             var image = sender as Image;
+            var sp = senderParent as StackPanel;
             if (image != null)
             {
-                ToggleImageSource(image);
+                if (image.Tag.ToString() == "0")
+                {
+                    EnsureImageSource(sp, image);
+
+                    //ExifModel exif = ShinePhoto.Helpers.ImageHelper.FindExifinfo(CurrentImage);
+                    //ShinePhoto.Helpers.TreeHelper.FindVisualChildByName<StackPanel>(parent as StackPanel, "PicasaStackPanel").DataContext = exif;
+                    ShowStackPanel(parent as StackPanel, "PicasaStackPanel");
+                }
+                else
+                {
+                    UnCheckImageSource(image);
+                    HideStackPanel(parent as StackPanel, "PicasaStackPanel");
+                }
+            }
+        }
+
+        public void Voice(object senderParent, object sender, object parent, object child)
+        {
+            var image = sender as Image;
+            var sp = senderParent as StackPanel;
+            if (image != null)
+            {
+                if (image.Tag.ToString() == "0")
+                {
+                    EnsureImageSource(sp, image);
+                    ShowStackPanel(parent as StackPanel, "ShareStackPanel");
+                }
+                else
+                {
+                    UnCheckImageSource(image);
+                    HideStackPanel(parent as StackPanel, "ShareStackPanel");
+                }
             }
 
-            ToggleStackPanel(parent as StackPanel, "ShareStackPanel");
+            //ToggleStackPanel(parent as StackPanel, "ShareStackPanel");
 
             //ShinePhoto.Helpers.TreeHelper.FindVisualChildByName<StackPanel>(parent as StackPanel, "ShareStackPanel").Visibility = System.Windows.Visibility.Visible;
 
@@ -291,8 +468,9 @@ namespace ShinePhoto.ViewModels
             var listBox = (SurfaceListBox)sender;
             if (listBox.SelectedIndex == -1)
                 return;
-
             CurrentImage = ((FileModel)listBox.SelectedItem).FileName;
+            CurrentImageSource = new ImageBrush(new BitmapImage(new Uri(((FileModel)listBox.SelectedItem).FileName, UriKind.RelativeOrAbsolute)));
+            ExifModel = ShinePhoto.Helpers.ImageHelper.FindExifinfo(CurrentImage);
         }
 
         public void Prev()
@@ -310,11 +488,29 @@ namespace ShinePhoto.ViewModels
         #region CLR 属性
 
         /// <summary>
-        /// 可视元素个数
+        /// 画笔轨迹撤销栈
         /// </summary>
-        private int _index = 3;
+        private Stack<Stroke> _undoCollection = new Stack<Stroke>();
 
-        private string _currentImage = @"/Images/Default.jpg";
+        /// <summary>
+        /// 图片 EXIF 信息
+        /// </summary>
+        private ExifModel _exifModel = ShinePhoto.Helpers.ImageHelper.FindExifinfo(AppDomain.CurrentDomain.BaseDirectory + "/Default.jpg");
+
+        public ExifModel ExifModel
+        {
+            get { return _exifModel; }
+            set
+            {
+                _exifModel = value;
+                NotifyOfPropertyChange(() => ExifModel);
+            }
+        }
+
+        /// <summary>
+        /// 当前图片
+        /// </summary>
+        private string _currentImage = AppDomain.CurrentDomain.BaseDirectory + "/Default.jpg";
 
         public string CurrentImage
         {
@@ -326,11 +522,152 @@ namespace ShinePhoto.ViewModels
             }
         }
 
+        /// <summary>
+        /// 当前图片画刷
+        /// </summary>
+        private ImageBrush _currentImageSource = new ImageBrush(new BitmapImage(new Uri(AppDomain.CurrentDomain.BaseDirectory + "/Default.jpg", UriKind.RelativeOrAbsolute)));
+
+        public ImageBrush CurrentImageSource
+        {
+            get { return _currentImageSource; }
+            set
+            {
+                _currentImageSource = value;
+                NotifyOfPropertyChange(() => CurrentImageSource);
+            }
+        }
+
+        #endregion
+
+        #region 依赖属性
+
         #endregion
 
         #region 部分组件
 
-       
+        #endregion
+
+        #region EditStackPanel 方法
+
+        /// <summary>
+        /// 重置画板
+        /// </summary>
+        /// <param name="canvas"></param>
+        public void Reset(object canvas)
+        {
+            var inkCanvas = canvas as InkCanvas;
+            if (inkCanvas != null && inkCanvas.EditingMode == InkCanvasEditingMode.Ink)
+            {
+                System.Windows.Rect rect = new System.Windows.Rect(0, 0, inkCanvas.ActualWidth, inkCanvas.ActualHeight);    //設定Rect
+
+                InkCanvas.SetLeft(inkCanvas, rect.Left);    //設定橡皮插圖案Location
+                InkCanvas.SetTop(inkCanvas, rect.Top);      //同上
+                inkCanvas.Strokes.Erase(rect);    //擦一個矩形居快的筆跡
+            }
+        }
+
+        /// <summary>
+        /// 保存文件
+        /// </summary>
+        /// <param name="canvas"></param>
+        public void Save(object canvas)
+        {
+            var inkCanvas = canvas as InkCanvas;
+            if (inkCanvas != null && inkCanvas.EditingMode == InkCanvasEditingMode.Ink)
+            {
+                try
+                {
+                    string dir = AppDomain.CurrentDomain.BaseDirectory + "Sign";
+                    if (!Directory.Exists(dir))
+                    {
+                        Directory.CreateDirectory(dir);
+                    }
+                    string fileName = CurrentImage.Substring(CurrentImage.LastIndexOf('\\'));
+                    ShinePhoto.Helpers.ImageHelper.SaveToImage(inkCanvas, dir + fileName, Helpers.ImageHelper.ImageFormat.JPG);
+                }
+                catch
+                {
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// 撤销
+        /// </summary>
+        /// <param name="canvas"></param>
+        public void Undo(object canvas)
+        {
+            var inkCanvas = canvas as InkCanvas;
+            if (inkCanvas != null && inkCanvas.EditingMode == InkCanvasEditingMode.Ink)
+            {
+                if (inkCanvas.Strokes.Count > 0)
+                {
+                    int index = inkCanvas.Strokes.Count - 1;
+                    _undoCollection.Push(inkCanvas.Strokes[index]);
+                    inkCanvas.Strokes.RemoveAt(index);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 重置
+        /// </summary>
+        /// <param name="canvas"></param>
+        public void Redo(object canvas)
+        {
+            var inkCanvas = canvas as InkCanvas;
+            if (inkCanvas != null && inkCanvas.EditingMode == InkCanvasEditingMode.Ink)
+            {
+                if (_undoCollection.Count > 0)
+                {
+                    var stroke = _undoCollection.Pop();
+                    inkCanvas.Strokes.Add(stroke);
+                }
+            }
+        }
+
+        public void PenMode1(object source, object canvas, object parent)
+        {
+            var image = source as Image;
+            var inkCanvas = canvas as InkCanvas;
+            var sp = parent as StackPanel;
+            if (inkCanvas != null && image != null && sp != null)
+            {
+                EnsureImageSource(sp, image);
+                PenModeChanged(inkCanvas, 1.0);
+            }
+        }
+
+        public void PenMode2(object source, object canvas, object parent)
+        {
+            var image = source as Image;
+            var inkCanvas = canvas as InkCanvas;
+            var sp = parent as StackPanel;
+            if (inkCanvas != null && image != null && sp != null)
+            {
+                EnsureImageSource(sp, image);
+                PenModeChanged(inkCanvas, 2.0);
+            }
+        }
+
+        public void PenMode3(object source, object canvas, object parent)
+        {
+            var image = source as Image;
+            var inkCanvas = canvas as InkCanvas;
+            var sp = parent as StackPanel;
+            if (inkCanvas != null && image != null && sp != null)
+            {
+                EnsureImageSource(sp, image);
+                PenModeChanged(inkCanvas, 4.0);
+            }
+        }
+
+        public void PenModeChanged(InkCanvas inkCanvas, double width)
+        {
+            LogManager.GetLog(typeof(CaptureViewModel)).Info("画笔宽度 {0} ", width);
+            inkCanvas.DefaultDrawingAttributes.Width = inkCanvas.DefaultDrawingAttributes.Height = width;
+        }
 
         #endregion
 

@@ -96,11 +96,13 @@
     <Compile Include="Helpers\DebugLogger.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />
     <Compile Include="Helpers\GuidHelper.cs" />
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Helpers\NLogLogger.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
     <Compile Include="Helpers\TreeHelper.cs" />
     <Compile Include="Interfaces\IShellView.cs" />
     <Compile Include="Loaders\ImageLoader.cs" />
+    <Compile Include="Models\ExifModel.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\LoginUserModel.cs" />
     <Compile Include="Models\ShinePhotoDataContext.cs" />
@@ -283,8 +285,13 @@
     <Resource Include="Images\Capture\Clear.png" />
     <Resource Include="Images\Capture\Clear_Selected.png" />
     <Resource Include="Images\Capture\Divider.png" />
-    <Resource Include="Images\Default.jpg" />
+    <Resource Include="Images\Default.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Images\PHOTOSHOP.ICO" />
+    <None Include="Default.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
