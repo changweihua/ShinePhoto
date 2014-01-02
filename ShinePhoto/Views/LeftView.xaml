@@ -47,7 +47,7 @@
             </Image>
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2">
-            <TextBlock Text="轮播广告区域" />
+            <ContentControl x:Name="AdViewModel" />
         </StackPanel>
     </Grid>
 </UserControl>

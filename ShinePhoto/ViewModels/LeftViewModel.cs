@@ -21,10 +21,16 @@ namespace ShinePhoto.ViewModels
         private readonly IEventAggregator _eventAggregator;
 
         [ImportingConstructor]
-        public LeftViewModel(IEventAggregator eventAggregator)
+        public LeftViewModel(AdViewModel adViewModel, IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
+            AdViewModel = adViewModel;
         }
+
+        /// <summary>
+        /// 广告视图
+        /// </summary>
+        public AdViewModel AdViewModel { get; private set; }
 
         /// <summary>
         /// 导航图片按钮单击事件

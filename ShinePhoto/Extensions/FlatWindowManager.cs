@@ -30,7 +30,5 @@ namespace ShinePhoto.Extensions
             return window;
         }
 
-
-
     }
 }

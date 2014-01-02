@@ -128,6 +128,7 @@
       <DependentUpon>WaitingProgress.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValidationRules\UserNameRule.cs" />
+    <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\CaptureViewModel.cs" />
     <Compile Include="ViewModels\LeftViewModel.cs" />
@@ -139,6 +140,9 @@
     <Compile Include="ViewModels\ShineDisplayViewModel.cs" />
     <Compile Include="ViewModels\SignatureAlbumViewModel.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
+    <Compile Include="Views\AdView.xaml.cs">
+      <DependentUpon>AdView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AppView.xaml.cs">
       <DependentUpon>AppView.xaml</DependentUpon>
     </Compile>
@@ -227,6 +231,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AdView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AppView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -282,6 +290,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\loading.png" />
+    <Resource Include="Adv\140140qahhhal61h9ht8lk.jpg.thumb.jpg" />
+    <Resource Include="Adv\175352n261rlq9wcl0xplf.jpg" />
+    <Resource Include="Adv\QQ截图20131220152412.png" />
+    <Resource Include="Adv\QQ截图20131224130755.png" />
     <Content Include="Xceed.Wpf.Toolkit.dll" />
     <Resource Include="Images\BG.jpg" />
     <Resource Include="Images\Left\Capture.png" />
