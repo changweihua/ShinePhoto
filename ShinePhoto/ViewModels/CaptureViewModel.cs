@@ -16,6 +16,8 @@ using System.IO;
 using System.Collections;
 using System.Windows.Ink;
 using System.Windows;
+using Xceed.Wpf.Toolkit;
+using System.Windows.Media.Animation;
 
 namespace ShinePhoto.ViewModels
 {
@@ -25,6 +27,7 @@ namespace ShinePhoto.ViewModels
     [Export(typeof(CaptureViewModel))]
     public class CaptureViewModel : PropertyChangedBase, IShellView
     {
+
         /// <summary>
         /// 图片集合
         /// </summary>
@@ -54,6 +57,18 @@ namespace ShinePhoto.ViewModels
                      FileModels.Add(new FileModel { FileName = arr[i], Height = 158, Width = 282 });
                  }
              }));
+
+             FileSystemWatcher watcher = new FileSystemWatcher();
+             watcher.Filter = "*.jpg";
+             watcher.Path = @"C:\Users\ChangWeihua\Pictures\Eye-Fi\2013-12-13";
+             //watcher.Changed += new FileSystemEventHandler(OnProcess);
+             watcher.Created += new FileSystemEventHandler(OnProcess);
+             watcher.Deleted += new FileSystemEventHandler(OnProcess);
+             watcher.Renamed += new RenamedEventHandler(OnRenamed);
+             watcher.EnableRaisingEvents = true;
+             watcher.NotifyFilter = NotifyFilters.Attributes | NotifyFilters.CreationTime | NotifyFilters.DirectoryName | NotifyFilters.FileName | NotifyFilters.LastAccess
+                                    | NotifyFilters.LastWrite | NotifyFilters.Security | NotifyFilters.Size;
+
         }
 
         #region 异步事件
@@ -495,7 +510,7 @@ namespace ShinePhoto.ViewModels
 
         #region 图片列表导航事件
 
-        public void CurrentImageChanged(object sender)
+        public void CurrentImageChanged(object sender, object canvas)
         {
             var listBox = (ListBox)sender;
             if (listBox.SelectedIndex == -1)
@@ -503,6 +518,18 @@ namespace ShinePhoto.ViewModels
             CurrentImage = ((FileModel)listBox.SelectedItem).FileName;
             CurrentImageSource = new ImageBrush(new BitmapImage(new Uri(((FileModel)listBox.SelectedItem).FileName, UriKind.RelativeOrAbsolute)));
             ExifModel = ShinePhoto.Helpers.ImageHelper.FindExifinfo(CurrentImage);
+
+            var inkCanvas = canvas as InkCanvas;
+
+            if (inkCanvas != null)
+            {
+                System.Windows.Rect rect = new System.Windows.Rect(0, 0, inkCanvas.ActualWidth, inkCanvas.ActualHeight);    //設定Rect
+
+                InkCanvas.SetLeft(inkCanvas, rect.Left);    //設定橡皮插圖案Location
+                InkCanvas.SetTop(inkCanvas, rect.Top);      //同上
+                inkCanvas.Strokes.Erase(rect);    //擦一個矩形居快的筆跡
+            }
+
         }
 
         public void Prev(object source, object sv)
@@ -594,6 +621,8 @@ namespace ShinePhoto.ViewModels
         #endregion
 
         #region CLR 属性
+
+        private bool _isSaving = false;
 
         /// <summary>
         /// 可视元素个数
@@ -703,27 +732,58 @@ namespace ShinePhoto.ViewModels
             }
         }
 
+        public bool CanSave
+        {
+            get
+            {
+                LogManager.GetLog(typeof(CaptureViewModel)).Info("是否可以进行保存操作 {0} ", !_isSaving);
+                return !_isSaving;
+            }
+        }
+
         /// <summary>
         /// 保存文件
         /// </summary>
         /// <param name="canvas"></param>
-        public void Save(object canvas)
+        public void Save(object source, object canvas)
         {
+            _isSaving = true;
+            NotifyOfPropertyChange(() => CanSave);
+            var image = source as Image;
             var inkCanvas = canvas as InkCanvas;
             if (inkCanvas != null && inkCanvas.EditingMode == InkCanvasEditingMode.Ink)
             {
                 try
                 {
-                    string dir = AppDomain.CurrentDomain.BaseDirectory + "Sign";
+
+                    DoubleAnimation widthAnimation = new DoubleAnimation();
+                    widthAnimation.To = 25;
+                    widthAnimation.AutoReverse = true;
+                    widthAnimation.RepeatBehavior = RepeatBehavior.Forever;
+
+                    DoubleAnimation heightAnimation = new DoubleAnimation();
+                    heightAnimation.To = 25;
+                    heightAnimation.AutoReverse = true;
+                    heightAnimation.RepeatBehavior = RepeatBehavior.Forever;
+
+                    //image.BeginAnimation(Image.WidthProperty, widthAnimation);
+                    //image.BeginAnimation(Image.HeightProperty, heightAnimation);
+
+                    string dir = AppDomain.CurrentDomain.BaseDirectory + "Sign\\" + DateTime.Now.ToString("yyyy-MM-dd");
                     if (!Directory.Exists(dir))
                     {
                         Directory.CreateDirectory(dir);
                     }
-                    string fileName = CurrentImage.Substring(CurrentImage.LastIndexOf('\\'));
-                    ShinePhoto.Helpers.ImageHelper.SaveToImage(inkCanvas, dir + fileName, Helpers.ImageHelper.ImageFormat.JPG);
+                    string fileName = CurrentImage.Substring(CurrentImage.LastIndexOf('\\') + 1);
+                    ShinePhoto.Helpers.ImageHelper.SaveToImage(inkCanvas, dir + "\\" +  DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss_") + fileName, Helpers.ImageHelper.ImageFormat.JPG);
+                    
                 }
                 catch
                 {
+                }
+                finally
+                {
+                    _isSaving = false; NotifyOfPropertyChange(() => CanSave);
                 }
 
             }
@@ -764,6 +824,46 @@ namespace ShinePhoto.ViewModels
             }
         }
 
+        /// <summary>
+        /// 选择颜色
+        /// </summary>
+        /// <param name="canvas"></param>
+        public void Pixel(object source, object parent)
+        {
+            var image = source as Image;
+            var sp = parent as StackPanel;
+            if (sp != null && image != null)
+            {
+                Popup popup = new Popup ();
+                ColorCanvas cc = new ColorCanvas();
+                //cc.SetValue(ColorCanvas.BorderThicknessProperty, 0);
+                cc.SetValue(ColorCanvas.BackgroundProperty, Brushes.Transparent);
+                popup.Child = cc;
+                popup.PlacementTarget = image;
+                popup.Visibility = Visibility.Visible;
+            }
+        }
+
+        public void SelectedColorChanged(object canvas, object e)
+        {
+            var inkCanvas = canvas as InkCanvas;
+            if (inkCanvas != null && inkCanvas.EditingMode == InkCanvasEditingMode.Ink)
+            {
+                var evt = e as RoutedPropertyChangedEventArgs<Color>;
+                if (e != null)
+                {
+                    inkCanvas.DefaultDrawingAttributes.Color = evt.NewValue;
+                }
+            }
+            
+        }
+
+        /// <summary>
+        /// 画笔1
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="canvas"></param>
+        /// <param name="parent"></param>
         public void PenMode1(object source, object canvas, object parent)
         {
             var image = source as Image;
@@ -776,6 +876,12 @@ namespace ShinePhoto.ViewModels
             }
         }
 
+        /// <summary>
+        /// 画笔2
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="canvas"></param>
+        /// <param name="parent"></param>
         public void PenMode2(object source, object canvas, object parent)
         {
             var image = source as Image;
@@ -788,6 +894,12 @@ namespace ShinePhoto.ViewModels
             }
         }
 
+        /// <summary>
+        /// 画笔3
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="canvas"></param>
+        /// <param name="parent"></param>
         public void PenMode3(object source, object canvas, object parent)
         {
             var image = source as Image;
@@ -804,6 +916,46 @@ namespace ShinePhoto.ViewModels
         {
             LogManager.GetLog(typeof(CaptureViewModel)).Info("画笔宽度 {0} ", width);
             inkCanvas.DefaultDrawingAttributes.Width = inkCanvas.DefaultDrawingAttributes.Height = width;
+        }
+
+        #endregion
+
+        #region 监听文件夹事件
+
+        private void OnProcess(object source, FileSystemEventArgs e)
+        {
+            if (e.ChangeType == WatcherChangeTypes.Created)
+            {
+                OnCreated(source, e);
+            }
+            else if (e.ChangeType == WatcherChangeTypes.Changed)
+            {
+                OnChanged(source, e);
+            }
+            else if (e.ChangeType == WatcherChangeTypes.Deleted)
+            {
+                OnDeleted(source, e);
+            }
+
+        }
+        private void OnCreated(object source, FileSystemEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(string.Format("文件新建事件处理逻辑 {0}  {1}  {2}", e.ChangeType, e.FullPath, e.Name));
+            FileModels.Insert(0, new FileModel { FileName = e.FullPath, Height = 158, Width = 282 });
+        }
+        private void OnChanged(object source, FileSystemEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(string.Format("文件改变事件处理逻辑{0}  {1}  {2}", e.ChangeType, e.FullPath, e.Name));
+        }
+
+        private void OnDeleted(object source, FileSystemEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(string.Format("文件删除事件处理逻辑{0}  {1}   {2}", e.ChangeType, e.FullPath, e.Name));
+        }
+
+        private void OnRenamed(object source, RenamedEventArgs e)
+        {
+            System.Diagnostics.Debug.WriteLine(string.Format("文件重命名事件处理逻辑{0}  {1}  {2}", e.ChangeType, e.FullPath, e.Name));
         }
 
         #endregion

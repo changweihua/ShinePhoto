@@ -8,6 +8,7 @@
              xmlns:cal="http://www.caliburnproject.org"
              xmlns:uc="clr-namespace:ShinePhoto.UC"
              xmlns:ext="clr-namespace:ShinePhoto.Extensions"
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="2000">
     <UserControl.Resources>
@@ -104,7 +105,7 @@
                         <StackPanel.Background>
                             <ImageBrush ImageSource="/Images/Capture/Menu_BG.png" />
                         </StackPanel.Background>
-                        <UniformGrid Width="192" Height="83" Columns="4" Rows="2">
+                        <!--<UniformGrid Width="192" Height="83" Columns="4" Rows="2">
                             <Rectangle Margin="5,5,0,0" Fill="#f20626" />
                             <Rectangle Margin="5,5,0,0" Fill="#f34506" />
                             <Rectangle Margin="5,5,0,0" Fill="#f3a706" />
@@ -113,7 +114,19 @@
                             <Rectangle Margin="5,5,0,5" Fill="#0543ca" />
                             <Rectangle Margin="5,5,0,5" Fill="#ACACAC" />
                             <Rectangle Margin="5,5,5,5" Fill="#fff" />
-                        </UniformGrid>
+                        </UniformGrid>-->
+                        <StackPanel>
+                            <xctk:ColorCanvas Height="150" Background="Transparent" BorderThickness="0">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="SelectedColorChanged">
+                                        <cal:ActionMessage MethodName="SelectedColorChanged">
+                                            <cal:Parameter Value="{Binding ElementName=SignCanvas}" />
+                                            <cal:Parameter Value="$eventArgs" />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </xctk:ColorCanvas>
+                        </StackPanel>
                         <StackPanel Orientation="Horizontal">
                             <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.undo.png">
                                 <i:Interaction.Triggers>
@@ -144,12 +157,22 @@
                             </Image>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.unlock.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pixel.grid.png">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <cal:ActionMessage MethodName="Pixel">
+                                            <cal:Parameter Value="$source" />
+                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource AncestorType=StackPanel}}" />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Image>
                             <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.picasa.png" />
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.save.png">
+                            <Image Width="76" RenderTransformOrigin="0.5,0.5" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.save.png">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseUp">
                                         <cal:ActionMessage MethodName="Save">
+                                            <cal:Parameter Value="$source" />
                                             <cal:Parameter Value="{Binding ElementName=SignCanvas}" />
                                         </cal:ActionMessage>
                                     </i:EventTrigger>
@@ -191,11 +214,11 @@
                                 </i:Interaction.Triggers>
                             </Image>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
+                        <!--<StackPanel Orientation="Horizontal">
                             <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pen.png" />
                             <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.marker.png" />
                             <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pencil.png" />
-                        </StackPanel>
+                        </StackPanel>-->
                     </StackPanel>
                     <!-- Edit Panel End -->
                     <!-- Share Panel Start -->
@@ -246,7 +269,15 @@
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
             </Image>
-            <surface:SurfaceListBox Height="170" Margin="15, 0, 5, 0" cal:Message.Attach="[Event SelectionChanged] = [CurrentImageChanged($source)];[Event ScrollViewer.ScrollChanged] = [ScrollChanged($source)];[Event ManipCompleted] = [ManipCompleted($source)]" x:Name="FileModels" Background="Transparent" Width="1105" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            <surface:SurfaceListBox Height="170" Margin="15, 0, 5, 0" x:Name="FileModels" Background="Transparent" Width="1105" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="SelectionChanged">
+                        <cal:ActionMessage MethodName="CurrentImageChanged">
+                            <cal:Parameter Value="$source" />
+                            <cal:Parameter Value="{Binding ElementName=SignCanvas}" />
+                        </cal:ActionMessage>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
                 <surface:SurfaceListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel Orientation="Horizontal"></VirtualizingStackPanel>
