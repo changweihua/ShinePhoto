@@ -98,6 +98,8 @@
     <Compile Include="Events\ModuleChangedEvent.cs" />
     <Compile Include="Events\RegistNextEvent.cs" />
     <Compile Include="Extensions\FlatWindowManager.cs" />
+    <Compile Include="Extensions\ImageDecoder.cs" />
+    <Compile Include="Extensions\ImageQueue.cs" />
     <Compile Include="Extensions\StrokeCollectionExtension.cs" />
     <Compile Include="Helpers\DebugLogger.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />
@@ -109,14 +111,21 @@
     <Compile Include="Helpers\SystemInfoHelper.cs" />
     <Compile Include="Helpers\TreeHelper.cs" />
     <Compile Include="Interfaces\IShellView.cs" />
+    <Compile Include="Loaders\BackgroundCoRoutine.cs" />
     <Compile Include="Loaders\ImageLoader.cs" />
     <Compile Include="Models\ExifModel.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\LoginUserModel.cs" />
     <Compile Include="Models\ShinePhotoDataContext.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="UC\LoadingProgress.xaml.cs">
+      <DependentUpon>LoadingProgress.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\RoundButton.xaml.cs">
       <DependentUpon>RoundButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\WaitingProgress.xaml.cs">
+      <DependentUpon>WaitingProgress.xaml</DependentUpon>
     </Compile>
     <Compile Include="ValidationRules\UserNameRule.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
@@ -202,7 +211,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Styles\ScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\LoadingProgress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UC\RoundButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\WaitingProgress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -260,6 +281,7 @@
     </Resource>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Images\loading.png" />
     <Content Include="Xceed.Wpf.Toolkit.dll" />
     <Resource Include="Images\BG.jpg" />
     <Resource Include="Images\Left\Capture.png" />

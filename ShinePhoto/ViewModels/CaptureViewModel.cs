@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.IO;
 using System.Collections;
 using System.Windows.Ink;
+using System.Windows;
 
 namespace ShinePhoto.ViewModels
 {
@@ -42,10 +43,38 @@ namespace ShinePhoto.ViewModels
              _eventAggregator = eventAggregator;
 
              //Caliburn.Micro.Coroutine.BeginExecute(LoadData().GetEnumerator());
-             Caliburn.Micro.Coroutine.BeginExecute(LoadDataAsync().GetEnumerator());
+             //Caliburn.Micro.Coroutine.BeginExecute(LoadDataAsync().GetEnumerator());
+
+             System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback((state) =>
+             {
+                 FileModels = new BindableCollection<FileModel>();
+                 var arr = System.IO.Directory.GetFiles(@"C:\Users\ChangWeihua\Pictures\Eye-Fi\2013-12-13");
+                 for (int i = 0; i < arr.Length; i++)
+                 {
+                     FileModels.Add(new FileModel { FileName = arr[i], Height = 158, Width = 282 });
+                 }
+             }));
         }
 
         #region 异步事件
+
+
+        //public IEnumerable<IResult> ProcessTask()
+        //{
+        //    FileModel result ;
+
+        //    for (int i = 1; i < 4; i++) // Simulates a loop that processes multiple items, files, fields...
+        //    {
+        //        yield return new BackgroundCoRoutine(() =>
+        //        {
+        //            System.Threading.Thread.Sleep(1000); // Time consuming task in another thread
+        //            result = new FileModel("Item " + i);
+        //        });
+
+        //        FileModels.Add(result); // Update the UI with the result, in the GUI thread
+        //    }
+
+        //}
 
         public IEnumerable<IResult> LoadDataAsync()
         {
@@ -54,13 +83,16 @@ namespace ShinePhoto.ViewModels
             var result = loader.FileModels;
             LogManager.GetLog(typeof(CaptureViewModel)).Info("取得 {0} 条数据", result.Count);
 
-            if (result != null || result.Count > 0)
-            {
-                FileModels = new BindableCollection<FileModel>(result);
+            System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback((state) => {
+                if (result != null || result.Count > 0)
+                {
+                    FileModels = new BindableCollection<FileModel>(result);
 
-                //比较费时
-                NotifyOfPropertyChange(() => FileModels);
-            }
+                    //比较费时
+                    NotifyOfPropertyChange(() => FileModels);
+                }
+            }));
+           
 
         }
 
@@ -465,7 +497,7 @@ namespace ShinePhoto.ViewModels
 
         public void CurrentImageChanged(object sender)
         {
-            var listBox = (SurfaceListBox)sender;
+            var listBox = (ListBox)sender;
             if (listBox.SelectedIndex == -1)
                 return;
             CurrentImage = ((FileModel)listBox.SelectedItem).FileName;
@@ -473,19 +505,100 @@ namespace ShinePhoto.ViewModels
             ExifModel = ShinePhoto.Helpers.ImageHelper.FindExifinfo(CurrentImage);
         }
 
-        public void Prev()
+        public void Prev(object source, object sv)
         {
+            var image = source as Image;
+            //var scrollViewer = sv as ScrollViewer;
+            var surfaceListBox = sv as SurfaceListBox;
+            if (image != null && surfaceListBox != null)
+            {
+                //LogManager.GetLog(typeof(CaptureViewModel)).Info("scrollViewer.Width = {0}, scrollViewer.HorizontalOffset = {1}", scrollViewer.Width, scrollViewer.HorizontalOffset);
+                //scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset - 150.0);
+                //if (scrollViewer.HorizontalOffset <= 0)
+                //{
+                //    PrevVisibility = Visibility.Hidden;
+                //}
+                //else
+                //{
+                //    PrevVisibility = Visibility.Visible;
+                //}
+                //NextVisibility = Visibility.Visible;
+                if (_index >= 4)
+                {
+                    surfaceListBox.ScrollIntoView(surfaceListBox.Items[_index - 4]);
+                    _index--;
+                    if (_index == 3)
+                    {
+                        PrevVisibility = Visibility.Hidden;
+                    }
+                    NextVisibility = Visibility.Visible;
+                }
+                else
+                {
+                    PrevVisibility = Visibility.Hidden;
+                }
+            }
 
         }
 
-        public void Next()
+        public void Next(object source, object sv)
         {
+            var image = source as Image;
+            var surfaceListBox = sv as SurfaceListBox;
 
+            if (image != null && surfaceListBox != null)
+            {
+                //LogManager.GetLog(typeof(CaptureViewModel)).Info("scrollViewer.Width = {0}, scrollViewer.HorizontalOffset = {1}", scrollViewer.Width, scrollViewer.HorizontalOffset);
+                //scrollViewer.ScrollToHorizontalOffset(scrollViewer.HorizontalOffset + 150.0);
+                //if (scrollViewer.HorizontalOffset >= scrollViewer.Width)
+                //{
+                //    NextVisibility = Visibility.Hidden;
+                //}
+                //else
+                //{
+                //    NextVisibility = Visibility.Visible;
+                //}
+                //PrevVisibility = Visibility.Visible;
+                _index = _index + 1;
+                if (_index < surfaceListBox.Items.Count)
+                {
+                    surfaceListBox.ScrollIntoView(surfaceListBox.Items[_index]);
+                    PrevVisibility = Visibility.Visible;
+                    if (_index == surfaceListBox.Items.Count - 1)
+                    {
+                        NextVisibility = Visibility.Hidden;
+                    }
+                }
+                else
+                {
+                    NextVisibility = Visibility.Hidden;
+                }
+            }
         }
 
+        public void ScrollChanged(object sender)
+        {
+            LogManager.GetLog(typeof(CaptureViewModel)).Warn("ScrollChanged");
+        }
+
+        public void Captured(object sender)
+        {
+            LogManager.GetLog(typeof(CaptureViewModel)).Warn("Captured");
+        }
+
+        public void ListImage_ManipulationStarted(object sender)
+        {
+            LogManager.GetLog(typeof(CaptureViewModel)).Warn("ListImage_ManipulationStarted");
+        }
+        
         #endregion
 
         #region CLR 属性
+
+        /// <summary>
+        /// 可视元素个数
+        /// </summary>
+        private int _index = 3;
 
         /// <summary>
         /// 画笔轨迹撤销栈
@@ -534,6 +647,30 @@ namespace ShinePhoto.ViewModels
             {
                 _currentImageSource = value;
                 NotifyOfPropertyChange(() => CurrentImageSource);
+            }
+        }
+
+        private Visibility _nextVisibility = Visibility.Visible;
+
+        public Visibility NextVisibility
+        {
+            get { return _nextVisibility; }
+            set
+            {
+                _nextVisibility = value;
+                NotifyOfPropertyChange(() => NextVisibility);
+            }
+        }
+
+        private Visibility _prevVisibility = Visibility.Hidden;
+
+        public Visibility PrevVisibility
+        {
+            get { return _prevVisibility; }
+            set
+            {
+                _prevVisibility = value;
+                NotifyOfPropertyChange(() => PrevVisibility);
             }
         }
 

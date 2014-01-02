@@ -6,6 +6,8 @@
              xmlns:surface="clr-namespace:Microsoft.Surface.Presentation.Controls;assembly=Microsoft.Surface.Presentation" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cal="http://www.caliburnproject.org"
+             xmlns:uc="clr-namespace:ShinePhoto.UC"
+             xmlns:ext="clr-namespace:ShinePhoto.Extensions"
              mc:Ignorable="d" 
              d:DesignHeight="600" d:DesignWidth="2000">
     <UserControl.Resources>
@@ -131,10 +133,6 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Image>
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.picasa.png" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.unlock.png" />
                             <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.delete.png">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseUp">
@@ -144,6 +142,10 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Image>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.unlock.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.picasa.png" />
                             <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.save.png">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseUp">
@@ -234,9 +236,17 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Margin="0, 12, 0, 0"  Grid.Row="1" Orientation="Horizontal">
-            <Image x:Name="Prev"  Width="66" Height="65" Source="pack://application:,,,/ShinePhoto.Icons;C;Component/light/appbar.chevron.left.png" />
-            <!--<Image x:Name="Prev"  Width="66" Height="65" Source="/Images/Capture/Prev_Enable.png" />-->
-            <surface:SurfaceListBox Height="170" Margin="15, 0, 5, 0" cal:Message.Attach="[Event SelectionChanged] = [CurrentImageChanged($source)]" x:Name="FileModels" Background="Transparent" Width="1105" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled"  ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+            <Image x:Name="Prev" Visibility="{Binding PrevVisibility}"   Width="66" Height="65" Source="pack://application:,,,/ShinePhoto.Icons;C;Component/light/appbar.chevron.left.png">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseUp">
+                        <cal:ActionMessage MethodName="Prev">
+                            <cal:Parameter Value="$source" />
+                            <cal:Parameter Value="{Binding ElementName=FileModels}" />
+                        </cal:ActionMessage>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Image>
+            <surface:SurfaceListBox Height="170" Margin="15, 0, 5, 0" cal:Message.Attach="[Event SelectionChanged] = [CurrentImageChanged($source)];[Event ScrollViewer.ScrollChanged] = [ScrollChanged($source)];[Event ManipCompleted] = [ManipCompleted($source)]" x:Name="FileModels" Background="Transparent" Width="1105" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                 <surface:SurfaceListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel Orientation="Horizontal"></VirtualizingStackPanel>
@@ -245,12 +255,49 @@
                 <surface:SurfaceListBox.ItemTemplate>
                     <DataTemplate >
                         <Border Width="{Binding Width}" Height="{Binding Height}" BorderThickness="4" BorderBrush="Yellow">
-                            <Image Stretch="Fill" Source="{Binding FileName}" />
+                            <Grid>
+                                <uc:WaitingProgress />
+                                <!--<Image Stretch="Fill"  cal:Message.Attach="[Event ManipulationStarted] = [ListImage_ManipulationStarted($source)]" Source="{Binding FileName}" />-->
+                                <Image Stretch="UniformToFill" ext:ImageDecoder.Source="{Binding FileName}"></Image>
+                            </Grid>
                         </Border>
                     </DataTemplate>
                 </surface:SurfaceListBox.ItemTemplate>
             </surface:SurfaceListBox>
-            <Image x:Name="Next"  Width="66" Height="65" Source="pack://application:,,,/ShinePhoto.Icons;C;Component/light/appbar.chevron.right.png" />
+
+            <!--<ScrollViewer Margin="17, 0, 5, 0" x:Name="SV"  VerticalScrollBarVisibility="Disabled" IsManipulationEnabled="True" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" Background="Transparent" Width="1105">
+                <ListBox Height="170" Background="Transparent" cal:Message.Attach="[Event SelectionChanged] = [CurrentImageChanged($source)]" x:Name="FileModels" BorderThickness="0">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="IsManipulationEnabled" Value="False"/>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel Orientation="Horizontal"></VirtualizingStackPanel>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                    <ListBox.ItemTemplate>
+                        <DataTemplate >
+                            <Border Width="{Binding Width}" Height="{Binding Height}" BorderThickness="4" BorderBrush="Yellow">
+                                <uc:WaitingProgress />
+                                <Image Stretch="Fill" Source="{Binding FileName}" />
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>-->
+            
+            <Image x:Name="Next" Visibility="{Binding NextVisibility}"  Width="66" Height="65" Source="pack://application:,,,/ShinePhoto.Icons;C;Component/light/appbar.chevron.right.png">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseUp">
+                        <cal:ActionMessage MethodName="Next">
+                            <cal:Parameter Value="$source" />
+                            <cal:Parameter Value="{Binding ElementName=FileModels}" />
+                        </cal:ActionMessage>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Image>
         </StackPanel>
     </Grid>
 </UserControl>
