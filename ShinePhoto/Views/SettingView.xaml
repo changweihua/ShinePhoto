@@ -6,25 +6,25 @@
              mc:Ignorable="d">
     <StackPanel Margin="10" Background="White">
         <StackPanel Margin="5">
-            <Label>软件背景：(建议图片分辨率为1920*1080)</Label>
+            <Label Content="{DynamicResource SettingView_LabelMainBackground}" />
             <Border Grid.Column="1" Height="25" Style="{DynamicResource InputBorder}">
                 <TextBox VerticalAlignment="Center" Name="MainBackground" Background="{x:Null}" BorderThickness="0"  />
             </Border>
         </StackPanel>
         <StackPanel Margin="5">
-            <Label>轮播内容文件夹</Label>
+            <Label Content="{DynamicResource SettingView_LabelFolder}" />
             <Border Height="25" Style="{DynamicResource InputBorder}">
                 <TextBox VerticalAlignment="Center" Name="Folder" Background="{x:Null}" BorderThickness="0" />
             </Border>
         </StackPanel>
         <StackPanel Margin="5">
-            <Label>水印:PNG格式，图片分辨率最大宽度为510，最大高度为310</Label>
+            <Label Content="{DynamicResource SettingView_LabelWaterMarkImage}" />
             <Border Height="25" Style="{DynamicResource InputBorder}">
                 <TextBox VerticalAlignment="Center" Name="WaterMarkImage" Background="{x:Null}" BorderThickness="0" />
             </Border>
         </StackPanel>
         <StackPanel Margin="5">
-            <Label>公司LOGO:PNG格式，图片分辨率最大宽度为510，最大高度为310.</Label>
+            <Label Content="{DynamicResource SettingView_LabelLogo}" />
             <Border Height="25" Style="{DynamicResource InputBorder}">
                 <TextBox VerticalAlignment="Center" Name="Logo" Background="{x:Null}" BorderThickness="0" FontSize="18" />
             </Border>

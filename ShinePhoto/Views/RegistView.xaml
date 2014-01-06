@@ -15,7 +15,7 @@
             </Grid.RowDefinitions>
             <Border Background="#2D91CF" CornerRadius="2,2,0,0">
                 <Grid Background="Transparent" Name="TitleGrid" cal:Message.Attach="[Event MouseDown] = [Action MoveWindow($source, $eventargs, $view)]">
-                    <TextBlock Margin="10,0,0,0" HorizontalAlignment="Left" Foreground="White" FontSize="16" VerticalAlignment="Center">新用户注册</TextBlock>
+                    <TextBlock Margin="10,0,0,0" HorizontalAlignment="Left" Foreground="White" FontSize="16" VerticalAlignment="Center" Text="{DynamicResource RegistView_Title}" />
                     <Button Content="X" FontSize="16" cal:Message.Attach="[Event Click] = [Action CloseWindow($view)]" Foreground="White" HorizontalAlignment="Right" Margin="0,0,5,0" Height="20" Width="20" Style="{DynamicResource myBtnStyle}" VerticalAlignment="Center" />
                 </Grid>
             </Border>
@@ -29,12 +29,12 @@
                 </StackPanel>-->
 
                 <StackPanel VerticalAlignment="Bottom" x:Name="sp1" Margin="10" Orientation="Horizontal" HorizontalAlignment="Right" >
-                    <Button x:Name="Back" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="返回" />
-                    <Button IsEnabled="false" x:Name="Next" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="下一步" />
+                    <Button x:Name="Back" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="{DynamicResource RegistView_ButtonBack}" />
+                    <Button IsEnabled="false" x:Name="Next" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="{DynamicResource RegistView_ButtonNext}" />
                 </StackPanel>
                 <StackPanel VerticalAlignment="Bottom" Visibility="Collapsed" x:Name="sp2" Margin="10" Orientation="Horizontal" HorizontalAlignment="Right" >
-                    <Button x:Name="Prev" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="上一步" />
-                    <Button IsEnabled="False" x:Name="Finish" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="完成" />
+                    <Button x:Name="Prev" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="{DynamicResource RegistView_ButtonPrev}" />
+                    <Button IsEnabled="False" x:Name="Finish" Style="{StaticResource BlueButton}" Width="150" Height="35" Content="{DynamicResource RegistView_ButtonFinish}" />
                 </StackPanel>
             </StackPanel>
         </Grid>

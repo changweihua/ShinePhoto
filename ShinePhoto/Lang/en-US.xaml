@@ -1,7 +1,26 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <sys:String x:Key="LOGIN">
-        LOGIN
-    </sys:String>
+    <sys:String x:Key="LoginView_Title">Login Window</sys:String>
+    <sys:String x:Key="LoginView_LOGIN">LOGIN</sys:String>
+    <sys:String x:Key="LoginView_REGIST">REGIST</sys:String>
+    <sys:String x:Key="LoginView_LabelName">User Name</sys:String>
+    <sys:String x:Key="LoginView_LabelPassword">Password</sys:String>
+
+    <sys:String x:Key="UserInfoView_LabelGrid">Fill in the blanks below :</sys:String>
+    <sys:String x:Key="UserInfoView_LabelName">User Name</sys:String>
+    <sys:String x:Key="UserInfoView_LabelPassword">Password</sys:String>
+    <sys:String x:Key="UserInfoView_LabelRePassword">Password Again</sys:String>
+
+    <sys:String x:Key="SettingView_LabelMainBackground">Background(size 1920*1080 suggested)</sys:String>
+    <sys:String x:Key="SettingView_LabelFolder">Adv Folder</sys:String>
+    <sys:String x:Key="SettingView_LabelWaterMarkImage">Watermark Image</sys:String>
+    <sys:String x:Key="SettingView_LabelLogo">Logo</sys:String>
+
+    <sys:String x:Key="RegistView_Title">Regist Window</sys:String>
+    <sys:String x:Key="RegistView_ButtonBack">Back</sys:String>
+    <sys:String x:Key="RegistView_ButtonNext">Next</sys:String>
+    <sys:String x:Key="RegistView_ButtonPrev">Prev</sys:String>
+    <sys:String x:Key="RegistView_ButtonFinish">Finish</sys:String>
+    
 </ResourceDictionary>

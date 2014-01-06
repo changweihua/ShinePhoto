@@ -1,7 +1,25 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <sys:String x:Key="LOGIN">
-        确定
-    </sys:String>
+    <sys:String x:Key="LoginView_Title">用户登录</sys:String>
+    <sys:String x:Key="LoginView_LOGIN">登录</sys:String>
+    <sys:String x:Key="LoginView_REGIST">注册</sys:String>
+    <sys:String x:Key="LoginView_LabelName">用户名</sys:String>
+    <sys:String x:Key="LoginView_LabelPassword">密码</sys:String>
+
+    <sys:String x:Key="UserInfoView_LabelGrid">填写以下信息</sys:String>
+    <sys:String x:Key="UserInfoView_LabelName">用户名</sys:String>
+    <sys:String x:Key="UserInfoView_LabelPassword">密码</sys:String>
+    <sys:String x:Key="UserInfoView_LabelRePassword">确认密码</sys:String>
+
+    <sys:String x:Key="SettingView_LabelMainBackground">软件背景：(建议图片分辨率为1920*1080)</sys:String>
+    <sys:String x:Key="SettingView_LabelFolder">轮播内容文件夹</sys:String>
+    <sys:String x:Key="SettingView_LabelWaterMarkImage">水印:PNG格式，图片分辨率最大宽度为510，最大高度为310</sys:String>
+    <sys:String x:Key="SettingView_LabelLogo">公司LOGO:PNG格式，图片分辨率最大宽度为510，最大高度为310</sys:String>
+
+    <sys:String x:Key="RegistView_Title">新用户注册</sys:String>
+    <sys:String x:Key="RegistView_ButtonBack">返回</sys:String>
+    <sys:String x:Key="RegistView_ButtonNext">下一步</sys:String>
+    <sys:String x:Key="RegistView_ButtonPrev">上一步</sys:String>
+    <sys:String x:Key="RegistView_ButtonFinish">完成</sys:String>
 </ResourceDictionary>

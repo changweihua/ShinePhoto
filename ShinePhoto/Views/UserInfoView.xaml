@@ -20,9 +20,9 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Label Style="{DynamicResource InputLabel}" >用户名</Label>
-            <Label Style="{DynamicResource InputLabel}" Grid.Row="1">密码</Label>
-            <Label Style="{DynamicResource InputLabel}" Grid.Row="2">再次确认密码</Label>
+            <Label Style="{DynamicResource InputLabel}" Content="{DynamicResource UserInfoView_LabelName}" />
+            <Label Style="{DynamicResource InputLabel}" Grid.Row="1" Content="{DynamicResource UserInfoView_LabelPassword}" />
+            <Label Style="{DynamicResource InputLabel}" Grid.Row="2" Content="{DynamicResource UserInfoView_LabelRePassword}" />
             <Border Grid.Column="1" Style="{DynamicResource InputBorder}">
                 <TextBox VerticalAlignment="Center" Name="UserName" Width="250" Background="{x:Null}" BorderThickness="0" FontSize="22" />
             </Border>
@@ -36,6 +36,6 @@
             <TextBox Visibility="Collapsed" VerticalAlignment="Center" Name="RePassword" Width="250" Background="{x:Null}" BorderThickness="0" FontSize="22" />
             <Button Visibility="Collapsed" x:Name="Go" />
         </Grid>
-        <Label Content="请输入以下相关信息" FontSize="18" />
+        <Label Content="{DynamicResource UserInfoView_LabelGrid}" FontSize="18" />
     </Grid>
 </UserControl>

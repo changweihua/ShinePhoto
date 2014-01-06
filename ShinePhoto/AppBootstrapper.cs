@@ -12,7 +12,7 @@ using ShinePhoto.Helpers;
 
 namespace ShinePhoto
 {
-    class AppBootstrapper : Bootstrapper<LoginViewModel>
+    class AppBootstrapper : Bootstrapper<MainViewModel>
     {
         /// <summary>
         /// 聚合容器，可以考虑使用 MEF
@@ -52,6 +52,7 @@ namespace ShinePhoto
             if (exports.Count() > 0)
             {
                 return exports.First();
+                
             }
 
             throw new Exception(string.Format("无法加载契约 {0} 的任何实例.", contract));
@@ -68,19 +69,15 @@ namespace ShinePhoto
             //Application
             LogManager.GetLog(typeof(AppBootstrapper)).Info("\r\n操作系统信息\r\n序列号 {0}\r\nCPU 编号 {1}\r\n硬盘编号 {2}\r\n主板编号 {3}\r\n网卡编号 {4}\r\n用户组 {5}\r\n驱动器情况 {6}", SystemInfoHelper.GetSerialNumber(), SystemInfoHelper.GetCpuID(), SystemInfoHelper.GetMainHardDiskId(), SystemInfoHelper.GetMainBoardId(), SystemInfoHelper.GetNetworkAdapterId(), SystemInfoHelper.GetGroupName(), SystemInfoHelper.GetDriverInfo());
 
-
             #region 多语言
+
             System.Globalization.CultureInfo currentCultureInfo = System.Globalization.CultureInfo.CurrentCulture;
 
             System.Windows.ResourceDictionary langRd = null;
 
             try
             {
-
-                langRd =
-                    System.Windows.Application.LoadComponent(
-                             new Uri(@"Lang\" + currentCultureInfo.Name + ".xaml", UriKind.Relative))
-                    as System.Windows.ResourceDictionary;
+                langRd =System.Windows.Application.LoadComponent(new Uri(@"Lang\" + currentCultureInfo.Name + ".xaml", UriKind.Relative)) as System.Windows.ResourceDictionary;
             }
             catch
             {
@@ -94,7 +91,9 @@ namespace ShinePhoto
                 }
                 this.Application.Resources.MergedDictionaries.Insert(0, langRd);
             }
+
             #endregion
+
             base.OnStartup(sender, e);
         }
 

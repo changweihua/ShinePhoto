@@ -63,7 +63,7 @@
                             </cal:ActionMessage>
                         </i:EventTrigger>
                     </i:Interaction.Triggers>-->
-                    <TextBlock Margin="10,0,0,0" HorizontalAlignment="Left" Foreground="White" FontSize="16" VerticalAlignment="Center" Name="WindowTitle" />
+                    <TextBlock Margin="10,0,0,0" HorizontalAlignment="Left" Foreground="White" FontSize="16" VerticalAlignment="Center" Text="{DynamicResource LoginView_Title}" />
                     <Button Content="X" FontSize="16" x:Name="CloseButton" cal:Message.Attach="[Event Click] = [Action CloseWindow($view)]" Foreground="White" Style="{DynamicResource myBtnStyle}" HorizontalAlignment="Right" Margin="0,0,5,0" Height="20" Width="20" />
                 </Grid>
             </Border>
@@ -75,21 +75,21 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <StackPanel VerticalAlignment="Center" Margin="10"  Orientation="Horizontal">
-                        <Label Style="{DynamicResource InputLabel}" Target="{Binding ElementName=UserName}">用户名(_N)</Label>
+                        <Label Style="{DynamicResource InputLabel}" Target="{Binding ElementName=UserName}" Content="{DynamicResource LoginView_LabelName}" />
                         <Border CornerRadius="5" Height="35" BorderThickness="1" BorderBrush="#FF737070">
                             <TextBox Tag="输入用户名" Name="UserName" VerticalAlignment="Center" Width="250" Background="{x:Null}" BorderThickness="0" FontSize="22" />
                         </Border>
                     </StackPanel>
                     <StackPanel VerticalAlignment="Center" Margin="10" Orientation="Horizontal" Grid.Row="1">
-                        <Label Style="{DynamicResource InputLabel}" Target="{Binding ElementName=Password}">密  码(_P)</Label>
+                        <Label Style="{DynamicResource InputLabel}" Target="{Binding ElementName=Password}"  Content="{DynamicResource LoginView_LabelPassword}" />
                         <Border CornerRadius="5" Height="35" BorderThickness="1" BorderBrush="#FF737070">
                             <PasswordBox helper:PasswordHelper.Attach="True" helper:PasswordHelper.Password="{Binding Text, ElementName=Password, Mode=TwoWay}" VerticalAlignment="Center" Name="PasswordPB" Width="250" Background="{x:Null}" BorderThickness="0" FontSize="22" />
                         </Border>
                         <TextBox Visibility="Collapsed" VerticalAlignment="Center" Name="Password" Width="250" Background="{x:Null}" BorderThickness="0" FontSize="22" />
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Center" Margin="10" Orientation="Horizontal" Grid.Row="2">
-                        <Button IsEnabled="False" Style="{DynamicResource BlueButton}" Width="150" Height="35" x:Name="Login" cal:Message.Attach="[Event Click] = [Action Login]" Margin="10" Content="登录" />
-                        <Button Style="{DynamicResource BlueButton}" Width="150" Height="35" cal:Message.Attach="[Event Click] = [Action ShowRegist]" Margin="10" Content="{DynamicResource LOGIN}" />
+                        <Button IsEnabled="False" Style="{DynamicResource BlueButton}" Width="150" Height="35" x:Name="Login" cal:Message.Attach="[Event Click] = [Action Login]" Margin="10" Content="{DynamicResource LoginView_LOGIN}" />
+                        <Button Style="{DynamicResource BlueButton}" Width="150" Height="35" cal:Message.Attach="[Event Click] = [Action ShowRegist]" Margin="10" Content="{DynamicResource LoginView_REGIST}" />
                     </StackPanel>
                 </Grid>
             </Grid>
