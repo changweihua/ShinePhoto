@@ -12,7 +12,7 @@ using ShinePhoto.Helpers;
 
 namespace ShinePhoto
 {
-    class AppBootstrapper : Bootstrapper<MainViewModel>
+    class AppBootstrapper : Bootstrapper<LoginViewModel>
     {
         /// <summary>
         /// 聚合容器，可以考虑使用 MEF
