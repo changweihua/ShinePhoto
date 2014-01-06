@@ -207,6 +207,15 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Lang\en-US.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Content Include="Lang\zh-CN.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Page Include="Styles\ErrorStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -294,6 +303,7 @@
     <Resource Include="Adv\175352n261rlq9wcl0xplf.jpg" />
     <Resource Include="Adv\QQ截图20131220152412.png" />
     <Resource Include="Adv\QQ截图20131224130755.png" />
+    <Resource Include="config.xml" />
     <Content Include="Xceed.Wpf.Toolkit.dll" />
     <Resource Include="Images\BG.jpg" />
     <Resource Include="Images\Left\Capture.png" />

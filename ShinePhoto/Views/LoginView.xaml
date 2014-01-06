@@ -89,7 +89,7 @@
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Center" Margin="10" Orientation="Horizontal" Grid.Row="2">
                         <Button IsEnabled="False" Style="{DynamicResource BlueButton}" Width="150" Height="35" x:Name="Login" cal:Message.Attach="[Event Click] = [Action Login]" Margin="10" Content="登录" />
-                        <Button Style="{DynamicResource BlueButton}" Width="150" Height="35" cal:Message.Attach="[Event Click] = [Action ShowRegist]" Margin="10" Content="注册" />
+                        <Button Style="{DynamicResource BlueButton}" Width="150" Height="35" cal:Message.Attach="[Event Click] = [Action ShowRegist]" Margin="10" Content="{DynamicResource LOGIN}" />
                     </StackPanel>
                 </Grid>
             </Grid>

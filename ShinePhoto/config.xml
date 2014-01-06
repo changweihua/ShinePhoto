@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<shine>
+  <module name="SignatureAlbum" order="1">
+    
+  </module>
+  <module name="ShineDisplay" order="2">
+
+  </module>
+  <module name="Capture" order="3">
+
+  </module>
+</shine>
