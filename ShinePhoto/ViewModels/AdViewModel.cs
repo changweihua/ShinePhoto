@@ -8,7 +8,7 @@ using Caliburn.Micro;
 namespace ShinePhoto.ViewModels
 {
     [Export(typeof(AdViewModel))]
-    public class AdViewModel : PropertyChangedBase
+    public class AdViewModel : Screen
     {
         //[ImportingConstructor]
         public AdViewModel()

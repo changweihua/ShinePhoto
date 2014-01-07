@@ -14,7 +14,7 @@ namespace ShinePhoto.ViewModels
     /// 主视图
     /// </summary>
     [Export(typeof(MainViewModel))]
-    public class MainViewModel : PropertyChangedBase, IHandle<ModuleChangedEvent>
+    public class MainViewModel : Screen, IHandle<ModuleChangedEvent>
     {
         private readonly IEventAggregator _eventAggregator;
 

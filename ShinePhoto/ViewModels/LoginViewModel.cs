@@ -15,7 +15,7 @@ namespace ShinePhoto.ViewModels
     /// 登录视图 ViewModel
     /// </summary>
     [Export(typeof(LoginViewModel))]
-    public class LoginViewModel : PropertyChangedBase
+    public class LoginViewModel : Screen
     {
         private readonly IWindowManager _windowManager;
         private readonly IEventAggregator _events;

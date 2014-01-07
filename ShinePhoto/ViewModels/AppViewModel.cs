@@ -11,7 +11,7 @@ namespace ShinePhoto.ViewModels
     /// 主视图 ViewModel
     /// </summary>
     [Export(typeof(AppViewModel))]
-    public class AppViewModel : PropertyChangedBase
+    public class AppViewModel : Screen
     {
        
     }

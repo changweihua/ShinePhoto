@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using ShinePhoto.Interfaces;
 using System.ComponentModel.Composition;
+using Caliburn.Micro;
 
 namespace ShinePhoto.ViewModels
 {
@@ -11,7 +12,7 @@ namespace ShinePhoto.ViewModels
     /// 炫影展示视图 ViewModel
     /// </summary>
     [Export(typeof(ShineDisplayViewModel))]
-    public class ShineDisplayViewModel : IShellView
+    public class ShineDisplayViewModel : Screen,IShellView
     {
     }
 }

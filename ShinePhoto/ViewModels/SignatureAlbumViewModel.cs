@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using ShinePhoto.Interfaces;
 using System.ComponentModel.Composition;
+using Caliburn.Micro;
 
 namespace ShinePhoto.ViewModels
 {
@@ -11,7 +12,7 @@ namespace ShinePhoto.ViewModels
     /// 签名相册视图 ViewModel
     /// </summary>
     [Export(typeof(SignatureAlbumViewModel))]
-    public class SignatureAlbumViewModel : IShellView
+    public class SignatureAlbumViewModel : Screen,IShellView
     {
     }
 }

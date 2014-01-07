@@ -9,7 +9,7 @@ using ShinePhoto.Interfaces;
 namespace ShinePhoto.ViewModels
 {
     [Export(typeof(IntroductionViewModel))]
-    public class IntroductionViewModel : PropertyChangedBase, IShellView
+    public class IntroductionViewModel : Screen, IShellView
     {
     }
 }
