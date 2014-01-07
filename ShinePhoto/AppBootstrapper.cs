@@ -26,10 +26,10 @@ namespace ShinePhoto
         {
             _container = new CompositionContainer(new AggregateCatalog(AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()));
 
-            foreach (string file in System.IO.Directory.GetFiles( AppDomain.CurrentDomain.BaseDirectory + "Modules", "*.dll", System.IO.SearchOption.AllDirectories))
-            {
-                AssemblySource.Instance.Add(System.Reflection.Assembly.LoadFrom(file));
-            }
+            //foreach (string file in System.IO.Directory.GetFiles( AppDomain.CurrentDomain.BaseDirectory + "Modules", "*.dll", System.IO.SearchOption.AllDirectories))
+            //{
+            //    AssemblySource.Instance.Add(System.Reflection.Assembly.LoadFrom(file));
+            //}
 
             CompositionBatch batch = new CompositionBatch();
             batch.AddExportedValue<IWindowManager>(new FlatWindowManager());
@@ -50,7 +50,6 @@ namespace ShinePhoto
 
         protected override IEnumerable<System.Reflection.Assembly> SelectAssemblies()
         {
-           
             return base.SelectAssemblies();
         }
 
