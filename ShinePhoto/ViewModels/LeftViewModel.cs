@@ -17,7 +17,7 @@ namespace ShinePhoto.ViewModels
     /// 左侧导航视图 ViewModel
     /// </summary>
     [Export(typeof(LeftViewModel))]
-    public class LeftViewModel : Screen
+    public class LeftViewModel : Screen //Conductor<AdViewModel>.Collection.OneActive
     {
         private readonly IEventAggregator _eventAggregator;
 
@@ -26,9 +26,7 @@ namespace ShinePhoto.ViewModels
         {
             _eventAggregator = eventAggregator;
             AdViewModel = adViewModel;
-
-            
-
+           
             #region 加载组件
 
             //IoC.getV
@@ -42,7 +40,6 @@ namespace ShinePhoto.ViewModels
                 foreach (var node in nodes)
                 {
                     LogManager.GetLog(typeof(LeftViewModel)).Info(node.Attribute("name").ToString());
-
                 }
 
             }
@@ -127,11 +124,13 @@ namespace ShinePhoto.ViewModels
                         var name = path.Substring(0, path.LastIndexOf('.'));
                         var ext = path.Substring(path.LastIndexOf('.'));
                         img.Source = new BitmapImage(new Uri(name + "_Selected" + ext, UriKind.RelativeOrAbsolute));
+                        img.IsEnabled = false;
                         continue;
                     }
 
                     var fileName = image.Source.ToString().Replace("_Selected", "");
                     image.Source = new BitmapImage(new Uri(fileName, UriKind.RelativeOrAbsolute));
+                    img.IsEnabled = true;
                     
                 }
             }
