@@ -5,7 +5,41 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        <Button>All Rights Reserved !</Button>
-    </Grid>
+    <StackPanel>
+        <StackPanel.Background>
+            <LinearGradientBrush StartPoint="0,0.5" EndPoint="1,0.5">
+                <GradientStop Offset="0" Color="LightGoldenrodYellow" />
+                <GradientStop Offset="0.3" Color="LightCyan" />
+                <GradientStop Offset="0.5" Color="LightBlue" />
+                <GradientStop Offset="0.7" Color="LightCyan" />
+                <GradientStop Offset="1" Color="LightGoldenrodYellow" />
+            </LinearGradientBrush>
+        </StackPanel.Background>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="100" />
+            </Grid.RowDefinitions>
+            <StackPanel Margin="20,10" HorizontalAlignment="Stretch" x:Name="spInfo">
+                <TextBlock Margin="0,10" x:Name="tbName" FontSize="20" HorizontalAlignment="Center" Text="ShinePhoto" />
+                <TextBlock Margin="0,10" Text="1. 采用 Microsoft WPF 。基于 .NET Framework 4.0基础。 " />
+                <TextBlock Margin="0,10" Text="3. 采用 LGPL  授权协议。 " />
+                <TextBlock Margin="0,10" Text="4. 不定期更新。 " />
+            </StackPanel>
+            <Rectangle Grid.Row="1" RenderTransformOrigin="0.5,0.5">
+                <Rectangle.Fill>
+                    <VisualBrush Visual="{Binding ElementName=tbName}"/>
+                </Rectangle.Fill>
+                <Rectangle.OpacityMask>
+                    <LinearGradientBrush StartPoint="1,0" EndPoint="1,1">
+                        <GradientStop Offset="0.3" Color="Transparent"></GradientStop>
+                        <GradientStop Offset="1" Color="White"></GradientStop>
+                    </LinearGradientBrush>
+                </Rectangle.OpacityMask>
+                <Rectangle.RenderTransform>
+                    <ScaleTransform  ScaleY="-1" ScaleX="0.7"></ScaleTransform>
+                </Rectangle.RenderTransform>
+            </Rectangle>
+        </Grid>
+    </StackPanel>
 </UserControl>
