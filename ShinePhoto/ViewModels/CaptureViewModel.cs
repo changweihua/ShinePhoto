@@ -25,7 +25,7 @@ namespace ShinePhoto.ViewModels
     /// 即拍即得视图 ViewModel
     /// </summary>
     [Export(typeof(CaptureViewModel))]
-    public class CaptureViewModel : PropertyChangedBase, IShellView
+    public class CaptureViewModel : Screen, IShellView
     {
 
         /// <summary>

@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <shine>
-  <module name="SignatureAlbum" order="1">
+  <module name="SignatureAlbum" order="1" icon="/Images/Left/ShineDisplay.png">
     
   </module>
-  <module name="ShineDisplay" order="2">
+  <module name="ShineDisplay" order="2" icon="/Images/Left/SignatureAlbum.png">
 
   </module>
-  <module name="Capture" order="3">
+  <module name="Capture" order="3" icon="/Images/Left/Capture.png">
 
   </module>
 </shine>

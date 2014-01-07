@@ -24,7 +24,7 @@ namespace ShinePhoto.ViewModels
         }
 
         [ImportingConstructor]
-        public MainViewModel(LeftViewModel leftViewModel, SignatureAlbumViewModel viewModel, IEventAggregator eventAggregator)
+        public MainViewModel(LeftViewModel leftViewModel,IntroductionViewModel viewModel, IEventAggregator eventAggregator)
         {
             LeftViewModel = leftViewModel;
             ShellViewModel = viewModel;

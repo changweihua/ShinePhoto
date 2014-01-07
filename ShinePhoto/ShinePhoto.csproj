@@ -134,6 +134,7 @@
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
     <Compile Include="ViewModels\CaptureViewModel.cs" />
+    <Compile Include="ViewModels\IntroductionViewModel.cs" />
     <Compile Include="ViewModels\LeftViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -151,6 +152,9 @@
     </Compile>
     <Compile Include="Views\CaptureView.xaml.cs">
       <DependentUpon>CaptureView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IntroductionView.xaml.cs">
+      <DependentUpon>IntroductionView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LeftView.xaml.cs">
       <DependentUpon>LeftView.xaml</DependentUpon>
@@ -255,6 +259,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\IntroductionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\LeftView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -306,8 +314,9 @@
     <Resource Include="Adv\175352n261rlq9wcl0xplf.jpg" />
     <Resource Include="Adv\QQ截图20131220152412.png" />
     <Resource Include="Adv\QQ截图20131224130755.png" />
-    <Resource Include="config.xml" />
-    <Content Include="Xceed.Wpf.Toolkit.dll" />
+    <Content Include="config.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Resource Include="Images\BG.jpg" />
     <Resource Include="Images\Left\Capture.png" />
     <Resource Include="Images\Left\ShineDisplay.png" />

@@ -15,7 +15,7 @@
         </Grid.RowDefinitions>
         <Image Margin="7,17,0,0" Width="274" Height="48"  Source="/Images/Left/Board.png" />
         <StackPanel x:Name="ImageStack" Margin="0,30,0,0" Grid.Row="1">
-            <Image x:Name="ShineDisplay" Tag="0" Width="143" Height="179" Margin="-13, 20, 0, 20" Source="/Images/Left/ShineDisplay.png">
+            <!--<Image x:Name="ShineDisplay" Tag="0" Width="143" Height="179" Margin="-13, 20, 0, 20" Source="/Images/Left/ShineDisplay.png">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseUp">
                         <cal:ActionMessage MethodName="ImageTouched">
@@ -44,7 +44,7 @@
                         </cal:ActionMessage>
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-            </Image>
+            </Image>-->
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2">
             <ContentControl x:Name="AdViewModel" />

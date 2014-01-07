@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using ShinePhoto.Events;
+using System.Xml.Linq;
 
 namespace ShinePhoto.ViewModels
 {
@@ -16,7 +17,7 @@ namespace ShinePhoto.ViewModels
     /// 左侧导航视图 ViewModel
     /// </summary>
     [Export(typeof(LeftViewModel))]
-    public class LeftViewModel : PropertyChangedBase
+    public class LeftViewModel : Screen
     {
         private readonly IEventAggregator _eventAggregator;
 
@@ -25,6 +26,36 @@ namespace ShinePhoto.ViewModels
         {
             _eventAggregator = eventAggregator;
             AdViewModel = adViewModel;
+
+            
+
+            #region 加载组件
+
+            //IoC.getV
+
+            var doc = XDocument.Load("config.xml");
+
+            if (doc != null)
+            {
+                var nodes = doc.Root.Descendants("module");
+
+                foreach (var node in nodes)
+                {
+                    LogManager.GetLog(typeof(LeftViewModel)).Info(node.Attribute("name").ToString());
+
+                }
+
+            }
+
+            #endregion
+
+        }
+
+        Image CreateImage()
+        {
+            Image image = null;
+
+            return image;
         }
 
         /// <summary>

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.Composition;
 using Caliburn.Micro;
+using ShinePhoto.Interfaces;
 
 namespace ShinePhoto.ViewModels
 {
-    [Export(typeof(RightViewModel))]
-    public class RightViewModel : Screen
+    [Export(typeof(IntroductionViewModel))]
+    public class IntroductionViewModel : PropertyChangedBase, IShellView
     {
     }
 }
