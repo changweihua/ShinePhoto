@@ -357,6 +357,9 @@
     <None Include="Default.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Content Include="Modules\CMONO.Plugin.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="x64\SQLite.Interop.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -368,6 +371,10 @@
     <ProjectReference Include="..\ShinePhoto.Icons\ShinePhoto.Icons.csproj">
       <Project>{8F050A33-D450-4071-9780-A205F3906DA0}</Project>
       <Name>ShinePhoto.Icons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShinePhoto.Interface\ShinePhoto.Interface.csproj">
+      <Project>{9EC73F46-EC83-41CC-8576-23BD7CA9EF08}</Project>
+      <Name>ShinePhoto.Interface</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

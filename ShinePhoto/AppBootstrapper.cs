@@ -26,6 +26,11 @@ namespace ShinePhoto
         {
             _container = new CompositionContainer(new AggregateCatalog(AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>()));
 
+            foreach (string file in System.IO.Directory.GetFiles( AppDomain.CurrentDomain.BaseDirectory + "Modules", "*.dll", System.IO.SearchOption.AllDirectories))
+            {
+                AssemblySource.Instance.Add(System.Reflection.Assembly.LoadFrom(file));
+            }
+
             CompositionBatch batch = new CompositionBatch();
             batch.AddExportedValue<IWindowManager>(new FlatWindowManager());
             batch.AddExportedValue<IEventAggregator>(new EventAggregator());
@@ -43,6 +48,18 @@ namespace ShinePhoto
             _container.Compose(batch);
         }
 
+        protected override IEnumerable<System.Reflection.Assembly> SelectAssemblies()
+        {
+           
+            return base.SelectAssemblies();
+        }
+
+        protected override void OnExit(object sender, EventArgs e)
+        {
+            LogManager.GetLog(typeof(AppBootstrapper)).Info("程序退出，退出时间为{0}", DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss"));
+            base.OnExit(sender, e);
+        }
+        
         protected override object GetInstance(Type service, string key)
         {
             string contract = string.IsNullOrEmpty(key) ? AttributedModelServices.GetContractName(service) : key;

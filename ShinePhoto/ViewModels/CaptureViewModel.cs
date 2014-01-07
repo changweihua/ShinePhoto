@@ -18,6 +18,7 @@ using System.Windows.Ink;
 using System.Windows;
 using Xceed.Wpf.Toolkit;
 using System.Windows.Media.Animation;
+using ShinePhoto.Interface;
 
 namespace ShinePhoto.ViewModels
 {

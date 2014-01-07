@@ -7,6 +7,7 @@ using Caliburn.Micro;
 using ShinePhoto.Events;
 using System.Diagnostics;
 using ShinePhoto.Interfaces;
+using ShinePhoto.Interface;
 
 namespace ShinePhoto.ViewModels
 {
@@ -30,6 +31,10 @@ namespace ShinePhoto.ViewModels
             ShellViewModel = viewModel;
             _eventAggregator = eventAggregator;
             _eventAggregator.Subscribe(this);
+
+            //var viewModels = IoC.GetAll<ShinePhoto.Interfaces.IShellView>();
+            //var viewModel = IoC.GetAll<ShinePhoto.Interfaces.IShellView>().FirstOrDefault(vm => vm.GetType() == typeof(ShinePhoto.Interfaces.IShellView));
+            //LogManager.GetLog(typeof(MainViewModel)).Info("ViewModel 数量: {0}", viewModels.Count());
         }
 
         /// <summary>

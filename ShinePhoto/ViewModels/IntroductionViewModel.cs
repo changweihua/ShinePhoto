@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel.Composition;
 using Caliburn.Micro;
 using ShinePhoto.Interfaces;
+using ShinePhoto.Interface;
 
 namespace ShinePhoto.ViewModels
 {
