@@ -98,6 +98,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Converters\ModuleModelConverter.cs" />
     <Compile Include="Events\ModuleChangedEvent.cs" />
     <Compile Include="Events\RegistNextEvent.cs" />
     <Compile Include="Extensions\FlatWindowManager.cs" />
@@ -119,6 +120,7 @@
     <Compile Include="Models\ExifModel.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\LoginUserModel.cs" />
+    <Compile Include="Models\ModuleModel.cs" />
     <Compile Include="Models\ShinePhotoDataContext.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="UC\LoadingProgress.xaml.cs">
@@ -143,6 +145,7 @@
     <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="ViewModels\ShineDisplayViewModel.cs" />
     <Compile Include="ViewModels\SignatureAlbumViewModel.cs" />
+    <Compile Include="ViewModels\SplashViewModel.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="Views\AdView.xaml.cs">
       <DependentUpon>AdView.xaml</DependentUpon>
@@ -179,6 +182,9 @@
     </Compile>
     <Compile Include="Views\SignatureAlbumView.xaml.cs">
       <DependentUpon>SignatureAlbumView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SplashView.xaml.cs">
+      <DependentUpon>SplashView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserInfoView.xaml.cs">
       <DependentUpon>UserInfoView.xaml</DependentUpon>
@@ -218,6 +224,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Resource Include="Images\Splash.jpg" />
     <Content Include="Lang\zh-CN.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -295,14 +302,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SplashView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserInfoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Converters\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Images\Photo.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

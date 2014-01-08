@@ -726,7 +726,7 @@ namespace ShinePhoto.ViewModels
             if (inkCanvas != null && inkCanvas.EditingMode == InkCanvasEditingMode.Ink)
             {
                 System.Windows.Rect rect = new System.Windows.Rect(0, 0, inkCanvas.ActualWidth, inkCanvas.ActualHeight);    //設定Rect
-
+                
                 InkCanvas.SetLeft(inkCanvas, rect.Left);    //設定橡皮插圖案Location
                 InkCanvas.SetTop(inkCanvas, rect.Top);      //同上
                 inkCanvas.Strokes.Erase(rect);    //擦一個矩形居快的筆跡

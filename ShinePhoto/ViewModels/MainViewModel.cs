@@ -37,6 +37,13 @@ namespace ShinePhoto.ViewModels
             //LogManager.GetLog(typeof(MainViewModel)).Info("ViewModel 数量: {0}", viewModels.Count());
         }
 
+        protected override void OnViewLoaded(object view)
+        {
+            //var win = (view as Screen).GetView() as System.Windows.Window;
+            //System.Windows.Application.Current.MainWindow = win;
+            base.OnViewLoaded(view);
+        }
+
         /// <summary>
         /// 左侧视图
         /// </summary>

@@ -27,6 +27,15 @@ namespace ShinePhoto.Extensions
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             //window.Background = new SolidColorBrush(Colors.Transparent);
 
+    //        windowManger.ShowWindow(viewModel,
+    //settings: new Dictionary<string, object>
+    //{
+    //    { "WindowStyle", WindowStyle.None},
+    //    { "ShowInTaskbar", false},
+    //    { "AllowsTransparency", true},
+    //    { "Background", new SolidColorBrush(Colors.Transparent)},
+    //});
+
             return window;
         }
 

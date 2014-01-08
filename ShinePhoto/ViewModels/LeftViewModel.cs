@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Media;
 using ShinePhoto.Events;
 using System.Xml.Linq;
+using ShinePhoto.Models;
 
 namespace ShinePhoto.ViewModels
 {
@@ -21,12 +22,19 @@ namespace ShinePhoto.ViewModels
     {
         private readonly IEventAggregator _eventAggregator;
 
+        public BindableCollection<ModuleModel> ModuleModels { get; private set; }
+
+
         [ImportingConstructor]
         public LeftViewModel(AdViewModel adViewModel, IEventAggregator eventAggregator)
         {
             _eventAggregator = eventAggregator;
             AdViewModel = adViewModel;
-           
+            ModuleModels = new BindableCollection<ModuleModel>();
+        }
+
+        public void LoadData(object source)
+        {
             #region 加载组件
 
             //IoC.getV
@@ -36,16 +44,27 @@ namespace ShinePhoto.ViewModels
             if (doc != null)
             {
                 var nodes = doc.Root.Descendants("module");
-
+                int index=0;
                 foreach (var node in nodes)
                 {
-                    LogManager.GetLog(typeof(LeftViewModel)).Info(node.Attribute("name").ToString());
+                    ModuleModels.Add(new ModuleModel { Icon = node.Attribute("icon").Value.ToString(), Tag = index++ });
+                    LogManager.GetLog(typeof(LeftViewModel)).Info(node.Attribute("name").Value.ToString());
                 }
 
             }
 
-            #endregion
+            var view = source as ShinePhoto.Views.LeftView;
 
+            ItemsControl navBar = null;
+            if (view != null)
+            {
+                navBar = view.NavBar ;// ShinePhoto.Helpers.TreeHelper.FindVisualChildByName<ItemsControl>(view, "NavBar");
+
+                navBar.ItemsSource = ModuleModels;
+            }
+
+
+            #endregion
         }
 
         Image CreateImage()
@@ -68,7 +87,7 @@ namespace ShinePhoto.ViewModels
         public void ImageTouched(object source, object parent)
         {
             var img = source as Image;
-            var sp = parent as StackPanel;
+            var sp = parent as ItemsControl;
             if (img != null && sp != null)
             {
                 AdjustImageStaus(sp, img);
@@ -110,9 +129,9 @@ namespace ShinePhoto.ViewModels
         /// </summary>
         /// <param name="sp"></param>
         /// <param name="img"></param>
-        void AdjustImageStaus(StackPanel sp, Image img)
+        void AdjustImageStaus(ItemsControl sp, Image img)
         {
-            foreach (var item in sp.Children)
+            foreach (var item in ShinePhoto.Helpers.TreeHelper.GetChildObjects<Image>(sp, ""))
             {
                 if (item.GetType() == typeof(Image))
                 {
@@ -124,13 +143,11 @@ namespace ShinePhoto.ViewModels
                         var name = path.Substring(0, path.LastIndexOf('.'));
                         var ext = path.Substring(path.LastIndexOf('.'));
                         img.Source = new BitmapImage(new Uri(name + "_Selected" + ext, UriKind.RelativeOrAbsolute));
-                        img.IsEnabled = false;
                         continue;
                     }
 
                     var fileName = image.Source.ToString().Replace("_Selected", "");
                     image.Source = new BitmapImage(new Uri(fileName, UriKind.RelativeOrAbsolute));
-                    img.IsEnabled = true;
                     
                 }
             }

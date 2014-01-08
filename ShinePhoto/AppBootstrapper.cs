@@ -110,8 +110,42 @@ namespace ShinePhoto
 
             #endregion
 
-            base.OnStartup(sender, e);
+            try
+            {
+                var splashScreen = IoC.Get<SplashViewModel>();
+                var winManager = IoC.Get<IWindowManager>();
+
+                var settings = new Dictionary<string, object>
+                {
+                    { "AllowsTransparency", true},
+                    { "WindowStyle", System.Windows.WindowStyle.None},
+                    { "WindowStartupLocation", System.Windows.WindowStartupLocation.CenterScreen }
+                };
+
+                bool? flag = winManager.ShowDialog(splashScreen, null, settings);
+
+                //bool? flag = winManager.ShowDialog(splashScreen);
+
+                if (flag.Value)
+                {
+                    LogManager.GetLog(typeof(AppBootstrapper)).Info("程序初始化成功");
+                    base.OnStartup(sender, e);
+                }
+                else
+                {
+                    LogManager.GetLog(typeof(AppBootstrapper)).Info("程序初始化失败");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLog(typeof(AppBootstrapper)).Info("初始化发生异常 {0}", ex.Message);
+            }
+
+           
+
         }
+
+        
 
     }
 }
