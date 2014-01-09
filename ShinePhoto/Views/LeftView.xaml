@@ -22,16 +22,19 @@
             <ItemsControl x:Name="NavBar">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Image Tag="{Binding Tag}" Width="143" Height="179" Margin="-13, 20, 0, 20" Source="{Binding Icon}">
-                            <i:Interaction.Triggers>
-                                <i:EventTrigger EventName="MouseUp">
-                                    <cal:ActionMessage MethodName="ImageTouched">
-                                        <cal:Parameter Value="$source" />
-                                        <cal:Parameter Value="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}}" />
-                                    </cal:ActionMessage>
-                                </i:EventTrigger>
-                            </i:Interaction.Triggers>
-                        </Image>
+                        <StackPanel HorizontalAlignment="Center">
+                            <Image Tag="{Binding Tag}" Width="128" Height="128" Margin="-13, 20, 0, 20" Source="{Binding Icon}">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <cal:ActionMessage MethodName="ImageTouched">
+                                            <cal:Parameter Value="$source" />
+                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}}" />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Image>
+                            <TextBlock Text="{Binding ModuleName}" />
+                        </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>

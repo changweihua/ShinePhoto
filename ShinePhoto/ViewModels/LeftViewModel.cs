@@ -47,7 +47,7 @@ namespace ShinePhoto.ViewModels
                 int index=0;
                 foreach (var node in nodes)
                 {
-                    ModuleModels.Add(new ModuleModel { Icon = node.Attribute("icon").Value.ToString(), Tag = index++ });
+                    ModuleModels.Add(new ModuleModel { Icon = node.Attribute("icon").Value.ToString(), Tag = index++, ModuleName = node.Attribute("cname").Value.ToString() });
                     LogManager.GetLog(typeof(LeftViewModel)).Info(node.Attribute("name").Value.ToString());
                 }
 

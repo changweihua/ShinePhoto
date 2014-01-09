@@ -225,6 +225,19 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Resource Include="Images\Splash.jpg" />
+    <Resource Include="Images\Left\JiPaiJiDe.png" />
+    <Resource Include="Images\Left\Capture.png" />
+    <Resource Include="Images\Left\Capture_Selected.png" />
+    <Resource Include="Images\Left\ShineDisplay.png" />
+    <Resource Include="Images\Left\ShineDisplay_Selected.png" />
+    <Resource Include="Images\Left\SignatureAlbum.png" />
+    <Resource Include="Images\Left\SignatureAlbum_Selected.png" />
+    <Resource Include="Images\Left\Capture_128_Selected.png" />
+    <Resource Include="Images\Left\Capture_128.png" />
+    <Resource Include="Images\Left\ShineDisplay_128_Selected.png" />
+    <Resource Include="Images\Left\ShineDisplay_128.png" />
+    <Resource Include="Images\Left\SignatureAlbum_128_Selected.png" />
+    <Resource Include="Images\Left\SignatureAlbum_128.png" />
     <Content Include="Lang\zh-CN.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -327,12 +340,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="Images\BG.jpg" />
-    <Resource Include="Images\Left\Capture.png" />
-    <Resource Include="Images\Left\ShineDisplay.png" />
-    <Resource Include="Images\Left\SignatureAlbum.png" />
-    <Resource Include="Images\Left\Capture_Selected.png" />
-    <Resource Include="Images\Left\ShineDisplay_Selected.png" />
-    <Resource Include="Images\Left\SignatureAlbum_Selected.png" />
     <Resource Include="Images\Left\Board.png" />
     <Resource Include="Images\Result1.jpg" />
     <Resource Include="Images\Result2.jpg" />

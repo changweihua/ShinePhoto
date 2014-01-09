@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <shine>
-  <module name="SignatureAlbum" order="1" icon="/Images/Left/ShineDisplay.png">
+  <module name="SignatureAlbum" cname="签名相册" order="1" icon="/Images/Left/ShineDisplay_128.png">
     
   </module>
-  <module name="ShineDisplay" order="2" icon="/Images/Left/SignatureAlbum.png">
+  <module name="ShineDisplay" cname="炫影展示" order="2" icon="/Images/Left/SignatureAlbum_128.png">
 
   </module>
-  <module name="Capture" order="3" icon="/Images/Left/Capture.png">
+  <module name="Capture" cname="即拍即得" order="3" icon="/Images/Left/Capture_128.png">
 
   </module>
 </shine>
