@@ -11,6 +11,7 @@ using System.Windows.Media;
 using ShinePhoto.Events;
 using System.Xml.Linq;
 using ShinePhoto.Models;
+using ShinePhoto.Views;
 
 namespace ShinePhoto.ViewModels
 {
@@ -43,7 +44,7 @@ namespace ShinePhoto.ViewModels
 
             if (doc != null)
             {
-                var nodes = doc.Root.Descendants("module");
+                var nodes = doc.Root.Descendants("module").OrderBy((_) => { return Convert.ToInt32(_.Attribute("order").Value); });
                 int index=0;
                 foreach (var node in nodes)
                 {
@@ -67,13 +68,6 @@ namespace ShinePhoto.ViewModels
             #endregion
         }
 
-        Image CreateImage()
-        {
-            Image image = null;
-
-            return image;
-        }
-
         /// <summary>
         /// 广告视图
         /// </summary>
@@ -91,6 +85,19 @@ namespace ShinePhoto.ViewModels
             if (img != null && sp != null)
             {
                 AdjustImageStaus(sp, img);
+                int number = Convert.ToInt32(img.Tag);
+                _eventAggregator.Publish(new ModuleChangedEvent(null, img.Tag.ToString(), TurnNumberIntoType(number)));
+            }
+        }
+
+        public void ImageTouched(object source, object topParent, object parent)
+        {
+            var img = source as Image;
+            var ic = topParent as ItemsControl;
+            var border = parent as Border;
+            if (img != null && ic != null && border != null)
+            {
+                AdjustImageStaus(ic, border);
                 int number = Convert.ToInt32(img.Tag);
                 _eventAggregator.Publish(new ModuleChangedEvent(null, img.Tag.ToString(), TurnNumberIntoType(number)));
             }
@@ -151,7 +158,26 @@ namespace ShinePhoto.ViewModels
                     
                 }
             }
-          
+        }
+
+        void AdjustImageStaus(ItemsControl ic, Border border)
+        {
+            foreach (var item in ShinePhoto.Helpers.TreeHelper.GetChildObjects<Border>(ic, "").Skip(1))
+            {
+                if (item.GetType() == typeof(Border))
+                {
+                    var b = item as Border;
+
+                    if (b == border)
+                    {
+                        b.BorderThickness = new System.Windows.Thickness(2);
+                        continue;
+                    }
+
+                    b.BorderThickness = new System.Windows.Thickness(0);
+
+                }
+            }
         }
     }
 }

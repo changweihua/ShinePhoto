@@ -10,6 +10,35 @@
              mc:Ignorable="d"  cal:Message.Attach="[Event Loaded] = [Action LoadData($source)]">
     <UserControl.Resources>
         <cv:ModuleModelIconConverter x:Key="cvIcon"/>
+        <Style x:Key="LeftViewGlassBorderStyle" TargetType="Border">
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="1,1" StartPoint="0,0">
+                        <GradientStop Color="#33FFFFFF" Offset="0"/>
+                        <!--<GradientStop Color="#C0FFFFFF" Offset="0.287"/>
+                    <GradientStop Color="#4011322D" Offset="0.683"/>-->
+                        <GradientStop Color="#33FFFFFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderBrush">
+                <Setter.Value>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#5811322D" Offset="0"/>
+                        <GradientStop Color="#3EFFFFFF" Offset="0.25"/>
+                        <GradientStop Color="#FFFFFFFF" Offset="0.5"/>
+                        <GradientStop Color="#3EFFFFFF" Offset="0.75"/>
+                        <GradientStop Color="#BFFFFFFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect BlurRadius="3" ShadowDepth="3" Opacity="0.5"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid Margin="50, 50 ,0 ,0">
         <Grid.RowDefinitions>
@@ -22,19 +51,22 @@
             <ItemsControl x:Name="NavBar">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel HorizontalAlignment="Center">
-                            <Image Tag="{Binding Tag}" Width="128" Height="128" Margin="-13, 20, 0, 20" Source="{Binding Icon}">
-                                <i:Interaction.Triggers>
-                                    <i:EventTrigger EventName="MouseUp">
-                                        <cal:ActionMessage MethodName="ImageTouched">
-                                            <cal:Parameter Value="$source" />
-                                            <cal:Parameter Value="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}}" />
-                                        </cal:ActionMessage>
-                                    </i:EventTrigger>
-                                </i:Interaction.Triggers>
-                            </Image>
-                            <TextBlock Text="{Binding ModuleName}" />
-                        </StackPanel>
+                        <Border Margin="0,10" Style="{DynamicResource GlassBorderStyle}" BorderThickness="0" Width="170" Height="170" CornerRadius="85"  >
+                            <Grid>
+                                <Image Tag="{Binding Tag}" Width="128" Height="128" Source="{Binding Icon}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="MouseUp">
+                                            <cal:ActionMessage MethodName="ImageTouched">
+                                                <cal:Parameter Value="$source" />
+                                                <cal:Parameter Value="{Binding RelativeSource={RelativeSource AncestorType=ItemsControl}}" />
+                                                <cal:Parameter Value="{Binding RelativeSource={RelativeSource AncestorType=Border}}" />
+                                            </cal:ActionMessage>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Image>
+                                <TextBlock VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{Binding ModuleName}" />
+                            </Grid>
+                        </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
                 <ItemsControl.ItemsPanel>

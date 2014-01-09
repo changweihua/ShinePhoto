@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:cal="http://www.caliburnproject.org"
+             xmlns:uc="clr-namespace:ShinePhoto.UC"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" cal:Message.Attach="[Event Loaded] = [Action InitView($source)]">
     <StackPanel Background="Transparent">
@@ -22,10 +23,16 @@
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
             <StackPanel Margin="20,10" HorizontalAlignment="Stretch" x:Name="spInfo">
+                <!--<uc:TriImageButton Width="128" Height="128" TriImage="pack://application:,,,/ShinePhoto.Icons;Component/flat/128/anchor.png" Tag="Genius Mixes" />-->
+                <uc:ImageButton Width="128" Height="128" Image="pack://application:,,,/ShinePhoto.Icons;Component/flat/128/anchor.png" Tag="Playlists" />
                 <TextBlock Foreground="BlueViolet" Margin="0,10" x:Name="tbName" FontFamily="Consolas"  FontSize="35" HorizontalAlignment="Center" Text="ShinePhoto" />
                 <TextBlock FontSize="25" Margin="0,10" Text="1. 采用 Microsoft WPF 。基于 .NET Framework 4.0基础。 " />
                 <TextBlock FontSize="25" Margin="0,10" Text="3. 采用 LGPL  授权协议。 " />
                 <TextBlock FontSize="25" Margin="0,10" Text="4. 不定期更新。 " />
+                <Button Style="{DynamicResource MacOSButton}" Content="MacOSButton" />
+                <Border CornerRadius="64" Width="128" Height="128" Style="{DynamicResource GlassBorderStyle}">
+                    <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" >GlassBorderStyle</TextBlock>
+                </Border>
             </StackPanel>
             <Rectangle Grid.Row="1" RenderTransformOrigin="0.5,0.5">
                 <Rectangle.Fill>

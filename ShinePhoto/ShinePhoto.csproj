@@ -123,6 +123,7 @@
     <Compile Include="Models\ModuleModel.cs" />
     <Compile Include="Models\ShinePhotoDataContext.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="UC\ImageButton.cs" />
     <Compile Include="UC\LoadingProgress.xaml.cs">
       <DependentUpon>LoadingProgress.xaml</DependentUpon>
     </Compile>
@@ -252,6 +253,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\UCStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
