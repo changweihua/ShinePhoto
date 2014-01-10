@@ -5,59 +5,24 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cal="http://www.caliburnproject.org"
+             xmlns:refl="clr-namespace:System.Reflection;assembly=mscorlib"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300" cal:Message.Attach="[Event Loaded] = [Action LoadAdv($source)]">
-    
-        <Grid Margin="5" Width="296" Height="184" Name="GridAdvert">
-            <StackPanel Name="Panel1" Visibility="Visible" Orientation="Horizontal" VerticalAlignment="Center" >
-                <Image Source="/Adv/140140qahhhal61h9ht8lk.jpg.thumb.jpg" Opacity="1">
-                    <Image.Effect>
-                        <DropShadowEffect BlurRadius="0" ShadowDepth="2" Opacity="0.42"/>
-                    </Image.Effect>
-                </Image>
-            </StackPanel>
-            <StackPanel Name="Panel2" Visibility="Collapsed" Orientation="Horizontal" VerticalAlignment="Center">
-                <Image Source="/Adv/175352n261rlq9wcl0xplf.jpg" Opacity="1">
-                    <Image.Effect>
-                        <DropShadowEffect BlurRadius="0" ShadowDepth="2" Opacity="0.42"/>
-                    </Image.Effect>
-                </Image>
-            </StackPanel>
-            <StackPanel Name="Panel3" Visibility="Collapsed" Orientation="Horizontal" VerticalAlignment="Center" >
-                <Image Source="/Adv/QQ截图20131220152412.png" Opacity="1">
-                    <Image.Effect>
-                        <DropShadowEffect BlurRadius="0" ShadowDepth="2" Opacity="0.42"/>
-                    </Image.Effect>
-                </Image>
-            </StackPanel>
-            <StackPanel Name="Panel4" Visibility="Collapsed" Orientation="Horizontal" VerticalAlignment="Center" >
-                <Image Source="/Adv/QQ截图20131224130755.png" Opacity="1">
-                    <Image.Effect>
-                        <DropShadowEffect BlurRadius="0" ShadowDepth="2" Opacity="0.42"/>
-                    </Image.Effect>
-                </Image>
-            </StackPanel>
-
-            <!--<StackPanel Name="Panel5" Visibility="Collapsed" Orientation="Horizontal" Height="68" Width="485" VerticalAlignment="Center" >
-                <Image Source="/Adv/140140qahhhal61h9ht8lk.jpg.thumb.jpg" Opacity="1">
-                    <Image.Effect>
-                        <DropShadowEffect BlurRadius="0" ShadowDepth="2" Opacity="0.42"/>
-                    </Image.Effect>
-                </Image>
-            </StackPanel>
-            <StackPanel Name="Panel6" Visibility="Collapsed" Orientation="Horizontal" Height="68" Width="485" VerticalAlignment="Center" >
-                <Image Source="/Adv/140140qahhhal61h9ht8lk.jpg.thumb.jpg" Opacity="1">
-                    <Image.Effect>
-                        <DropShadowEffect BlurRadius="0" ShadowDepth="2" Opacity="0.42"/>
-                    </Image.Effect>
-                </Image>
-            </StackPanel>
-            <StackPanel Name="Panel7" Visibility="Collapsed" Orientation="Horizontal" Height="68" Width="485" VerticalAlignment="Center" >
-                <Image Source="/Adv/140140qahhhal61h9ht8lk.jpg.thumb.jpg" Opacity="1">
-                    <Image.Effect>
-                        <DropShadowEffect BlurRadius="0" ShadowDepth="2" Opacity="0.42"/>
-                    </Image.Effect>
-                </Image>
-            </StackPanel>-->
+    <Grid Name="AdvGrid" Width="350" Height="200" Background="Transparent">
     </Grid>
+    <!--<ItemsControl x:Name="AdImageIC">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <StackPanel x:Name="Panel" Visibility="{Binding Visibility}" Orientation="Horizontal" VerticalAlignment="Center" >
+                    <Image Stretch="Fill" Width="296" Height="184" Source="{Binding FilePath}" Opacity="1" />
+                </StackPanel>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <Grid Margin="5" Width="296" Height="184" x:Name="GridAdv"/>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+    </ItemsControl>-->
+    
 </UserControl>

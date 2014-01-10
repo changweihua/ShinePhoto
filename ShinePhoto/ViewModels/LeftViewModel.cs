@@ -38,8 +38,6 @@ namespace ShinePhoto.ViewModels
         {
             #region 加载组件
 
-            //IoC.getV
-
             var doc = XDocument.Load("config.xml");
 
             if (doc != null)
@@ -90,6 +88,12 @@ namespace ShinePhoto.ViewModels
             }
         }
 
+        /// <summary>
+        /// 导航图片按钮单击事件
+        /// </summary>
+        /// <param name="source"></param>
+        /// <param name="topParent"></param>
+        /// <param name="parent"></param>
         public void ImageTouched(object source, object topParent, object parent)
         {
             var img = source as Image;
@@ -160,6 +164,11 @@ namespace ShinePhoto.ViewModels
             }
         }
 
+        /// <summary>
+        /// 调整图片选中状态
+        /// </summary>
+        /// <param name="ic"></param>
+        /// <param name="border"></param>
         void AdjustImageStaus(ItemsControl ic, Border border)
         {
             foreach (var item in ShinePhoto.Helpers.TreeHelper.GetChildObjects<Border>(ic, "").Skip(1))

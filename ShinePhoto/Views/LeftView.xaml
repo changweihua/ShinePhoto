@@ -107,7 +107,7 @@
                 </i:Interaction.Triggers>
             </Image>-->
         </StackPanel>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,15" Grid.Row="2">
             <ContentControl x:Name="AdViewModel" />
             <!--<ContentControl Grid.Row="1" x:Name="ActiveItem" />-->
         </StackPanel>

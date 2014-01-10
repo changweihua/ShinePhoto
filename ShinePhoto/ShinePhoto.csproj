@@ -78,6 +78,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="TransitionEffects">
+      <HintPath>..\..\..\..\DLL\TransitionEffects.dll</HintPath>
+    </Reference>
     <Reference Include="UIAutomationProvider" />
     <Reference Include="UIAutomationTypes" />
     <Reference Include="WindowsBase" />
@@ -117,6 +120,7 @@
     <Compile Include="Interfaces\IShellView.cs" />
     <Compile Include="Loaders\BackgroundCoRoutine.cs" />
     <Compile Include="Loaders\ImageLoader.cs" />
+    <Compile Include="Models\AdModel.cs" />
     <Compile Include="Models\ExifModel.cs" />
     <Compile Include="Models\FileModel.cs" />
     <Compile Include="Models\LoginUserModel.cs" />
@@ -337,10 +341,18 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\loading.png" />
-    <Resource Include="Adv\140140qahhhal61h9ht8lk.jpg.thumb.jpg" />
-    <Resource Include="Adv\175352n261rlq9wcl0xplf.jpg" />
-    <Resource Include="Adv\QQ截图20131220152412.png" />
-    <Resource Include="Adv\QQ截图20131224130755.png" />
+    <Content Include="Adv\140140qahhhal61h9ht8lk.jpg.thumb.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Adv\175352n261rlq9wcl0xplf.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Adv\QQ截图20131220152412.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Adv\QQ截图20131224130755.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="config.xml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
