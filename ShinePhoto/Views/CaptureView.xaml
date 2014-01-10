@@ -56,8 +56,10 @@
                 <!--<Canvas x:Name="SignCanvas"  Width="1098" Height="620">
                     <Image Width="1098" Height="620" Source="{Binding CurrentImage}" />
                 </Canvas>-->
-                <InkCanvas x:Name="SignCanvas" EditingMode="None" Width="1098" Height="620" Background="{Binding CurrentImageSource}">
-
+                <InkCanvas x:Name="SignCanvas" cal:Message.Attach="[Event StrokeCollected] = [Action StrokeCollected($eventArgs)]" EditingMode="None" Width="1098" Height="620" Background="{Binding CurrentImageSource}">
+                    <InkCanvas.DefaultDrawingAttributes>
+                        <DrawingAttributes IsHighlighter="True" StylusTip="Rectangle" Height="4" Width="2" IgnorePressure="True" FitToCurve="True" />
+                    </InkCanvas.DefaultDrawingAttributes>
                 </InkCanvas>
             </Border>
             <StackPanel Margin="20, 0, 0, 0">
@@ -191,7 +193,16 @@
                                     </i:EventTrigger>
                                 </i:Interaction.Triggers>
                             </Image>
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.picasa.png" />
+                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.picasa.png">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseUp">
+                                        <cal:ActionMessage MethodName="ChangePen">
+                                            <cal:Parameter Value="$source" />
+                                            <cal:Parameter Value="{Binding ElementName=SignCanvas}" />
+                                        </cal:ActionMessage>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </Image>
                             <Image Style="{StaticResource OpacityMaskImage}" Width="76" RenderTransformOrigin="0.5,0.5" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.save.png">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseUp">

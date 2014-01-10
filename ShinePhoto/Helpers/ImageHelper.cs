@@ -5,6 +5,7 @@ using ShinePhoto.Models;
 using System.IO;
 using System.Windows;
 using System.Windows.Media.Imaging;
+using System.Windows.Media;
 
 namespace ShinePhoto.Helpers
 {
@@ -20,13 +21,21 @@ namespace ShinePhoto.Helpers
 
         public static void SaveToImage(FrameworkElement element, string fileName, ImageFormat format)
         {
+            double width = element.ActualWidth;
+            double height = element.ActualHeight;
+            RenderTargetBitmap bmp = new RenderTargetBitmap((int)Math.Round(width), (int)Math.Round(height), 96, 96, PixelFormats.Default);
+            DrawingVisual dv = new DrawingVisual();
+            using (DrawingContext dc = dv.RenderOpen())
+            {
+                VisualBrush vb = new VisualBrush(element);
+                dc.DrawRectangle(vb, null, new Rect(new System.Windows.Point(), new System.Windows.Size(width, height)));
+            }
+            bmp.Render(dv);
+
+            BitmapEncoder encoder = null;
+
             using (FileStream fs = new FileStream(@fileName, FileMode.Create))
             {
-                RenderTargetBitmap bmp = new RenderTargetBitmap((int)element.ActualWidth, (int)element.ActualHeight, 96.0, 96.0, System.Windows.Media.PixelFormats.Pbgra32);
-                bmp.Render(element);
-
-                BitmapEncoder encoder = null;
-
                 switch (format)
                 {
                     case ImageFormat.JPG:
@@ -52,8 +61,46 @@ namespace ShinePhoto.Helpers
                 encoder.Save(fs);
 
             }
-           
+
         }
+
+
+        //public static void SaveToImage(FrameworkElement element, string fileName, ImageFormat format)
+        //{
+        //    using (FileStream fs = new FileStream(@fileName, FileMode.Create))
+        //    {
+        //        RenderTargetBitmap bmp = new RenderTargetBitmap((int)element.ActualWidth, (int)element.ActualHeight, 96.0, 96.0, System.Windows.Media.PixelFormats.Pbgra32);
+        //        bmp.Render(element);
+
+        //        BitmapEncoder encoder = null;
+
+        //        switch (format)
+        //        {
+        //            case ImageFormat.JPG:
+        //                encoder = new JpegBitmapEncoder();
+        //                break;
+        //            case ImageFormat.PNG:
+        //                encoder = new PngBitmapEncoder();
+        //                break;
+        //            case ImageFormat.BMP:
+        //                encoder = new BmpBitmapEncoder();
+        //                break;
+        //            case ImageFormat.GIF:
+        //                encoder = new GifBitmapEncoder();
+        //                break;
+        //            case ImageFormat.TIF:
+        //                encoder = new TiffBitmapEncoder();
+        //                break;
+        //            default:
+        //                throw new InvalidOperationException();
+        //        }
+
+        //        encoder.Frames.Add(BitmapFrame.Create(bmp));
+        //        encoder.Save(fs);
+
+        //    }
+           
+        //}
 
         #endregion
 

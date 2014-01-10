@@ -19,6 +19,7 @@ using System.Windows;
 using Xceed.Wpf.Toolkit;
 using System.Windows.Media.Animation;
 using ShinePhoto.Interface;
+using System.Windows.Input;
 
 namespace ShinePhoto.ViewModels
 {
@@ -716,6 +717,16 @@ namespace ShinePhoto.ViewModels
 
         #region EditStackPanel 方法
 
+        public void ChangePen(object source, object canvas)
+        {
+            var inkCanvas = canvas as InkCanvas;
+            if (inkCanvas != null && inkCanvas.EditingMode == InkCanvasEditingMode.Ink)
+            {
+                inkCanvas.DefaultDrawingAttributes.StylusTip = StylusTip.Rectangle;
+                inkCanvas.DefaultDrawingAttributes.StylusTipTransform = new Matrix(1, 1.5, 2.2, 1, 0, 0);
+            }
+        } 
+
         /// <summary>
         /// 重置画板
         /// </summary>
@@ -743,11 +754,12 @@ namespace ShinePhoto.ViewModels
         }
 
         /// <summary>
-        /// 保存文件
+        /// 保存文件，避免黑边
         /// </summary>
         /// <param name="canvas"></param>
         public void Save(object source, object canvas)
         {
+            Storyboard story = new Storyboard();
             _isSaving = true;
             NotifyOfPropertyChange(() => CanSave);
             var image = source as Image;
@@ -756,8 +768,7 @@ namespace ShinePhoto.ViewModels
             {
                 try
                 {
-                    Storyboard story = new Storyboard();
-
+                   
                     #region 通过改变宽高实现动画
 
                     //DoubleAnimation widthAnimation = new DoubleAnimation();
@@ -830,13 +841,13 @@ namespace ShinePhoto.ViewModels
 
                     story.Begin();
 
-                    //string dir = AppDomain.CurrentDomain.BaseDirectory + "Sign\\" + DateTime.Now.ToString("yyyy-MM-dd");
-                    //if (!Directory.Exists(dir))
-                    //{
-                    //    Directory.CreateDirectory(dir);
-                    //}
-                    //string fileName = CurrentImage.Substring(CurrentImage.LastIndexOf('\\') + 1);
-                    //ShinePhoto.Helpers.ImageHelper.SaveToImage(inkCanvas, dir + "\\" +  DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss_") + fileName, Helpers.ImageHelper.ImageFormat.JPG);
+                    string dir = AppDomain.CurrentDomain.BaseDirectory + "Sign\\" + DateTime.Now.ToString("yyyy-MM-dd");
+                    if (!Directory.Exists(dir))
+                    {
+                        Directory.CreateDirectory(dir);
+                    }
+                    string fileName = CurrentImage.Substring(CurrentImage.LastIndexOf('\\') + 1);
+                    ShinePhoto.Helpers.ImageHelper.SaveToImage(inkCanvas, dir + "\\" + DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss_") + fileName, Helpers.ImageHelper.ImageFormat.JPG);
                     
                     //System.Threading.Thread.Sleep(5000);
                 }
@@ -846,7 +857,8 @@ namespace ShinePhoto.ViewModels
                 }
                 finally
                 {
-                    _isSaving = false; 
+                    _isSaving = false;
+                    story.Begin();
                     NotifyOfPropertyChange(() => CanSave);
                 }
 
@@ -1021,6 +1033,161 @@ namespace ShinePhoto.ViewModels
         {
             System.Diagnostics.Debug.WriteLine(string.Format("文件重命名事件处理逻辑{0}  {1}  {2}", e.ChangeType, e.FullPath, e.Name));
         }
+
+        #endregion
+
+        #region InkCanvas 事件
+
+        private Dictionary<Stroke, System.Threading.Timer> dicTimer = new Dictionary<Stroke, System.Threading.Timer>();
+
+        public void StrokeCollected(object args)
+        {
+            var e = args as InkCanvasStrokeCollectedEventArgs;
+           
+            System.Threading.Timer t1 = new System.Threading.Timer(new System.Threading.TimerCallback(ChangeOpacity), e.Stroke, 100, 100);
+            dicTimer.Add(e.Stroke, t1);
+
+            //if (e.Stroke.StylusPoints.Count > 1)
+            //{
+            //    UpdateLine(e.Stroke);
+            //}
+
+        }
+
+        private void ChangeOpacity(Object obj)
+        {
+            Stroke line = obj as Stroke;
+            Color linecolor = line.DrawingAttributes.Color;
+            if (linecolor.ScA > 0)
+                linecolor.ScA -= 0.1f;
+            (GetView() as ShinePhoto.Views.CaptureView).Dispatcher.BeginInvoke(new System.Action(() => { line.DrawingAttributes.Color = linecolor; }));
+            if (linecolor.A <= 0)
+            {
+                dicTimer[line].Dispose();
+                dicTimer.Remove(line);
+            }
+        }
+
+        /// <summary>
+        /// 在InkCanvas上画直虚线
+        /// 还是跟上面一样取起始点和终点，不同点是：在两点间绘制许多点，然后将相邻的两点连接成一个笔画。这样一个直虚线变好了。
+        /// </summary>
+        /// <param name="currentStroke"></param>
+        private void UpdateLine(Stroke currentStroke)
+        {
+            var inkC = GetView() as ShinePhoto.Views.CaptureView;
+            StylusPoint beginPoint = currentStroke.StylusPoints[0];//起始点
+            StylusPoint endPoint = currentStroke.StylusPoints.Last();//终点
+            inkC.SignCanvas.Strokes.Remove(currentStroke);//移除原来笔画
+            int dotTime = 0;
+            int intervalLen = 6;//步长
+            double lineLen = Math.Sqrt(Math.Pow(beginPoint.X - endPoint.X, 2) + Math.Pow(beginPoint.Y - endPoint.Y, 2));//线的长度
+            Point currentPoint = new Point(beginPoint.X, beginPoint.Y);
+            double relativaRate = Math.Abs(endPoint.Y - beginPoint.Y) * 1.0 / Math.Abs(endPoint.X - beginPoint.X);
+            double angle = Math.Atan(relativaRate) * 180 / Math.PI;//直线的角度大小，无需考虑正负
+            int xOrientation = endPoint.X > beginPoint.X ? 1 : -1;//判断新生成点的X轴方向
+            int yOrientation = endPoint.Y > beginPoint.Y ? 1 : -1;
+            if (lineLen < intervalLen)
+            {
+                return;
+            }
+            while (dotTime * intervalLen < lineLen)
+            {
+                double x = currentPoint.X + dotTime * intervalLen * Math.Cos(angle * Math.PI / 180) * xOrientation;
+                double y = currentPoint.Y + dotTime * intervalLen * Math.Sin(angle * Math.PI / 180) * yOrientation;
+                List<Point> pL = new List<Point>();
+                pL.Add(new Point(x, y));
+                x += intervalLen * Math.Cos(angle * Math.PI / 180) * xOrientation;
+                y += intervalLen * Math.Sin(angle * Math.PI / 180) * yOrientation;
+                pL.Add(new Point(x, y));
+                StylusPointCollection spc = new StylusPointCollection(pL);//相邻两点作为一个笔画
+                Stroke stroke = new Stroke(spc);
+                stroke.DrawingAttributes = inkC.SignCanvas.DefaultDrawingAttributes.Clone();
+                inkC.SignCanvas.Strokes.Add(stroke);
+                dotTime += 2;
+            }
+        }
+
+        /// <summary>
+        /// 在InkCanvas上画直线
+        /// 在StrokeCollected事件中进行修正，StrokeCollected事件在单个笔画结束后触发。可以取出笔画的起始点(BeginPoint)和终点(EndPoint),然后使用该两点新建笔画即可。
+        /// </summary>
+        /// <param name="currentStroke"></param>
+        //private void UpdateLine(Stroke currentStroke)
+        //{
+        //    var inkC = GetView() as ShinePhoto.Views.CaptureView;
+
+        //    StylusPoint beginPoint = currentStroke.StylusPoints[0];//起始点
+        //    StylusPoint endPoint = currentStroke.StylusPoints.Last();//终点
+        //    inkC.SignCanvas .Strokes.Remove(currentStroke);//移除原来的笔画
+        //    List<Point> pointList = new List<Point>();
+        //    pointList.Add(new Point(beginPoint.X, beginPoint.Y));
+        //    pointList.Add(new Point(endPoint.X, endPoint.Y));
+        //    StylusPointCollection point = new StylusPointCollection(pointList);
+        //    Stroke stroke = new Stroke(point);//用两点实现笔画
+        //    stroke.DrawingAttributes = inkC.SignCanvas.DefaultDrawingAttributes.Clone();
+        //    inkC.SignCanvas.Strokes.Add(stroke);
+        //}
+
+        private int intervalLen = 5;
+
+        /// <summary>
+        /// 在InkCanvas上画弯虚线
+        /// 在InkCanvas_StrokeCollected方法的参数属性中可以获得线上的点的坐标。
+        /// 2）生成StylusPointCollection collection=currentStroke.StylusPoints，用来存放当前笔画的所有点
+        /// 2）生成一个List<Point> allPointList,用来存放最终生成的点
+        /// 2) 将起始点=》allPointList，起始点-》currentPoint
+        /// 3）遍历collection，IF currentPoint与找到点(item)的距离==步长 THEN item=>allPointList;item=>currentPoint,取下一个点
+        /// IF currentPoint与找到点(item)的距离大于步长 THEN 在currentPoint与item线上找到一个点，使得与currentPoint的距离=步长，item=>allPointList;item=>currentPoint，继续当前点
+        /// IF currentPoint与找到点(item)的距离小于步长 取下一个点
+        /// </summary>
+        /// <param name="currentStroke"></param>
+        //private void UpdateLine(Stroke currentStroke)
+        //{
+        //    var inkC = GetView() as ShinePhoto.Views.CaptureView;
+
+        //    inkC.SignCanvas.Strokes.Remove(currentStroke);
+        //    StylusPointCollection collection = currentStroke.StylusPoints;
+        //    List<Point> allSelectedPoint = new List<Point>();
+        //    Point currentPoint = new Point(collection[0].X, collection[0].Y);
+        //    allSelectedPoint.Add(currentPoint);
+        //    for (int i = 0; i < collection.Count; i++)
+        //    {
+        //        var item = collection[i];
+        //        double length = Math.Sqrt(Math.Pow(item.X - currentPoint.X, 2) + Math.Pow(item.Y - currentPoint.Y, 2));
+        //        if ((int)(length + 0.5) == (int)intervalLen || length == intervalLen)
+        //        {
+
+        //            currentPoint = new Point(item.X, item.Y);
+        //            allSelectedPoint.Add(currentPoint);
+        //        }
+        //        else if (length > intervalLen)
+        //        {
+        //            double relativaRate = Math.Abs(item.Y - currentPoint.Y) * 1.0 / Math.Abs(item.X - currentPoint.X);
+        //            double angle = Math.Atan(relativaRate) * 180 / Math.PI;
+        //            int xOrientation = item.X > currentPoint.X ? 1 : -1;
+        //            int yOrientation = item.Y > currentPoint.Y ? 1 : -1;
+        //            double x = currentPoint.X + intervalLen * Math.Cos(angle * Math.PI / 180) * xOrientation;
+        //            double y = currentPoint.Y + intervalLen * Math.Sin(angle * Math.PI / 180) * yOrientation;
+        //            currentPoint = new Point(x, y);
+        //            allSelectedPoint.Add(currentPoint);
+        //            i--;//很重要，继续当前点
+        //        }
+        //    }
+        //    for (int j = 0; j < allSelectedPoint.Count; j++)
+        //    {
+        //        List<Point> p = new List<Point>();
+        //        p.Add(allSelectedPoint[j]);
+        //        if (j < allSelectedPoint.Count - 1)
+        //        {
+        //            j++;
+        //        }
+        //        p.Add(allSelectedPoint[j]);
+        //        StylusPointCollection spc = new StylusPointCollection(p);
+        //        Stroke stroke = new Stroke(spc);
+        //        inkC.SignCanvas.Strokes.Add(stroke);
+        //    }
+        //}
 
         #endregion
 

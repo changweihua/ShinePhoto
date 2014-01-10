@@ -7,7 +7,7 @@
     <UserControl.Background>
         <ImageBrush ImageSource="/Images/BG.jpg" />
     </UserControl.Background>
-    <Grid>
+    <Grid >
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="375" />
             <ColumnDefinition Width="*" />

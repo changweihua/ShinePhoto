@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="/lang/en-US.xaml"/>
                 <ResourceDictionary Source="/Styles/FlatStyle.xaml"/>
                 <ResourceDictionary Source="/Styles/UCStyle.xaml"/>
+                <ResourceDictionary Source="/Styles/ink.xaml"/>
                 <!--<ResourceDictionary Source="/Styles/ScrollViewer.xaml"/>-->
                 <ResourceDictionary>
                     <local:AppBootstrapper x:Key="bootstrapper" />
