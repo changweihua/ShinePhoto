@@ -756,35 +756,98 @@ namespace ShinePhoto.ViewModels
             {
                 try
                 {
+                    Storyboard story = new Storyboard();
 
-                    DoubleAnimation widthAnimation = new DoubleAnimation();
-                    widthAnimation.To = 25;
-                    widthAnimation.AutoReverse = true;
-                    widthAnimation.RepeatBehavior = RepeatBehavior.Forever;
+                    #region 通过改变宽高实现动画
 
-                    DoubleAnimation heightAnimation = new DoubleAnimation();
-                    heightAnimation.To = 25;
-                    heightAnimation.AutoReverse = true;
-                    heightAnimation.RepeatBehavior = RepeatBehavior.Forever;
+                    //DoubleAnimation widthAnimation = new DoubleAnimation();
+                    //widthAnimation.From = image.ActualWidth * 0.8;
+                    //widthAnimation.To = image.ActualWidth * 1;
+                    //widthAnimation.AutoReverse = true;
+                    //widthAnimation.RepeatBehavior = RepeatBehavior.Forever;
+                    //widthAnimation.Duration = new Duration(TimeSpan.FromSeconds(2.5));
 
-                    //image.BeginAnimation(Image.WidthProperty, widthAnimation);
-                    //image.BeginAnimation(Image.HeightProperty, heightAnimation);
 
-                    string dir = AppDomain.CurrentDomain.BaseDirectory + "Sign\\" + DateTime.Now.ToString("yyyy-MM-dd");
-                    if (!Directory.Exists(dir))
-                    {
-                        Directory.CreateDirectory(dir);
-                    }
-                    string fileName = CurrentImage.Substring(CurrentImage.LastIndexOf('\\') + 1);
-                    ShinePhoto.Helpers.ImageHelper.SaveToImage(inkCanvas, dir + "\\" +  DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss_") + fileName, Helpers.ImageHelper.ImageFormat.JPG);
+                    //DoubleAnimation heightAnimation = new DoubleAnimation();
+                    //heightAnimation.From = image.ActualHeight * 0.8;
+                    //heightAnimation.To = image.ActualHeight * 1;
+                    //heightAnimation.AutoReverse = true;
+                    //heightAnimation.RepeatBehavior = RepeatBehavior.Forever;
+                    //heightAnimation.Duration = new Duration(TimeSpan.FromSeconds(2.5));
+
+                    //Storyboard.SetTarget(widthAnimation, image);
+                    //Storyboard.SetTargetProperty(widthAnimation, new PropertyPath("Width"));
+
+                    //Storyboard.SetTarget(heightAnimation, image);
+                    //Storyboard.SetTargetProperty(heightAnimation, new PropertyPath("Height"));
+
+                    //story.Children.Add(widthAnimation);
+                    //story.Children.Add(heightAnimation);
+
+                    #endregion
+
+                    #region ScaleTransform 实现缩放
+
+                    DoubleAnimation scaleXAnimation = new DoubleAnimation();
+                    scaleXAnimation.To = 0.95;
+                    scaleXAnimation.Duration = new Duration(TimeSpan.FromSeconds(2.5));
+                    scaleXAnimation.AutoReverse = true;
+                    scaleXAnimation.RepeatBehavior = RepeatBehavior.Forever;
+
+
+                    Storyboard.SetTarget(scaleXAnimation, image);
+                    Storyboard.SetTargetProperty(scaleXAnimation, new PropertyPath("(0).(1)[0].(2)", Image.RenderTransformProperty, TransformGroup.ChildrenProperty, ScaleTransform.ScaleXProperty));
+                    story.Children.Add(scaleXAnimation);
+
+                    DoubleAnimation scaleYAnimation = new DoubleAnimation();
+                    scaleYAnimation.To = 0.95;
+                    scaleYAnimation.AutoReverse = true;
+                    scaleYAnimation.Duration = new Duration(TimeSpan.FromSeconds(2.5));
+                    scaleYAnimation.RepeatBehavior = RepeatBehavior.Forever;
+
+
+                    Storyboard.SetTarget(scaleYAnimation, image);
+                    Storyboard.SetTargetProperty(scaleYAnimation, new PropertyPath("(0).(1)[0].(2)", Image.RenderTransformProperty, TransformGroup.ChildrenProperty, ScaleTransform.ScaleYProperty));
+                    story.Children.Add(scaleYAnimation);
+
+                    #endregion
+
+                    #region 旋转
+
+                    //DoubleAnimation rotateAnimation = new DoubleAnimation();
+                    //rotateAnimation.From = 0;
+                    //rotateAnimation.To = 180;
+                    //rotateAnimation.Duration = new Duration(TimeSpan.FromSeconds(5));
+                    //rotateAnimation.RepeatBehavior = RepeatBehavior.Forever;
+
+
+                    //Storyboard.SetTarget(rotateAnimation, image);
+                    ////Storyboard.SetTargetProperty(rotateAnimation, new PropertyPath("()"));
+                    //Storyboard.SetTargetProperty(rotateAnimation, new PropertyPath("(0).(1)[0].(2)", Image.RenderTransformProperty, TransformGroup.ChildrenProperty, RotateTransform.AngleProperty));
+                    //story.Children.Add(rotateAnimation);
+
+                    #endregion
+
+                    story.Begin();
+
+                    //string dir = AppDomain.CurrentDomain.BaseDirectory + "Sign\\" + DateTime.Now.ToString("yyyy-MM-dd");
+                    //if (!Directory.Exists(dir))
+                    //{
+                    //    Directory.CreateDirectory(dir);
+                    //}
+                    //string fileName = CurrentImage.Substring(CurrentImage.LastIndexOf('\\') + 1);
+                    //ShinePhoto.Helpers.ImageHelper.SaveToImage(inkCanvas, dir + "\\" +  DateTime.Now.ToString("yyyy-MM-dd-hh-mm-ss_") + fileName, Helpers.ImageHelper.ImageFormat.JPG);
                     
+                    //System.Threading.Thread.Sleep(5000);
                 }
-                catch
+                catch(Exception ex)
                 {
+                    LogManager.GetLog(typeof(CaptureViewModel)).Info("出现异常，异常信息为 {0} ", ex.Message);
                 }
                 finally
                 {
-                    _isSaving = false; NotifyOfPropertyChange(() => CanSave);
+                    _isSaving = false; 
+                    NotifyOfPropertyChange(() => CanSave);
                 }
 
             }

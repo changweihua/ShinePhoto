@@ -27,6 +27,24 @@
             <Setter Property="Margin" Value="3,0,3,0"/>
             <Setter Property="Padding" Value="0,0,0,0"/>
         </Style>
+        <Style x:Key="OpacityMaskImage" TargetType="Image">
+            <!--<Setter Property="OpacityMask" >
+                <Setter.Value>
+                    <RadialGradientBrush >
+                        <GradientStop Offset="1" Color="Black" />
+                        <GradientStop Offset="0" Color="Transparent" />
+                    </RadialGradientBrush>
+                </Setter.Value>
+            </Setter>-->
+            <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
+            <Setter Property="RenderTransform">
+                <Setter.Value>
+                    <TransformGroup>
+                        <ScaleTransform />
+                    </TransformGroup>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Grid Margin="0, 50 ,0 ,0">
         <Grid.RowDefinitions>
@@ -39,7 +57,7 @@
                     <Image Width="1098" Height="620" Source="{Binding CurrentImage}" />
                 </Canvas>-->
                 <InkCanvas x:Name="SignCanvas" EditingMode="None" Width="1098" Height="620" Background="{Binding CurrentImageSource}">
-                    
+
                 </InkCanvas>
             </Border>
             <StackPanel Margin="20, 0, 0, 0">
@@ -48,6 +66,12 @@
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Images/Capture/Menu_BG.png" />
                     </StackPanel.Background>
+                    <!--<StackPanel.OpacityMask>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Offset="0" Color="Black" />
+                            <GradientStop Offset="1" Color="Transparent" />
+                        </LinearGradientBrush>
+                    </StackPanel.OpacityMask>-->
                     <StackPanel x:Name="Toolbar1" Orientation="Horizontal">
                         <Image Tag="0" Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.quill.png">
                             <i:Interaction.Triggers>
@@ -168,7 +192,7 @@
                                 </i:Interaction.Triggers>
                             </Image>
                             <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.social.picasa.png" />
-                            <Image Width="76" RenderTransformOrigin="0.5,0.5" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.save.png">
+                            <Image Style="{StaticResource OpacityMaskImage}" Width="76" RenderTransformOrigin="0.5,0.5" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.save.png">
                                 <i:Interaction.Triggers>
                                     <i:EventTrigger EventName="MouseUp">
                                         <cal:ActionMessage MethodName="Save">
@@ -318,7 +342,7 @@
                     </ListBox.ItemTemplate>
                 </ListBox>
             </ScrollViewer>-->
-            
+
             <Image x:Name="Next" Visibility="{Binding NextVisibility}"  Width="66" Height="65" Source="pack://application:,,,/ShinePhoto.Icons;C;Component/light/appbar.chevron.right.png">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseUp">
