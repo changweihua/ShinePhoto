@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    
+    <FontFamily x:Key="AliceBrush">/ShinePhoto;Component/Fonts/#Alice</FontFamily>
+    <FontFamily x:Key="SparTakusBrush">/ShinePhoto;Component/Fonts/#SparTakus</FontFamily>
+    <FontFamily x:Key="UbuntuBrush">/ShinePhoto;Component/Fonts/#Ubuntu</FontFamily>
+    <FontFamily x:Key="ACFramed">/ShinePhoto;Component/Fonts/#AC Framed</FontFamily>
+    <FontFamily x:Key="Amaliamutia">/ShinePhoto;Component/Fonts/#amaliamutia</FontFamily>
+    <FontFamily x:Key="CampusA">/ShinePhoto;Component/Fonts/#Campus A</FontFamily> 
+    <FontFamily x:Key="Easy3D">/ShinePhoto;Component/Fonts/#Easy 3D</FontFamily>
+    <FontFamily x:Key="Evolve">/ShinePhoto;Component/Fonts/#Evolve</FontFamily>
+    <FontFamily x:Key="EuroCaps">/ShinePhoto;Component/Fonts/#Euro Caps</FontFamily>
+    <FontFamily x:Key="FopiRush">/ShinePhoto;Component/Fonts/#Fopi Rush</FontFamily>
+    <FontFamily x:Key="SparTakusRound">/ShinePhoto;Component/Fonts/#SparTakus Round</FontFamily>
+    <FontFamily x:Key="Xperia">/ShinePhoto;Component/Fonts/#Xperia</FontFamily>
+    <FontFamily x:Key="ZebulonCondensed">/ShinePhoto;Component/Fonts/#Zebulon Condensed</FontFamily>
+    <FontFamily x:Key="Zebulon">/ShinePhoto;Component/Fonts/#Zebulon</FontFamily>
+    
+    
+    <!--中文字体-->
+    <FontFamily x:Key="MYoyoMedium">/ShinePhoto;Component/Fonts/#MYoyo PRC Medium</FontFamily>
+    <FontFamily x:Key="WenDing">/ShinePhoto;Component/Fonts/#文鼎CS长美黑</FontFamily>
+    <FontFamily x:Key="WenQuan">/ShinePhoto;Component/Fonts/#文泉驿等宽正黑</FontFamily>
+</ResourceDictionary>
