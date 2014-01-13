@@ -14,6 +14,27 @@ namespace ShinePhoto.ViewModels
     /// </summary>
     [Export(typeof(ShineDisplayViewModel))]
     public class ShineDisplayViewModel : Screen,IShellView
-    {
+    {  
+        #region 属性
+
+        /// <summary>
+        /// 程序品牌 Logo 高度
+        /// </summary>
+        private double _logoHeight = 120d;
+
+        public double LogoHeight
+        {
+            get
+            {
+                return _logoHeight;
+            }
+            set
+            {
+                _logoHeight = value;
+                NotifyOfPropertyChange(() => LogoHeight);
+            }
+        }
+
+        #endregion
     }
 }

@@ -10,19 +10,4 @@
              d:DesignHeight="300" d:DesignWidth="300" cal:Message.Attach="[Event Loaded] = [Action LoadAdv($source)]">
     <Grid Name="AdvGrid" Width="350" Height="200" Background="Transparent">
     </Grid>
-    <!--<ItemsControl x:Name="AdImageIC">
-        <ItemsControl.ItemTemplate>
-            <DataTemplate>
-                <StackPanel x:Name="Panel" Visibility="{Binding Visibility}" Orientation="Horizontal" VerticalAlignment="Center" >
-                    <Image Stretch="Fill" Width="296" Height="184" Source="{Binding FilePath}" Opacity="1" />
-                </StackPanel>
-            </DataTemplate>
-        </ItemsControl.ItemTemplate>
-        <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-                <Grid Margin="5" Width="296" Height="184" x:Name="GridAdv"/>
-            </ItemsPanelTemplate>
-        </ItemsControl.ItemsPanel>
-    </ItemsControl>-->
-    
 </UserControl>

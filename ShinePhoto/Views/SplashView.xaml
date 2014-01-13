@@ -5,9 +5,60 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              xmlns:cal="http://www.caliburnproject.org"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"  Background="{StaticResource back}">
-    <StackPanel Background="Transparent" Width="500" Height="300">
-        <Button  Background="Transparent" x:Name="Success" Content="点击按钮，成功加载资源" />
-    </StackPanel>
+             xmlns:uc="clr-namespace:ShinePhoto.UC"
+             mc:Ignorable="d"
+             d:DesignHeight="450" d:DesignWidth="750" cal:Message.Attach="[Event Loaded] = [Action LoadUserControl($source)]">
+    <UserControl.Resources>
+        <Storyboard x:Key="start">
+            <RectAnimation Storyboard.TargetName="r1" Storyboard.TargetProperty="Rect"
+                           Duration="0:0:6" To="0,0,900,900"/>
+            <RectAnimation Storyboard.TargetName="r2" Storyboard.TargetProperty="Rect"
+                           Duration="0:0:5" To="20,20,700,800"/>
+            <RectAnimation Storyboard.TargetName="r3" Storyboard.TargetProperty="Rect"
+                           Duration="0:0:6" To="85,0,850,700"/>
+            <RectAnimation Storyboard.TargetName="r4" Storyboard.TargetProperty="Rect"
+                           Duration="0:0:6" To="0,250,800,700"/>
+            <DoubleAnimation Storyboard.TargetName="wb" Storyboard.TargetProperty="Opacity"
+                             From="0.2" To="1" Duration="0:0:6"/>
+        </Storyboard>
+        <Storyboard x:Key="end">
+            <DoubleAnimation Storyboard.TargetName="wb" Storyboard.TargetProperty="Opacity"
+                             Duration="0:0:5" From="1" To="0"/>
+            <DoubleAnimation Storyboard.TargetName="rt" Storyboard.TargetProperty="Angle"
+                             Duration="0:0:5" From="0" To="720"/>
+            <DoubleAnimation Storyboard.TargetName="sct" Storyboard.TargetProperty="ScaleX"
+                             Duration="0:0:5" From="1" To="0.3"/>
+            <DoubleAnimation Storyboard.TargetName="sct" Storyboard.TargetProperty="ScaleY"
+                             Duration="0:0:5" From="1" To="0.1"/>
+        </Storyboard>
+    </UserControl.Resources>
+    <Border x:Name="wb">
+        <Border.Clip>
+            <GeometryGroup FillRule="Nonzero">
+                <RectangleGeometry x:Name="r1" Rect="0,50,1000,100"/>
+                <RectangleGeometry x:Name="r2" Rect="0,220,1000,100"/>
+                <RectangleGeometry x:Name="r3" Rect="50,0,90,1000"/>
+                <RectangleGeometry x:Name="r4" Rect="360,0,160,1000"/>
+            </GeometryGroup>
+        </Border.Clip>
+        <Grid x:Name="root" cal:Message.Attach="[Event MouseDown] = [Action MoveUserControl]" Width="600" Height="400" >
+            <Path Data="M144,0.5 C220.77621,0.5 283.46991,22.348854 287.31326,49.824082 L287.38416,50.5 287.5,50.5 287.5,52.499997 287.5,232.5 C287.5,251.27768 223.25287,266.5 144,266.5 64.747139,266.5 0.5,251.27768 0.5,232.5 L0.5,52.499997 0.5,50.5 0.61584973,50.5 0.6867221,49.824082 C4.5301003,22.348854 67.223793,0.5 144,0.5 z"  Stretch="Fill" Stroke="Transparent" Opacity="1" Margin="0,0,0,1">
+                <Path.Fill>
+                    <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                        <GradientStop Offset="0" Color="Violet"/>
+                        <GradientStop Offset="1" Color="LightGreen"/>
+                    </LinearGradientBrush>
+                </Path.Fill>
+            </Path>
+
+            <StackPanel Width="500" Height="300">
+                <uc:ImageButton Width="128" Height="128" Image="pack://application:,,,/ShinePhoto.Icons;Component/flat/128/cmyk.png" Tag="Playlists" />
+                <TextBlock VerticalAlignment="Center" Foreground="BlueViolet" Margin="0,10" x:Name="tbName" FontFamily="{StaticResource Zebulon}" FontSize="45" HorizontalAlignment="Center" Text="Shine Photo" />
+                <Button FontFamily="{StaticResource WenQuan}" Style="{DynamicResource BlueButton}" Background="Transparent"  x:Name="Success" Content="点击按钮，成功加载资源" Visibility="Collapsed" />
+                <TextBlock FontSize="20" x:Name="SystemInfo" FontFamily="{DynamicResource WenDing}" />
+                <TextBlock FontSize="20" x:Name="ScreenDimension" FontFamily="{DynamicResource WenDing}" />
+            </StackPanel>
+        </Grid>
+    </Border>
+
 </UserControl>

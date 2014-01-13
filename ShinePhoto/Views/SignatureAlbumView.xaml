@@ -12,18 +12,25 @@
         </Grid.RowDefinitions>
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding LogoHeight}"/>
                 <RowDefinition />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Border Margin="0, 10" Grid.Row="1" Width="1100" Height="620" BorderBrush="White" BorderThickness="2.5">
+            <Border Margin="0, 0, 0, 10" Grid.Row="1" Width="1100" Height="620" BorderBrush="White" BorderThickness="2.5">
                 <Image Source="/Images/Default.jpg" />
             </Border>
-            <Button Margin="0, 10" Grid.Row="1" Grid.Column="1" Content="Content" />
+            <Button Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="1" Content="Content" />
         </Grid>
-        <Button Grid.Row="1" Content="Content" />
+        <Button FontFamily="{StaticResource WenQuan}" Grid.Row="1" Content="No Content">
+            <Button.OpacityMask>
+                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                    <GradientStop Offset="0" Color="Black" />
+                    <GradientStop Offset="1" Color="Transparent" />
+                </LinearGradientBrush>
+            </Button.OpacityMask>
+        </Button>
     </Grid>
 </UserControl>

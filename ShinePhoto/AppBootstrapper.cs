@@ -115,14 +115,17 @@ namespace ShinePhoto
                 var splashScreen = IoC.Get<SplashViewModel>();
                 var winManager = IoC.Get<IWindowManager>();
 
+                var manager = new MessageWindowManager();
+
                 var settings = new Dictionary<string, object>
                 {
                     { "AllowsTransparency", true},
+                    { "Background", System.Windows.Media.Brushes.Transparent},
                     { "WindowStyle", System.Windows.WindowStyle.None},
                     { "WindowStartupLocation", System.Windows.WindowStartupLocation.CenterScreen }
                 };
 
-                bool? flag = winManager.ShowDialog(splashScreen, null, settings);
+                bool? flag = manager.ShowDialog(splashScreen, null, settings);
 
                 //bool? flag = winManager.ShowDialog(splashScreen);
 
@@ -141,11 +144,7 @@ namespace ShinePhoto
                 LogManager.GetLog(typeof(AppBootstrapper)).Info("初始化发生异常 {0}", ex.Message);
             }
 
-           
-
         }
-
-        
 
     }
 }

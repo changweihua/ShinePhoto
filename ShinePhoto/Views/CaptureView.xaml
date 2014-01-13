@@ -28,14 +28,6 @@
             <Setter Property="Padding" Value="0,0,0,0"/>
         </Style>
         <Style x:Key="OpacityMaskImage" TargetType="Image">
-            <!--<Setter Property="OpacityMask" >
-                <Setter.Value>
-                    <RadialGradientBrush >
-                        <GradientStop Offset="1" Color="Black" />
-                        <GradientStop Offset="0" Color="Transparent" />
-                    </RadialGradientBrush>
-                </Setter.Value>
-            </Setter>-->
             <Setter Property="RenderTransformOrigin" Value="0.5,0.5" />
             <Setter Property="RenderTransform">
                 <Setter.Value>
@@ -46,34 +38,33 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid Margin="0, 50 ,0 ,0">
+    <Grid Margin="10, 25, 10, 15">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.75*" />
             <RowDefinition Height="0.25*" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Margin="85, 128, 0, 20">
-            <Border BorderBrush="Red" BorderThickness="2">
-                <!--<Canvas x:Name="SignCanvas"  Width="1098" Height="620">
-                    <Image Width="1098" Height="620" Source="{Binding CurrentImage}" />
-                </Canvas>-->
-                <InkCanvas x:Name="SignCanvas" cal:Message.Attach="[Event StrokeCollected] = [Action StrokeCollected($eventArgs)]" EditingMode="None" Width="1098" Height="620" Background="{Binding CurrentImageSource}">
+        <Grid >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="{Binding LogoHeight}"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition  />
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Border x:Name="SignCanvasBorder" Grid.Row="1"  BorderBrush="Red" BorderThickness="2">
+                <InkCanvas x:Name="SignCanvas" cal:Message.Attach="[Event StrokeCollected] = [Action StrokeCollected($eventArgs)]" EditingMode="None" Background="{Binding CurrentImageSource}">
                     <InkCanvas.DefaultDrawingAttributes>
                         <DrawingAttributes IsHighlighter="True" StylusTip="Rectangle" Height="4" Width="2" IgnorePressure="True" FitToCurve="True" />
                     </InkCanvas.DefaultDrawingAttributes>
                 </InkCanvas>
             </Border>
-            <StackPanel Margin="20, 0, 0, 0">
+            <StackPanel Grid.Row="1" Grid.Column="1"  Margin="20, 0, 0, 0">
                 <!-- 菜单栏 -->
                 <StackPanel Width="244" Name="menu">
                     <StackPanel.Background>
                         <ImageBrush ImageSource="/Images/Capture/Menu_BG.png" />
                     </StackPanel.Background>
-                    <!--<StackPanel.OpacityMask>
-                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
-                            <GradientStop Offset="0" Color="Black" />
-                            <GradientStop Offset="1" Color="Transparent" />
-                        </LinearGradientBrush>
-                    </StackPanel.OpacityMask>-->
                     <StackPanel x:Name="Toolbar1" Orientation="Horizontal">
                         <Image Tag="0" Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.quill.png">
                             <i:Interaction.Triggers>
@@ -131,16 +122,6 @@
                         <StackPanel.Background>
                             <ImageBrush ImageSource="/Images/Capture/Menu_BG.png" />
                         </StackPanel.Background>
-                        <!--<UniformGrid Width="192" Height="83" Columns="4" Rows="2">
-                            <Rectangle Margin="5,5,0,0" Fill="#f20626" />
-                            <Rectangle Margin="5,5,0,0" Fill="#f34506" />
-                            <Rectangle Margin="5,5,0,0" Fill="#f3a706" />
-                            <Rectangle Margin="5,5,5,0" Fill="#65ac34" />
-                            <Rectangle Margin="5,5,0,5" Fill="#000" />
-                            <Rectangle Margin="5,5,0,5" Fill="#0543ca" />
-                            <Rectangle Margin="5,5,0,5" Fill="#ACACAC" />
-                            <Rectangle Margin="5,5,5,5" Fill="#fff" />
-                        </UniformGrid>-->
                         <StackPanel>
                             <xctk:ColorCanvas Height="150" Background="Transparent" BorderThickness="0">
                                 <i:Interaction.Triggers>
@@ -249,11 +230,6 @@
                                 </i:Interaction.Triggers>
                             </Image>
                         </StackPanel>
-                        <!--<StackPanel Orientation="Horizontal">
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pen.png" />
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.marker.png" />
-                            <Image Width="76" Height="76" Source="pack://application:,,,/ShinePhoto.Icons;Component/dark/appbar.draw.pencil.png" />
-                        </StackPanel>-->
                     </StackPanel>
                     <!-- Edit Panel End -->
                     <!-- Share Panel Start -->
@@ -292,19 +268,9 @@
                     <!-- Picasa Panel End -->
                 </StackPanel>
             </StackPanel>
-        </StackPanel>
-        <StackPanel Margin="0, 12, 0, 0"  Grid.Row="1" Orientation="Horizontal">
-            <Image x:Name="Prev" Visibility="{Binding PrevVisibility}"   Width="66" Height="65" Source="pack://application:,,,/ShinePhoto.Icons;C;Component/light/appbar.chevron.left.png">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseUp">
-                        <cal:ActionMessage MethodName="Prev">
-                            <cal:Parameter Value="$source" />
-                            <cal:Parameter Value="{Binding ElementName=FileModels}" />
-                        </cal:ActionMessage>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Image>
-            <surface:SurfaceListBox Height="170" Margin="15, 0, 5, 0" x:Name="FileModels" Background="Transparent" Width="1105" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
+        </Grid>
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <surface:SurfaceListBox VerticalAlignment="Bottom" Height="170" Width="{Binding ElementName=SignCanvasBorder,Path=ActualWidth}" x:Name="FileModels" Background="Transparent" BorderThickness="0" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Hidden">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="SelectionChanged">
                         <cal:ActionMessage MethodName="CurrentImageChanged">
@@ -330,40 +296,6 @@
                     </DataTemplate>
                 </surface:SurfaceListBox.ItemTemplate>
             </surface:SurfaceListBox>
-
-            <!--<ScrollViewer Margin="17, 0, 5, 0" x:Name="SV"  VerticalScrollBarVisibility="Disabled" IsManipulationEnabled="True" CanContentScroll="True" HorizontalScrollBarVisibility="Hidden" Background="Transparent" Width="1105">
-                <ListBox Height="170" Background="Transparent" cal:Message.Attach="[Event SelectionChanged] = [CurrentImageChanged($source)]" x:Name="FileModels" BorderThickness="0">
-                    <ListBox.ItemContainerStyle>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="IsManipulationEnabled" Value="False"/>
-                        </Style>
-                    </ListBox.ItemContainerStyle>
-                    <ListBox.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <VirtualizingStackPanel Orientation="Horizontal"></VirtualizingStackPanel>
-                        </ItemsPanelTemplate>
-                    </ListBox.ItemsPanel>
-                    <ListBox.ItemTemplate>
-                        <DataTemplate >
-                            <Border Width="{Binding Width}" Height="{Binding Height}" BorderThickness="4" BorderBrush="Yellow">
-                                <uc:WaitingProgress />
-                                <Image Stretch="Fill" Source="{Binding FileName}" />
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </ScrollViewer>-->
-
-            <Image x:Name="Next" Visibility="{Binding NextVisibility}"  Width="66" Height="65" Source="pack://application:,,,/ShinePhoto.Icons;C;Component/light/appbar.chevron.right.png">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseUp">
-                        <cal:ActionMessage MethodName="Next">
-                            <cal:Parameter Value="$source" />
-                            <cal:Parameter Value="{Binding ElementName=FileModels}" />
-                        </cal:ActionMessage>
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </Image>
         </StackPanel>
     </Grid>
 </UserControl>

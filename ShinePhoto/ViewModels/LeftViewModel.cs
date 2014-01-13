@@ -12,6 +12,8 @@ using ShinePhoto.Events;
 using System.Xml.Linq;
 using ShinePhoto.Models;
 using ShinePhoto.Views;
+using ShinePhoto.Effects;
+using System.Windows.Media.Animation;
 
 namespace ShinePhoto.ViewModels
 {
@@ -34,7 +36,7 @@ namespace ShinePhoto.ViewModels
             ModuleModels = new BindableCollection<ModuleModel>();
         }
 
-        public void LoadData(object source)
+        public void LoadUserControl(object source)
         {
             #region 加载组件
 
@@ -60,6 +62,12 @@ namespace ShinePhoto.ViewModels
                 navBar = view.NavBar ;// ShinePhoto.Helpers.TreeHelper.FindVisualChildByName<ItemsControl>(view, "NavBar");
 
                 navBar.ItemsSource = ModuleModels;
+
+                LogoEffect logoEffect = new LogoEffect() { SunAngle = 105 };
+                //要添加走光动画的物体
+                view.Brand.Effect = logoEffect;
+                DoubleAnimation doubleAnimation = new DoubleAnimation() { From = 0, To = 5, AutoReverse = false, RepeatBehavior = RepeatBehavior.Forever, Duration = TimeSpan.FromSeconds(3.5) };
+                logoEffect.BeginAnimation(LogoEffect.RedThresholdProperty, doubleAnimation);
             }
 
 

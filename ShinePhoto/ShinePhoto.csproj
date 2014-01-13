@@ -36,7 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Images\PHOTOSHOP.ICO</ApplicationIcon>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="BouncyCastle.Crypto">
@@ -102,11 +102,13 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="Converters\ModuleModelConverter.cs" />
+    <Compile Include="Effects\LogoEffect.cs" />
     <Compile Include="Events\ModuleChangedEvent.cs" />
     <Compile Include="Events\RegistNextEvent.cs" />
     <Compile Include="Extensions\FlatWindowManager.cs" />
     <Compile Include="Extensions\ImageDecoder.cs" />
     <Compile Include="Extensions\ImageQueue.cs" />
+    <Compile Include="Extensions\MessageWindowManager.cs" />
     <Compile Include="Extensions\StrokeCollectionExtension.cs" />
     <Compile Include="Helpers\DebugLogger.cs" />
     <Compile Include="Helpers\EncryptHelper.cs" />
@@ -115,6 +117,7 @@
     <Compile Include="Helpers\LINQToINIHelper.cs" />
     <Compile Include="Helpers\NLogLogger.cs" />
     <Compile Include="Helpers\PasswordHelper.cs" />
+    <Compile Include="Helpers\ScreenHelper.cs" />
     <Compile Include="Helpers\SystemInfoHelper.cs" />
     <Compile Include="Helpers\TreeHelper.cs" />
     <Compile Include="Interfaces\IShellView.cs" />
@@ -217,12 +220,32 @@
     <None Include="db.sl3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Resource Include="Fonts\ACFramed.otf" />
+    <Resource Include="Fonts\Alice.ttf" />
+    <Resource Include="Fonts\Campus A.ttf" />
+    <Resource Include="Fonts\Easy 3D.ttf" />
+    <Resource Include="Fonts\EUROCAPS.TTF" />
+    <Resource Include="Fonts\EVOLVE.ttf" />
+    <Resource Include="Fonts\Fopi Rush.ttf" />
+    <Resource Include="Fonts\sharp.ttf" />
+    <Resource Include="Fonts\SparTakus Round.ttf" />
+    <Resource Include="Fonts\SparTakus.ttf" />
+    <Resource Include="Fonts\Ubuntu-R.ttf" />
+    <Resource Include="Fonts\Xperia.ttf" />
+    <Resource Include="Fonts\Zebulon Condensed.ttf" />
+    <Resource Include="Fonts\Zebulon Italic.ttf" />
+    <Resource Include="Fonts\文泉驿等宽正黑.ttf" />
+    <Resource Include="Fonts\文鼎CS长美黑.TTF" />
+    <Resource Include="Fonts\蒙纳摇扬简体.ttf" />
+    <Resource Include="Fonts\创艺简仿宋.TTF" />
+    <Resource Include="Fonts\ZpixEX2_EX.ttf" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Res\LogoEffect.ps" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Lang\en-US.xaml">
@@ -243,6 +266,7 @@
     <Resource Include="Images\Left\ShineDisplay_128.png" />
     <Resource Include="Images\Left\SignatureAlbum_128_Selected.png" />
     <Resource Include="Images\Left\SignatureAlbum_128.png" />
+    <Resource Include="Images\logo.ico" />
     <Content Include="Lang\zh-CN.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -255,6 +279,10 @@
     <Page Include="Styles\FlatStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\FontStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Styles\ink.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -394,6 +422,7 @@
     <None Include="Default.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Resource Include="logo.ico" />
     <Content Include="Modules\CMONO.Plugin.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -15,5 +15,26 @@ namespace ShinePhoto.ViewModels
     [Export(typeof(SignatureAlbumViewModel))]
     public class SignatureAlbumViewModel : Screen,IShellView
     {
+        #region 属性
+
+        /// <summary>
+        /// 程序品牌 Logo 高度
+        /// </summary>
+        private double _logoHeight = 120d;
+
+        public double LogoHeight
+        {
+            get
+            {
+                return _logoHeight;
+            }
+            set
+            {
+                _logoHeight = value;
+                NotifyOfPropertyChange(() => LogoHeight);
+            }
+        }
+
+        #endregion
     }
 }

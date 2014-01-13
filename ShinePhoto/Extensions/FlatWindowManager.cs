@@ -19,22 +19,20 @@ namespace ShinePhoto.Extensions
             Window window = base.EnsureWindow(model, view, isDialog);
 
             window.WindowStyle = WindowStyle.None;
-            //window.Icon = new BitmapImage(new Uri("Images/Photo.ico", UriKind.RelativeOrAbsolute));
-            //window.SizeToContent = SizeToContent.WidthAndHeight;
             window.SizeToContent = SizeToContent.Manual;
             window.ResizeMode = ResizeMode.NoResize;
             window.WindowState = WindowState.Maximized;
             window.WindowStartupLocation = WindowStartupLocation.CenterScreen;
             //window.Background = new SolidColorBrush(Colors.Transparent);
 
-    //        windowManger.ShowWindow(viewModel,
-    //settings: new Dictionary<string, object>
-    //{
-    //    { "WindowStyle", WindowStyle.None},
-    //    { "ShowInTaskbar", false},
-    //    { "AllowsTransparency", true},
-    //    { "Background", new SolidColorBrush(Colors.Transparent)},
-    //});
+            //        windowManger.ShowWindow(viewModel,
+            //settings: new Dictionary<string, object>
+            //{
+            //    { "WindowStyle", WindowStyle.None},
+            //    { "ShowInTaskbar", false},
+            //    { "AllowsTransparency", true},
+            //    { "Background", new SolidColorBrush(Colors.Transparent)},
+            //});
 
             return window;
         }

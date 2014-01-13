@@ -20,6 +20,8 @@
     
     <!--中文字体-->
     <FontFamily x:Key="MYoyoMedium">/ShinePhoto;Component/Fonts/#MYoyo PRC Medium</FontFamily>
-    <FontFamily x:Key="WenDing">/ShinePhoto;Component/Fonts/#文鼎CS长美黑</FontFamily>
+    <FontFamily x:Key="WenDing">/ShinePhoto;Component/Fonts/#文鼎CS長美黑</FontFamily>
     <FontFamily x:Key="WenQuan">/ShinePhoto;Component/Fonts/#文泉驿等宽正黑</FontFamily>
+    <FontFamily x:Key="FangSong">/ShinePhoto;Component/Fonts/#创艺简仿宋</FontFamily>
+    <FontFamily x:Key="EX2">/ShinePhoto;Component/Fonts/#最像素EX2</FontFamily>
 </ResourceDictionary>
