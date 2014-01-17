@@ -27,32 +27,41 @@ namespace ShinePhoto.ViewModels
                 {
                     tbName = ShinePhoto.Helpers.TreeHelper.FindVisualChildByName<TextBlock>(view, "tbName");
                     SwipeWords(tbName, view);
-                    stdStart = (Storyboard)view.Resources["start"];
+                    
                     stdEnd = (Storyboard)view.Resources["end"];
+
+                    stdEnd.Completed += (a, b) =>
+                    {
+                        var win = GetView() as Window;
+                        Application.Current.MainWindow = null;
+                        win.DialogResult = true;
+                        win.Close();
+                    };
+
+                    Func<bool> func = InitApp;
+
+                    //在UI线程中得到异步任务的返回值，并更新UI
+                    //必须在UI线程中执行 
+                    Action<IAsyncResult> resultHandler = delegate(IAsyncResult asyncResult)
+                    {
+                        bool flag = func.EndInvoke(asyncResult);
+                        SystemInfo = "123456";
+                        stdEnd.Begin();
+                    };
+
+                    stdStart = (Storyboard)view.Resources["start"];
                     stdStart.Completed += (a, b) =>
                     {
                         view.root.Clip = null;
-                        Func<bool> func = InitApp;
-
-                        //在UI线程中得到异步任务的返回值，并更新UI
-                        //必须在UI线程中执行 
-                        Action<IAsyncResult> resultHandler = delegate(IAsyncResult asyncResult)
-                        {
-                            bool flag = func.EndInvoke(asyncResult);
-                            SystemInfo = "123456";
-                            var win = GetView() as Window;
-                            Application.Current.MainWindow = null;
-                            win.DialogResult = true;
-                            win.Close();
-                        };
-
                         var result = func.BeginInvoke((asyncResult) =>
                         {
                             (GetView() as Window).Dispatcher.BeginInvoke(System.Windows.Threading.DispatcherPriority.Background, resultHandler, asyncResult);
                         }, null);
                     };
-                  
                     stdStart.Begin();
+
+                   
+                  
                 }
                 catch (Exception ex)
                 {

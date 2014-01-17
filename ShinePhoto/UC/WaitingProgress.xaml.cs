@@ -38,5 +38,6 @@ namespace ShinePhoto.UC
                 base.Visibility = System.Windows.Visibility.Collapsed;
             }));
         }
+
     }
 }

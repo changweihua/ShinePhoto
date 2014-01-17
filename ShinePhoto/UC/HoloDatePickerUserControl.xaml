@@ -1,0 +1,106 @@
+﻿<UserControl x:Class="ShinePhoto.UC.HoloDatePickerUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cvts="clr-namespace:ShinePhoto.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="200" d:DesignWidth="300" x:Name="holoDatePicker">
+    <UserControl.Resources>
+        <Style x:Key="CurrentSelected" TargetType="Border">
+            <Setter Property="Padding" Value="0, 5" />
+            <Setter Property="Margin" Value="0, 5" />
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="2" />
+        </Style>
+        <Style x:Key="ArrowImage" TargetType="Image">
+            <Setter Property="Margin" Value="0, 10" />
+            <Setter Property="Width" Value="24" />
+            <Setter Property="Height" Value="24" />
+            <Setter Property="Opacity" Value="0.7" />
+        </Style>
+        <cvts:PrevMonthConverter x:Key="PrevMonthConverter" />
+        <cvts:NextMonthConverter x:Key="NextMonthConverter" />
+        <cvts:PrevYearConverter x:Key="PrevYearConverter" />
+        <cvts:NextYearConverter x:Key="NextYearConverter" />
+    </UserControl.Resources>
+    <Grid DataContext="{Binding ElementName=holoDatePicker}" Width="165">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <!--年-->
+        <StackPanel Margin="5, 0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50">
+            <Image x:Name="IncreaseYear" MouseUp="IncreaseYear_MouseUp" Source="/images/uc/arrow_up.png" Style="{StaticResource ArrowImage}" />
+            <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource WenDing}" FontSize="20" HorizontalAlignment="Center" Text="{Binding .,Path=CurrentYear,Converter={StaticResource PrevYearConverter}}">
+               <TextBlock.OpacityMask>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0" Color="Transparent" />
+                        <GradientStop Offset="1" Color="Black" />
+                    </LinearGradientBrush>
+                </TextBlock.OpacityMask>
+            </TextBlock>
+            <Border Style="{StaticResource CurrentSelected}">
+                <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource WenDing}" FontSize="20" HorizontalAlignment="Center" Text="{Binding .,Path=CurrentYear}" />
+            </Border>
+            <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource WenDing}" FontSize="20" HorizontalAlignment="Center" Text="{Binding .,Path=CurrentYear,Converter={StaticResource NextYearConverter}}">
+                <TextBlock.OpacityMask>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0" Color="Black" />
+                        <GradientStop Offset="1" Color="Transparent" />
+                    </LinearGradientBrush>
+                </TextBlock.OpacityMask>
+            </TextBlock>
+            <Image x:Name="DecreaseYear" MouseUp="DecreaseYear_MouseUp" Source="/images/uc/arrow_down.png" Style="{StaticResource ArrowImage}" />
+        </StackPanel>
+        <!--月-->
+        <StackPanel Margin="5, 0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Grid.Column="1">
+            <Image x:Name="IncreaseMonth" MouseUp="IncreaseMonth_MouseUp" Source="/images/uc/arrow_up.png" Style="{StaticResource ArrowImage}" />
+            <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource WenDing}" FontSize="20" HorizontalAlignment="Center" Text="{Binding .,Path=PrevMonth}">
+               <TextBlock.OpacityMask>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0" Color="Transparent" />
+                        <GradientStop Offset="1" Color="Black" />
+                    </LinearGradientBrush>
+                </TextBlock.OpacityMask>
+            </TextBlock>
+            <Border Style="{StaticResource CurrentSelected}">
+                <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource WenDing}" FontSize="20" HorizontalAlignment="Center" Text="{Binding .,Path=CurrentMonth}" />
+            </Border>
+            <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource WenDing}" FontSize="20" HorizontalAlignment="Center" Text="{Binding .,Path=NextMonth}">
+                <TextBlock.OpacityMask>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0" Color="Black" />
+                        <GradientStop Offset="1" Color="Transparent" />
+                    </LinearGradientBrush>
+                </TextBlock.OpacityMask>
+            </TextBlock>
+            <Image x:Name="DecreaseMonth" MouseUp="DecreaseMonth_MouseUp" Source="/images/uc/arrow_down.png" Style="{StaticResource ArrowImage}" />
+        </StackPanel>
+        <!--日-->
+        <StackPanel Margin="5, 0" VerticalAlignment="Center" HorizontalAlignment="Center" Width="50" Grid.Column="2">
+            <Image x:Name="IncreaseDay" MouseUp="IncreaseDay_MouseUp" Source="/images/uc/arrow_up.png" Style="{StaticResource ArrowImage}" />
+            <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource WenDing}" FontSize="20" HorizontalAlignment="Center" Text="{Binding .,Path=PrevDay}">
+               <TextBlock.OpacityMask>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0" Color="Transparent" />
+                        <GradientStop Offset="1" Color="Black" />
+                    </LinearGradientBrush>
+                </TextBlock.OpacityMask>
+            </TextBlock>
+            <Border Style="{StaticResource CurrentSelected}">
+                <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource WenDing}" FontSize="20" HorizontalAlignment="Center" Text="{Binding .,Path=CurrentDay}" />
+            </Border>
+            <TextBlock VerticalAlignment="Center" FontFamily="{StaticResource WenDing}" FontSize="20" HorizontalAlignment="Center" Text="{Binding .,Path=NextDay}">
+                <TextBlock.OpacityMask>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0" Color="Black" />
+                        <GradientStop Offset="1" Color="Transparent" />
+                    </LinearGradientBrush>
+                </TextBlock.OpacityMask>
+            </TextBlock>
+            <Image x:Name="DecreaseDay" MouseUp="DecreaseDay_MouseUp" Source="/images/uc/arrow_down.png" Style="{StaticResource ArrowImage}" />
+        </StackPanel>
+    </Grid>
+</UserControl>

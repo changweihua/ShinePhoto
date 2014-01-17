@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="ShinePhoto.UC.FlipUserControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ShinePhoto.UC"
+             xmlns:cvs="clr-namespace:ShinePhoto.Converters"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" Name="control">
+        <UserControl.Resources>
+            <ContentControl x:Key="BackSide" Content="{Binding Source={x:Reference control}, Path=Back}" RenderTransformOrigin="0.5,0.5">
+                <ContentControl.RenderTransform>
+                    <ScaleTransform ScaleX="-1" />
+                </ContentControl.RenderTransform>
+            </ContentControl>
+        </UserControl.Resources>
+        <ContentControl RenderTransformOrigin="0.5,0.5">
+            <ContentControl.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform x:Name="transform" ScaleX="1" />
+                </TransformGroup>
+            </ContentControl.RenderTransform>
+            <ContentControl.Style>
+                <Style TargetType="{x:Type ContentControl}">
+                    <Setter Property="Content" Value="{Binding ElementName=control, Path=Front}" />
+                    <Style.Triggers>
+                        <DataTrigger Value="True">
+                            <DataTrigger.Binding>
+                                <Binding ElementName="transform" Path="ScaleX">
+                                    <Binding.Converter>
+                                    <cvs:LessThanXToTrueConverter X="0" />
+                                    </Binding.Converter>
+                                </Binding>
+                            </DataTrigger.Binding>
+                            <DataTrigger.Setters>
+                                <Setter Property="Content" Value="{StaticResource BackSide}"/>
+                            </DataTrigger.Setters>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ContentControl.Style>
+        </ContentControl>
+</UserControl>

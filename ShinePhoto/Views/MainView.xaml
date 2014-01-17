@@ -3,16 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cal="http://www.caliburnproject.org"
+             cal:Message.Attach="[Event Loaded] = [Action LoadUserControl($source)]"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600">
+    <UserControl.Resources>
+        
+    </UserControl.Resources>
     <UserControl.Background>
         <ImageBrush ImageSource="/Images/BG.jpg" />
     </UserControl.Background>
-    <Grid >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="375" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <ContentControl x:Name="LeftViewModel" />
-        <ContentControl Grid.Column="1" x:Name="ShellViewModel" />
-    </Grid>
+   
+        <Grid x:Name="root">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="375" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <ContentControl x:Name="LeftViewModel" />
+            <ContentControl Grid.Column="1" x:Name="ShellViewModel" />
+        </Grid>
 </UserControl>

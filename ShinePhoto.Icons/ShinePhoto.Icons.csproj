@@ -3108,6 +3108,67 @@
     <Resource Include="flat\72\zoomin.png" />
     <Resource Include="flat\72\zoomout.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="folder\48\aquar.png" />
+    <Resource Include="folder\48\cactus.png" />
+    <Resource Include="folder\48\cherry.png" />
+    <Resource Include="folder\48\gray.png" />
+    <Resource Include="folder\48\jeans.png" />
+    <Resource Include="folder\48\lemon.png" />
+    <Resource Include="folder\48\lilac.png" />
+    <Resource Include="folder\48\liquorice.png" />
+    <Resource Include="folder\48\mentol.png" />
+    <Resource Include="folder\48\milk.png" />
+    <Resource Include="folder\48\red.png" />
+    <Resource Include="folder\48\rose.png" />
+    <Resource Include="folder\512\aquar.png" />
+    <Resource Include="folder\512\cactus.png" />
+    <Resource Include="folder\512\cherry.png" />
+    <Resource Include="folder\512\gray.png" />
+    <Resource Include="folder\512\jeans.png" />
+    <Resource Include="folder\512\lemon.png" />
+    <Resource Include="folder\512\lilac.png" />
+    <Resource Include="folder\512\liquorice.png" />
+    <Resource Include="folder\512\mentol.png" />
+    <Resource Include="folder\512\milk.png" />
+    <Resource Include="folder\512\red.png" />
+    <Resource Include="folder\64\aquar.png" />
+    <Resource Include="folder\64\cactus.png" />
+    <Resource Include="folder\64\cherry.png" />
+    <Resource Include="folder\64\gary.png" />
+    <Resource Include="folder\64\jeans.png" />
+    <Resource Include="folder\64\lemon.png" />
+    <Resource Include="folder\64\lilac.png" />
+    <Resource Include="folder\64\liquorice.png" />
+    <Resource Include="folder\64\mentol.png" />
+    <Resource Include="folder\64\milk.png" />
+    <Resource Include="folder\64\red.png" />
+    <Resource Include="folder\64\rose.png" />
+    <Resource Include="folder\72\aquar.png" />
+    <Resource Include="folder\72\cactus.png" />
+    <Resource Include="folder\72\cherry.png" />
+    <Resource Include="folder\72\gray.png" />
+    <Resource Include="folder\72\jeans.png" />
+    <Resource Include="folder\72\lemon.png" />
+    <Resource Include="folder\72\lilac.png" />
+    <Resource Include="folder\72\liquorice.png" />
+    <Resource Include="folder\72\mentol.png" />
+    <Resource Include="folder\72\milk.png" />
+    <Resource Include="folder\72\red.png" />
+    <Resource Include="folder\72\rose.png" />
+    <Resource Include="folder\96\aquar.png" />
+    <Resource Include="folder\96\cactus.png" />
+    <Resource Include="folder\96\cherry.png" />
+    <Resource Include="folder\96\gray.png" />
+    <Resource Include="folder\96\jeans.png" />
+    <Resource Include="folder\96\lemon.png" />
+    <Resource Include="folder\96\lilac.png" />
+    <Resource Include="folder\96\liquorice.png" />
+    <Resource Include="folder\96\mentol.png" />
+    <Resource Include="folder\96\milk.png" />
+    <Resource Include="folder\96\red.png" />
+    <Resource Include="folder\96\rose.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

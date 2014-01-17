@@ -3,34 +3,275 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+             xmlns:cal="http://www.caliburnproject.org"
+             xmlns:uc="clr-namespace:ShinePhoto.UC"
+             xmlns:cvs="clr-namespace:ShinePhoto.Converters"
+             xmlns:tools="clr-namespace:_3DTools;assembly=3DTools"
              mc:Ignorable="d" 
-             d:DesignHeight="600" d:DesignWidth="1500">
-    <Grid>
+             d:DesignHeight="900" d:DesignWidth="1500" cal:Message.Attach="[Event Loaded] = [Action LoadUserControl($source)]">
+    <UserControl.Resources>
+        <cvs:FolderNameConverter x:Key="FolderNameConverter"/>
+    </UserControl.Resources>
+    <Grid Margin="10, 25, 10, 15">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.75*" />
             <RowDefinition Height="0.25*" />
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.8*" />
+            <ColumnDefinition Width="0.2*" />
+        </Grid.ColumnDefinitions>
+        <Grid Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="{Binding LogoHeight}"/>
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition  />
+                <ColumnDefinition Width="{Binding ElementName=ControllerGrid,Path=ActualWidth}"/>
             </Grid.ColumnDefinitions>
-            <Border Margin="0, 0, 0, 10" Grid.Row="1" Width="1100" Height="620" BorderBrush="White" BorderThickness="2.5">
-                <Image Source="/Images/Default.jpg" />
+            <Border Grid.Row="1" BorderBrush="White" BorderThickness="2.5">
+                <Grid VerticalAlignment="Center" HorizontalAlignment="Center" Width="1220" Height="658">
+                    <Grid Opacity="0.01" Background="AliceBlue" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                    <uc:DockPanelContainer>
+                        <uc:DockPanel x:Name="adminDockPanel1" Height="813" IsTabStop="False" Margin="10, 10, 10, 10" MinHeight="50" MinWidth="100" Width="275">
+                            <uc:DockPanel.HeaderTemplate>
+                                <ControlTemplate>
+                                    <Grid Height="40" IsHitTestVisible="False" VerticalAlignment="Top">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Border CornerRadius="2, 2, 0, 0">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5, 1" StartPoint="0.5, 0">
+                                                    <GradientStop Offset="0.013"  Color="#FF85CA79"/>
+                                                    <GradientStop Offset="1" Color="#FF4C8A24"/>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                        <TextBlock FontFamily="Arial" FontSize="14" FontWeight="Bold" Foreground="#FFFFFFFF" HorizontalAlignment="Left" Margin="8, 8, 0, 0" Text="Repeat Prescription Requests" VerticalAlignment="Center" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </uc:DockPanel.HeaderTemplate>
+                            <TextBlock Text="ok"/>
+                        </uc:DockPanel>
+                        <uc:DockPanel x:Name="adminDockPanel2" Height="720.5" IsTabStop="False" Margin="10, 10, 10, 10" MinHeight="50" MinWidth="100" Width="275" Canvas.Left="180" Canvas.Top="0">
+                            <uc:DockPanel.HeaderTemplate>
+                                <ControlTemplate>
+                                    <Grid Height="40" IsHitTestVisible="False" VerticalAlignment="Top">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Border CornerRadius="2, 2, 0, 0">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5, 1" StartPoint="0.5, 0">
+                                                    <GradientStopCollection>
+                                                        <GradientStop Offset="0" Color="#FF58A7B0"></GradientStop>
+                                                        <GradientStop Offset="1" Color="#FF2E8B99"></GradientStop>
+                                                    </GradientStopCollection>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                        <TextBlock FontFamily="Arial" FontSize="14" FontWeight="Bold" Foreground="#FFFFFFFF" HorizontalAlignment="Left" Margin="8, 8, 0, 0" Text="Reports" VerticalAlignment="Center" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </uc:DockPanel.HeaderTemplate>
+                            <TextBlock Text="good"/>
+                        </uc:DockPanel>
+                        <uc:DockPanel x:Name="adminDockPanel3" Height="720.5" IsTabStop="False" Margin="10, 10, 10, 10" MinHeight="50" MinWidth="100" Width="275" Canvas.Left="180" Canvas.Top="0">
+                            <uc:DockPanel.HeaderTemplate>
+                                <ControlTemplate>
+                                    <Grid Height="50" IsHitTestVisible="False" VerticalAlignment="Top">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition Height="20" />
+                                        </Grid.RowDefinitions>
+                                        <Border Grid.RowSpan="2" CornerRadius="2, 2, 0, 0">
+                                            <Border.Background>
+                                                <LinearGradientBrush EndPoint="0.5, 1" StartPoint="0.5, 0">
+                                                    <GradientStopCollection>
+                                                        <GradientStop Offset="0" Color="#FF4D8D8F"></GradientStop>
+                                                        <GradientStop Offset="1" Color="#FF166470"></GradientStop>
+                                                    </GradientStopCollection>
+                                                </LinearGradientBrush>
+                                            </Border.Background>
+                                        </Border>
+                                        <TextBlock FontFamily="Arial" FontSize="14" FontWeight="Bold" Foreground="#FFFFFFFF" HorizontalAlignment="Left" Margin="8, 8, 0, 0" Text="Email Inbox" VerticalAlignment="Center" />
+                                        <Rectangle Grid.Row="1" Stretch="Fill">
+                                            <Rectangle.Fill>
+                                                <LinearGradientBrush EndPoint="0.5, 1" StartPoint="0.5, 0">
+                                                    <GradientStopCollection>
+                                                        <GradientStop Offset="0" Color="#AA000000"></GradientStop>
+                                                        <GradientStop Offset="1" Color="#FF000000"></GradientStop>
+                                                    </GradientStopCollection>
+                                                </LinearGradientBrush>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                        <TextBlock Grid.Row="1" FontFamily="Arial" Foreground="#FFFFFFFF" HorizontalAlignment="Left" Margin="5, 0, 0, 0" Text="Connected to Microsoft Exchange" VerticalAlignment="Center" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </uc:DockPanel.HeaderTemplate>
+
+                            <TextBlock Text="good"/>
+                        </uc:DockPanel>
+                        <uc:DockPanel x:Name="adminDockPanel4" Height="720.5" IsTabStop="False" Margin="10, 10, 10, 10" MinHeight="50" MinWidth="100" Width="275" Canvas.Left="180" Canvas.Top="0">
+                            <uc:DockPanel.HeaderTemplate>
+                                <ControlTemplate>
+                                    <Grid Height="42" IsHitTestVisible="False" Margin="5, 0, 0, 0" VerticalAlignment="Top">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                            <Grid Height="28" HorizontalAlignment="Left" Margin="5, 0, 0, 0" RenderTransformOrigin="0.5, 0.5" VerticalAlignment="Center" Width="36">
+                                                <Grid.RenderTransform>
+                                                    <ScaleTransform ScaleX="0.85" ScaleY="0.85" />
+                                                </Grid.RenderTransform>
+                                                <Path Stretch="Fill" Stroke="#FF1F4F01">
+                                                    <Path.Fill>
+                                                        <LinearGradientBrush EndPoint="0.5, 1" StartPoint="0.5, 0">
+                                                            <GradientStopCollection>
+                                                                <GradientStop Offset="0" Color="#FF63B92C"></GradientStop>
+                                                                <GradientStop Offset="1" Color="#FF1F4F01"></GradientStop>
+                                                            </GradientStopCollection>
+                                                        </LinearGradientBrush>
+                                                    </Path.Fill>
+                                                </Path>
+                                                <Rectangle Fill="#FFFF0011" Height="10" HorizontalAlignment="Center" Margin="0, 12, 0, 0" Stretch="Fill" VerticalAlignment="Center" Width="3" />
+                                                <Rectangle Fill="#FFFF0011" Height="10" Margin="16.5, 0, 16.5, 3" RenderTransformOrigin="0.5, 0.5" Stretch="Fill" VerticalAlignment="Bottom">
+                                                    <Rectangle.RenderTransform>
+                                                        <TransformGroup>
+                                                            <TransformCollection>
+                                                                <ScaleTransform />
+                                                                <SkewTransform />
+                                                                <RotateTransform Angle="90" />
+                                                                <TranslateTransform />
+                                                            </TransformCollection>
+                                                        </TransformGroup>
+                                                    </Rectangle.RenderTransform>
+                                                </Rectangle>
+                                            </Grid>
+                                            <TextBlock FontFamily="Arial" FontSize="14" FontWeight="Bold" Foreground="#FF19386B" HorizontalAlignment="Left" Margin="8, 0, 0, 0" Text="Practice Noticeboard" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                        <Rectangle Fill="#FF999999" Height="1" Stretch="Fill" VerticalAlignment="Bottom" />
+                                    </Grid>
+                                </ControlTemplate>
+                            </uc:DockPanel.HeaderTemplate>
+                            <TextBlock Text="good"/>
+                        </uc:DockPanel>
+                        <uc:DockPanel x:Name="adminDockPanel5" Height="720.5" IsTabStop="False" Margin="10, 10, 10, 10" MinHeight="50" MinWidth="100" Width="275" Canvas.Left="180" Canvas.Top="0">
+                            <TextBlock Text="good"/>
+                        </uc:DockPanel>
+                        <uc:DockPanel x:Name="adminDockPanel6" Height="720.5" IsTabStop="False" Margin="10, 10, 10, 10" MinHeight="50" MinWidth="100" Width="275" Canvas.Left="180" Canvas.Top="0">
+                            <TextBlock Text="good"/>
+                        </uc:DockPanel>
+                        <uc:DockPanel x:Name="adminDockPanel7" Height="720.5" IsTabStop="False" Margin="10, 10, 10, 10" MinHeight="50" MinWidth="100" Width="275" Canvas.Left="180" Canvas.Top="0">
+                            <TextBlock Text="good"/>
+                        </uc:DockPanel>
+                        <uc:DockPanel x:Name="adminDockPanel8" Height="720.5" IsTabStop="False" Margin="10, 10, 10, 10" MinHeight="50" MinWidth="100" Width="275" Canvas.Left="180" Canvas.Top="0">
+                            <TextBlock Text="sssss"/>
+                        </uc:DockPanel>
+
+                    </uc:DockPanelContainer>
+                </Grid>
+
             </Border>
-            <Button Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="1" Content="Content" />
+            <StackPanel Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="1">
+                <StackPanel.OpacityMask>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0" Color="Black" />
+                        <GradientStop Offset="1" Color="Transparent" />
+                    </LinearGradientBrush>
+                </StackPanel.OpacityMask>
+                <Button Content="手势识别区域" />
+                <!-- 调整视角 -->
+                <Slider Margin="5" Grid.Row="1"  Minimum="0" Maximum="360" Orientation="Horizontal" Name="sliderRotate" ></Slider>
+            </StackPanel>
         </Grid>
-        <Button FontFamily="{StaticResource WenQuan}" Grid.Row="1" Content="No Content">
-            <Button.OpacityMask>
-                <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                    <GradientStop Offset="0" Color="Black" />
-                    <GradientStop Offset="1" Color="Transparent" />
-                </LinearGradientBrush>
-            </Button.OpacityMask>
-        </Button>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <!--日期选择控件-->
+            <StackPanel VerticalAlignment="Bottom">
+                <TextBlock FontSize="20" HorizontalAlignment="Center" FontFamily="{DynamicResource WenDing}" Text="请选择需要查看的月份" />
+                <uc:HoloDatePickerUserControl x:Name="datePicker" />
+                <Button Content="确定" Template="{DynamicResource MetroButton}"  FontFamily="{DynamicResource WenQuan}"  Style="{DynamicResource LightButton}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="Click">
+                            <cal:ActionMessage MethodName="SelectDate">
+                                <cal:Parameter Value="{Binding ElementName=datePicker}" />
+                            </cal:ActionMessage>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </Button>
+            </StackPanel>
+            <!--当前年份和月份下的文件夹-->
+            <ItemsControl VerticalAlignment="Bottom" Margin="25, 0, 0, 0" Grid.Column="1" HorizontalAlignment="Left" Background="Transparent" x:Name="Folders">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Margin="3" CornerRadius="4" Width="{Binding RelativeSource={RelativeSource Mode=Self},Path=ActualHeight}" BorderBrush="#2D91CF" BorderThickness="1">
+                            <StackPanel>
+                                <uc:FlipUserControl cal:Message.Attach="[Event MouseUp] = [Action Flip($source)]">
+                                    <uc:FlipUserControl.Front>
+                                        <Grid>
+                                            <Image Width="96" Height="96" Source="pack://application:,,,/ShinePhoto.Icons;Component/folder/96/jeans.png">
+
+                                            </Image>
+                                            <TextBlock FontSize="18" Opacity="0.5" FontFamily="{StaticResource WenDing}" VerticalAlignment="Bottom" HorizontalAlignment="Center" Text="{Binding Path=FolderPath, Converter={StaticResource FolderNameConverter}}" />
+                                        </Grid>
+                                    </uc:FlipUserControl.Front>
+                                    <uc:FlipUserControl.Back>
+                                        <Grid>
+                                            <Image Width="96" Height="96" Source="pack://application:,,,/ShinePhoto.Icons;Component/folder/96/gray.png" />
+                                        </Grid>
+                                    </uc:FlipUserControl.Back>
+                                </uc:FlipUserControl>
+                                <Button Content="查看图片" Tag="{Binding Path=FolderPath}" Template="{DynamicResource MetroButton}"  FontFamily="{DynamicResource WenQuan}"  Style="{DynamicResource LightButton}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Click">
+                                            <cal:ActionMessage MethodName="OpenFolder">
+                                                <cal:Parameter Value="$source" />
+                                                <cal:Parameter Value="$eventArgs" />
+                                                <cal:Parameter Value="{Binding ElementName=ImageItems}" />
+                                            </cal:ActionMessage>
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Button>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="2" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.Style>
+                    <Style TargetType="ItemsControl">
+                        <Style.Triggers>
+                            <Trigger Property="HasItems" Value="false"   >
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate>
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="20" FontFamily="{DynamicResource WenDing}" Text="貌似没有哦"/>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ItemsControl.Style>
+            </ItemsControl>
+        </Grid>
+        <Grid Grid.Row="1" x:Name="ControllerGrid" Grid.Column="1">
+            <StackPanel Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="1">
+                <StackPanel.OpacityMask>
+                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                        <GradientStop Offset="0" Color="Black" />
+                        <GradientStop Offset="1" Color="Transparent" />
+                    </LinearGradientBrush>
+                </StackPanel.OpacityMask>
+                <Button Content="操作按钮区域" />
+            </StackPanel>
+        </Grid>
     </Grid>
 </UserControl>

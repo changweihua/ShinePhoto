@@ -42,6 +42,24 @@
         </Setter>
     </Style>
 
+    <ControlTemplate x:Key="MetroButton" TargetType="{x:Type Button}">
+        <Border BorderBrush="Transparent" BorderThickness="0" Background="#2D91CF" Name="PART_Background">
+            <ContentPresenter Content="{TemplateBinding ContentControl.Content}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="UIElement.IsMouseOver" Value="True">
+                <Setter Property="Border.Background" TargetName="PART_Background" Value="#2D91CF" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <Style x:Key="LightButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="#2D91CF" />
+        <Setter Property="FontSize" Value="18" />
+        <Setter Property="FontFamily" Value="Verdena" />
+        <Setter Property="Foreground" Value="White" />
+    </Style>
+    
     <Style x:Key="BlueButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="#2D91CF" />
         <Setter Property="FontSize" Value="18" />
@@ -89,6 +107,4 @@
         </Setter>
     </Style>
     
-    
-
 </ResourceDictionary>

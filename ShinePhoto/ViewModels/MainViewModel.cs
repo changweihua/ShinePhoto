@@ -8,6 +8,7 @@ using ShinePhoto.Events;
 using System.Diagnostics;
 using ShinePhoto.Interfaces;
 using ShinePhoto.Interface;
+using System.Windows.Media.Animation;
 
 namespace ShinePhoto.ViewModels
 {
@@ -17,6 +18,16 @@ namespace ShinePhoto.ViewModels
     [Export(typeof(MainViewModel))]
     public class MainViewModel : Screen, IHandle<ModuleChangedEvent>
     {
+        public void LoadUserControl(object source)
+        { 
+             var view = source as ShinePhoto.Views.MainView;
+
+             if (view != null)
+             {
+                 
+             }
+        }
+
         private readonly IEventAggregator _eventAggregator;
 
         public MainViewModel()

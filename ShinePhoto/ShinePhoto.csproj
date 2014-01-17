@@ -39,6 +39,9 @@
     <ApplicationIcon>logo.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="3DTools">
+      <HintPath>..\..\..\..\DLL\3DTools.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto">
       <HintPath>..\..\..\..\DLL\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
@@ -101,6 +104,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
+    <Compile Include="Converters\HoloDatePickerConverter.cs" />
+    <Compile Include="Converters\FolderNameConverter.cs" />
+    <Compile Include="Converters\LessThanXToTrueConverter.cs" />
     <Compile Include="Converters\ModuleModelConverter.cs" />
     <Compile Include="Effects\LogoEffect.cs" />
     <Compile Include="Events\ModuleChangedEvent.cs" />
@@ -126,17 +132,35 @@
     <Compile Include="Models\AdModel.cs" />
     <Compile Include="Models\ExifModel.cs" />
     <Compile Include="Models\FileModel.cs" />
+    <Compile Include="Models\FolderModel.cs" />
     <Compile Include="Models\LoginUserModel.cs" />
     <Compile Include="Models\ModuleModel.cs" />
     <Compile Include="Models\ShinePhotoDataContext.cs" />
     <Compile Include="Models\UserModel.cs" />
+    <Compile Include="UC\AnimatedUserControl.cs" />
+    <Compile Include="UC\DataTemplateBase.cs" />
+    <Compile Include="UC\DockPanel.cs" />
+    <Compile Include="UC\DockPanelContainer.cs" />
+    <Compile Include="UC\DragEventArgs.cs" />
+    <Compile Include="UC\FlipUserControl.xaml.cs">
+      <DependentUpon>FlipUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\GridCell.cs" />
+    <Compile Include="UC\HoloDatePickerUserControl.xaml.cs">
+      <DependentUpon>HoloDatePickerUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\ImageButton.cs" />
     <Compile Include="UC\LoadingProgress.xaml.cs">
       <DependentUpon>LoadingProgress.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\LoadingUserControl.xaml.cs">
+      <DependentUpon>LoadingUserControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UC\NhsButton.cs" />
     <Compile Include="UC\RoundButton.xaml.cs">
       <DependentUpon>RoundButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\ThumbEx.cs" />
     <Compile Include="UC\WaitingProgress.xaml.cs">
       <DependentUpon>WaitingProgress.xaml</DependentUpon>
     </Compile>
@@ -217,6 +241,8 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="App.config" />
+    <None Include="Cursors\Glass Cursors\Busy.ani" />
+    <None Include="Cursors\Glass Cursors\Working.ani" />
     <None Include="db.sl3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -267,6 +293,22 @@
     <Resource Include="Images\Left\SignatureAlbum_128_Selected.png" />
     <Resource Include="Images\Left\SignatureAlbum_128.png" />
     <Resource Include="Images\logo.ico" />
+    <Resource Include="Cursors\Glass Cursors\AutoSetup.inf" />
+    <Resource Include="Cursors\Glass Cursors\Help.cur" />
+    <Resource Include="Cursors\Glass Cursors\Horisontal Resize.cur" />
+    <Resource Include="Cursors\Glass Cursors\Link.cur" />
+    <Resource Include="Cursors\Glass Cursors\Move.cur" />
+    <Resource Include="Cursors\Glass Cursors\Normal.cur" />
+    <Resource Include="Cursors\Glass Cursors\Pen.cur" />
+    <Resource Include="Cursors\Glass Cursors\Select.cur" />
+    <Resource Include="Cursors\Glass Cursors\Special.cur" />
+    <Resource Include="Cursors\Glass Cursors\Text.cur" />
+    <Resource Include="Cursors\Glass Cursors\Unavalable.cur" />
+    <Resource Include="Cursors\Glass Cursors\UpLeft Resize.cur" />
+    <Resource Include="Cursors\Glass Cursors\UpRight Resize.cur" />
+    <Resource Include="Cursors\Glass Cursors\Vertical Resize.cur" />
+    <Resource Include="Images\UC\arrow_down.png" />
+    <Resource Include="Images\UC\arrow_up.png" />
     <Content Include="Lang\zh-CN.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -296,7 +338,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\DockPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\FlipUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\HoloDatePickerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UC\LoadingProgress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\LoadingUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

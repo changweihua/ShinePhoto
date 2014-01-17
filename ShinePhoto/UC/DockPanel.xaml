@@ -1,0 +1,268 @@
+﻿<uc:AnimatedUserControl x:Class="ShinePhoto.UC.DockPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:uc="clr-namespace:ShinePhoto.UC"
+             mc:Ignorable="d" MinWidth="100" MinHeight="50"
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.Clip>
+            <RectangleGeometry RadiusX="5" RadiusY="5" Rect="0,0,500,500" x:Name="panelClip" />
+        </Grid.Clip>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="0" />
+        </Grid.RowDefinitions>
+
+        <!-- BACKGROUND -->
+        <Grid Grid.RowSpan="3"  x:Name="lightBackground" >
+            <Rectangle x:Name="shadow"  Opacity="0.5" HorizontalAlignment="Stretch" Margin="-8,-8,-8,-8" VerticalAlignment="Stretch" RadiusX="10" RadiusY="10">
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                        <GradientStop Color="#00000000" Offset="0"/>
+                        <GradientStop Color="#FF000000" Offset="0.1" x:Name="shadowVertical1"/>
+                        <GradientStop Color="#FF000000" Offset="0.9" x:Name="shadowVertical2"/>
+                        <GradientStop Color="#00000000" Offset="1"/>
+
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+                <Rectangle.OpacityMask>
+                    <LinearGradientBrush EndPoint="1.0,0.5" StartPoint="0.0,0.5">
+                        <GradientStop Color="#00000000" Offset="0"/>
+                        <GradientStop Color="#FF000000" Offset="0.1" x:Name="shadowHorizontal1"/>
+                        <GradientStop Color="#FF000000" Offset="0.9" x:Name="shadowHorizontal2"/>
+                        <GradientStop Color="#00000000" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.OpacityMask>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Stretch"   VerticalAlignment="Stretch" RadiusX="3" RadiusY="3" Stroke="#FF7E7E7E"  OpacityMask="#FF000000" >
+                <Rectangle.Fill>
+                    <LinearGradientBrush EndPoint="0.445,-0.177" StartPoint="0.537,1.096">
+                        <GradientStop Color="#FFDEDEDE"/>
+                        <GradientStop Color="#FFFFFFFF" Offset="1"/>
+                    </LinearGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle HorizontalAlignment="Stretch"  Margin="1" VerticalAlignment="Stretch" RadiusX="3" RadiusY="3" Stroke="#FFFFFFFF" />
+        </Grid>
+
+        <Grid Grid.RowSpan="3" x:Name="darkBackground" Opacity="0">
+            <Rectangle RadiusX="3" RadiusY="3" Fill="#7F000000" Stroke="#7F000000" StrokeThickness="1"/>
+            <Rectangle RadiusX="3" RadiusY="3" StrokeThickness="1" >
+                <Rectangle.Fill>
+                    <RadialGradientBrush GradientOrigin="0.49,1.03">
+                        <RadialGradientBrush.RelativeTransform>
+                            <TransformGroup>
+                                <ScaleTransform CenterX="0.5" CenterY="0.5" ScaleY="1.462" ScaleX="1.276"/>
+                                <SkewTransform CenterX="0.5" CenterY="0.5"/>
+                                <RotateTransform CenterX="0.5" CenterY="0.5"/>
+                                <TranslateTransform X="0.012" Y="0.283"/>
+                            </TransformGroup>
+                        </RadialGradientBrush.RelativeTransform>
+                        <GradientStop Color="#FFFFFFFF"/>
+                        <GradientStop Color="#00FFFFFF" Offset="1"/>
+                    </RadialGradientBrush>
+                </Rectangle.Fill>
+            </Rectangle>
+            <Rectangle Margin="1,1,1,1" RadiusX="3" RadiusY="3" Stroke="#FFFFFFFF" StrokeThickness="1"/>
+        </Grid>
+
+        <uc:ThumbEx x:Name="gripBar" >
+            <uc:ThumbEx.Template>
+                <ControlTemplate>
+                    <Canvas  Background="#00000000" />
+                </ControlTemplate>
+            </uc:ThumbEx.Template>
+        </uc:ThumbEx>
+
+        <Grid VerticalAlignment="Top" >
+            <uc:DataTemplateBase x:Name="headerPresenter" />
+        </Grid>
+
+        <Grid x:Name="contentHost" Margin="2,2,2,2" Grid.Row="1">
+            <Grid.Clip>
+                <RectangleGeometry Rect="0,0,198,298" RadiusX="2.5" RadiusY="2.5"  x:Name="contentHostClip" />
+            </Grid.Clip>
+        </Grid>
+
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Right" Margin="0,5,8,0" >
+
+            <uc:NhsButton x:Name="minimiseButton" Visibility="Collapsed">
+                <uc:NhsButton.Template>
+                    <ControlTemplate TargetType="uc:NhsButton">
+                        <Grid HorizontalAlignment="Right" Width="12" Height="12" Background="Transparent">
+
+                            <Grid.Resources>
+                                <Storyboard x:Name="MouseEnterAnimation" x:Key="MouseEnterAnimation">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="backlight1" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.2" Value="1" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Name="MouseLeaveAnimation" x:Key="MouseLeaveAnimation">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="backlight1" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.2" Value="0" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Name="MouseUpAnimation" x:Key="MouseUpAnimation">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="backlight1" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.1" Value="0" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </Grid.Resources>
+
+                            <Grid x:Name="backlight1" Opacity="0">
+                                <Rectangle HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" RadiusX="1" RadiusY="1" Stroke="#FF2F2F2F" Width="5.025"  Height="5.357">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#7F000000"/>
+                                            <GradientStop Color="#FF000000" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle Height="1.836" HorizontalAlignment="Left" Margin="1.01600003242493,1,0,0" VerticalAlignment="Top" Width="3.002" RadiusX="0" RadiusY="0" >
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#C4FFFFFF"/>
+                                            <GradientStop Color="#38FFFFFF" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" RadiusX="1" RadiusY="1" Stroke="#FF2F2F2F" Height="5.357" Width="5.025" >
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#7F000000"/>
+                                            <GradientStop Color="#FF000000" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle Height="1.836" HorizontalAlignment="Right" Margin="0,1.01900005340576,1.03600001335144,0" VerticalAlignment="Top" RadiusX="0" RadiusY="0" Width="2.984" >
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#C4FFFFFF"/>
+                                            <GradientStop Color="#38FFFFFF" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Bottom" RadiusX="1" RadiusY="1" Stroke="#FF2F2F2F" Height="5.357" Width="5.025" >
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#7F000000"/>
+                                            <GradientStop Color="#FF000000" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle Height="1.836" HorizontalAlignment="Left" Margin="0.996999979019165,0,0,2.51600003242493" VerticalAlignment="Bottom" RadiusX="0" RadiusY="0" Width="3.021" >
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#C4FFFFFF"/>
+                                            <GradientStop Color="#38FFFFFF" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" RadiusX="1" RadiusY="1" Stroke="#FF2F2F2F" Height="5.357" Width="5.025" >
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#7F000000"/>
+                                            <GradientStop Color="#FF000000" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle Height="1.836" HorizontalAlignment="Right" Margin="0,0,1.03600001335144,2.55399990081787" VerticalAlignment="Bottom" RadiusX="0" RadiusY="0" Width="2.984" >
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#C4FFFFFF"/>
+                                            <GradientStop Color="#38FFFFFF" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Grid>
+
+
+
+                            <Rectangle HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top" RadiusX="1" RadiusY="1" Stroke="{TemplateBinding Foreground}" Height="5.357" Width="5.025" />
+                            <Rectangle HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Top" RadiusX="1" RadiusY="1" Stroke="{TemplateBinding Foreground}" Height="5.357" Width="5.025" />
+                            <Rectangle HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Bottom" RadiusX="1" RadiusY="1" Stroke="{TemplateBinding Foreground}" Height="5.357" Width="5.025" />
+                            <Rectangle HorizontalAlignment="Right" Margin="0,0,0,0" VerticalAlignment="Bottom" RadiusX="1" RadiusY="1" Stroke="{TemplateBinding Foreground}" Height="5.357" Width="5.025" />
+                            <Grid.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard Storyboard="{StaticResource MouseEnterAnimation}"/>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard Storyboard="{StaticResource MouseLeaveAnimation}"/>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseUp">
+                                    <BeginStoryboard Storyboard="{StaticResource MouseUpAnimation}"/>
+                                </EventTrigger>
+                            </Grid.Triggers>
+                        </Grid>
+                    </ControlTemplate>
+                </uc:NhsButton.Template>
+            </uc:NhsButton>
+
+            <uc:NhsButton x:Name="maximiseButton" >
+                <uc:NhsButton.Template>
+                    <ControlTemplate TargetType="uc:NhsButton">
+                        <Grid  Width="12" Height="12">
+                            <Grid.Resources>
+                                <Storyboard x:Name="MouseEnterAnimation0" x:Key="MouseEnterAnimation0">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="backlight" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.2" Value="1" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Name="MouseLeaveAnimation0" x:Key="MouseLeaveAnimation0">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="backlight" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00" Value="1" />
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.2" Value="0" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                                <Storyboard x:Name="MouseUpAnimation0" x:Key="MouseUpAnimation0">
+                                    <DoubleAnimationUsingKeyFrames Storyboard.TargetName="backlight" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <SplineDoubleKeyFrame KeyTime="00:00:00.1" Value="0" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </Grid.Resources>
+                            <Rectangle RadiusX="1" RadiusY="1" Stroke="{TemplateBinding Foreground}"/>
+                            <Grid x:Name="backlight" Opacity="0">
+                                <Rectangle HorizontalAlignment="Stretch" Margin="0,0,0,0" VerticalAlignment="Stretch" RadiusX="1" RadiusY="1" Stroke="{TemplateBinding Foreground}">
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#7F000000"/>
+                                            <GradientStop Color="#FF000000" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Rectangle Height="5.29" HorizontalAlignment="Stretch" Margin="1.05400002002716,1,1.05400002002716,0" VerticalAlignment="Top" Width="9.892" RadiusX="0" RadiusY="0" >
+                                    <Rectangle.Fill>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                            <GradientStop Color="#C4FFFFFF"/>
+                                            <GradientStop Color="#38FFFFFF" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                            </Grid>
+                            <Grid.Triggers>
+                                <EventTrigger RoutedEvent="MouseEnter">
+                                    <BeginStoryboard Storyboard="{StaticResource MouseEnterAnimation0}"/>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseLeave">
+                                    <BeginStoryboard Storyboard="{StaticResource MouseLeaveAnimation0}"/>
+                                </EventTrigger>
+                                <EventTrigger RoutedEvent="MouseUp">
+                                    <BeginStoryboard Storyboard="{StaticResource MouseUpAnimation0}"/>
+                                </EventTrigger>
+                            </Grid.Triggers>
+                        </Grid>
+                    </ControlTemplate>
+                </uc:NhsButton.Template>
+            </uc:NhsButton>
+
+
+        </StackPanel>
+
+    </Grid>
+</uc:AnimatedUserControl>

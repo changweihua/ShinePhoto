@@ -8,6 +8,12 @@
              xmlns:uc="clr-namespace:ShinePhoto.UC"
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="750" cal:Message.Attach="[Event Loaded] = [Action LoadUserControl($source)]">
+    <UserControl.RenderTransform>
+        <TransformGroup>
+            <RotateTransform x:Name="rt" Angle="0"/>
+            <ScaleTransform x:Name="sct" ScaleX="1" ScaleY="1"/>
+        </TransformGroup>
+    </UserControl.RenderTransform>
     <UserControl.Resources>
         <Storyboard x:Key="start">
             <RectAnimation Storyboard.TargetName="r1" Storyboard.TargetProperty="Rect"

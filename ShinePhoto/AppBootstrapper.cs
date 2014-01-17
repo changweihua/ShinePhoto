@@ -110,39 +110,41 @@ namespace ShinePhoto
 
             #endregion
 
-            try
-            {
-                var splashScreen = IoC.Get<SplashViewModel>();
-                var winManager = IoC.Get<IWindowManager>();
+            base.OnStartup(sender, e);
 
-                var manager = new MessageWindowManager();
+            //try
+            //{
+            //    var splashScreen = IoC.Get<SplashViewModel>();
+            //    var winManager = IoC.Get<IWindowManager>();
 
-                var settings = new Dictionary<string, object>
-                {
-                    { "AllowsTransparency", true},
-                    { "Background", System.Windows.Media.Brushes.Transparent},
-                    { "WindowStyle", System.Windows.WindowStyle.None},
-                    { "WindowStartupLocation", System.Windows.WindowStartupLocation.CenterScreen }
-                };
+            //    var manager = new MessageWindowManager();
 
-                bool? flag = manager.ShowDialog(splashScreen, null, settings);
+            //    var settings = new Dictionary<string, object>
+            //    {
+            //        { "AllowsTransparency", true},
+            //        { "Background", System.Windows.Media.Brushes.Transparent},
+            //        { "WindowStyle", System.Windows.WindowStyle.None},
+            //        { "WindowStartupLocation", System.Windows.WindowStartupLocation.CenterScreen }
+            //    };
 
-                //bool? flag = winManager.ShowDialog(splashScreen);
+            //    bool? flag = manager.ShowDialog(splashScreen, null, settings);
 
-                if (flag.Value)
-                {
-                    LogManager.GetLog(typeof(AppBootstrapper)).Info("程序初始化成功");
-                    base.OnStartup(sender, e);
-                }
-                else
-                {
-                    LogManager.GetLog(typeof(AppBootstrapper)).Info("程序初始化失败");
-                }
-            }
-            catch (Exception ex)
-            {
-                LogManager.GetLog(typeof(AppBootstrapper)).Info("初始化发生异常 {0}", ex.Message);
-            }
+            //    //bool? flag = winManager.ShowDialog(splashScreen);
+
+            //    if (flag.Value)
+            //    {
+            //        LogManager.GetLog(typeof(AppBootstrapper)).Info("程序初始化成功");
+            //        base.OnStartup(sender, e);
+            //    }
+            //    else
+            //    {
+            //        LogManager.GetLog(typeof(AppBootstrapper)).Info("程序初始化失败");
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    LogManager.GetLog(typeof(AppBootstrapper)).Info("初始化发生异常 {0}", ex.Message);
+            //}
 
         }
 
