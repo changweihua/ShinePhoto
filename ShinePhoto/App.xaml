@@ -11,7 +11,8 @@
                 <ResourceDictionary Source="/Styles/FlatStyle.xaml"/>
                 <ResourceDictionary Source="/Styles/UCStyle.xaml"/>
                 <ResourceDictionary Source="/Styles/ink.xaml"/>
-                <!--<ResourceDictionary Source="/Styles/ScrollViewer.xaml"/>-->
+                <ResourceDictionary Source="/Styles/Metro/MetroScrollBar.xaml"/>
+                <ResourceDictionary Source="/Styles/Metro/MetroListView.xaml"/>
                 <ResourceDictionary>
                     <local:AppBootstrapper x:Key="bootstrapper" />
                 </ResourceDictionary>

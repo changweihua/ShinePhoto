@@ -2,49 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.ComponentModel;
 using System.Reflection;
+using System.ComponentModel;
 using System.Dynamic;
 
-namespace ShinePhoto.ConsoleOut
+namespace ShinePhoto.Extensions
 {
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            //var flag = System.Text.RegularExpressions.Regex.IsMatch("{pack://application:,,,/ShinePhoto.Icons;Component/light/appbar.quill.png}", @"light");
-
-            //Console.WriteLine(flag);
-
-            //var result = System.Text.RegularExpressions.Regex.Replace("{pack://application:,,,/ShinePhoto.Icons;Component/light/appbar.quill.png}", "light", "dark");
-
-            //Console.WriteLine(result);
-
-            //var str = @"C:\Users\ChangWeihua\Pictures\Eye-Fi\2013-12-13";
-            //Console.WriteLine(str.Substring(str.LastIndexOf('\\')));
-
-            Gender f = (Gender)Enum.Parse(typeof(Gender), "Female");
-            Console.WriteLine(f.GetDescriptionByName<Gender>());
-
-            using (DBContainer container=new DBContainer())
-            {
-
-            }
-
-            Console.ReadKey(true);
-        }
-    }
-
-    enum Gender
-    {
-        [Description("男")]
-        Male,
-        [Description("女")]
-        Female
-    }
-
-
-
     public static class EnumExtension
     {
         public static List<dynamic> GetAllItems(this Type enumName)
@@ -98,5 +61,4 @@ namespace ShinePhoto.ConsoleOut
             }
         }
     }
-
 }

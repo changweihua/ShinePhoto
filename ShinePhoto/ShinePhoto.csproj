@@ -55,6 +55,7 @@
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.2.1.0\lib\net40\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework.Aero" />
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -111,6 +112,7 @@
     <Compile Include="Effects\LogoEffect.cs" />
     <Compile Include="Events\ModuleChangedEvent.cs" />
     <Compile Include="Events\RegistNextEvent.cs" />
+    <Compile Include="Extensions\EnumExtension.cs" />
     <Compile Include="Extensions\FlatWindowManager.cs" />
     <Compile Include="Extensions\ImageDecoder.cs" />
     <Compile Include="Extensions\ImageQueue.cs" />
@@ -142,6 +144,7 @@
     <Compile Include="UC\DockPanel.cs" />
     <Compile Include="UC\DockPanelContainer.cs" />
     <Compile Include="UC\DragEventArgs.cs" />
+    <Compile Include="UC\FishEyePanel.cs" />
     <Compile Include="UC\FlipUserControl.xaml.cs">
       <DependentUpon>FlipUserControl.xaml</DependentUpon>
     </Compile>
@@ -150,6 +153,9 @@
       <DependentUpon>HoloDatePickerUserControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\ImageButton.cs" />
+    <Compile Include="UC\ImageViewUserControl.xaml.cs">
+      <DependentUpon>ImageViewUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\LoadingProgress.xaml.cs">
       <DependentUpon>LoadingProgress.xaml</DependentUpon>
     </Compile>
@@ -160,10 +166,12 @@
     <Compile Include="UC\RoundButton.xaml.cs">
       <DependentUpon>RoundButton.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\RulerCanvas.cs" />
     <Compile Include="UC\ThumbEx.cs" />
     <Compile Include="UC\WaitingProgress.xaml.cs">
       <DependentUpon>WaitingProgress.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\WrapPanelEx.cs" />
     <Compile Include="ValidationRules\UserNameRule.cs" />
     <Compile Include="ViewModels\AdViewModel.cs" />
     <Compile Include="ViewModels\AppViewModel.cs" />
@@ -246,6 +254,7 @@
     <None Include="db.sl3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Res\back.design" />
     <Resource Include="Fonts\ACFramed.otf" />
     <Resource Include="Fonts\Alice.ttf" />
     <Resource Include="Fonts\Campus A.ttf" />
@@ -309,6 +318,24 @@
     <Resource Include="Cursors\Glass Cursors\Vertical Resize.cur" />
     <Resource Include="Images\UC\arrow_down.png" />
     <Resource Include="Images\UC\arrow_up.png" />
+    <Content Include="Images\BarDown.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BarDown_S.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BarUp.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\BarUp_S.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\bar_center.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Images\flower.jpg" />
+    <Resource Include="Images\flower2.jpg" />
+    <Resource Include="Images\flower3.jpg" />
     <Content Include="Lang\zh-CN.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -330,7 +357,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\Metro\MetroScrollBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Metro\MetroListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\ScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\ScrollViewer2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -347,6 +386,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\HoloDatePickerUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\ImageViewUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
