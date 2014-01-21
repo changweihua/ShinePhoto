@@ -72,37 +72,26 @@
                                     <Border Margin="5, 2" Width="200" Height="150" BorderThickness="1" BorderBrush="Yellow">
                                         <Grid>
                                             <uc:WaitingProgress />
-                                            <Image Stretch="UniformToFill" ext:ImageDecoder.Source="{Binding Path=FileName}">
+                                            <Image Stretch="UniformToFill" Tag="{Binding Path=FileName}" ext:ImageDecoder.Source="{Binding Path=FileName}">
                                                 <i:Interaction.Triggers>
                                                     <i:EventTrigger EventName="PreviewTouchDown">
                                                         <cal:ActionMessage MethodName="ShowImage">
                                                             <cal:Parameter Value="$source" />
+                                                            <cal:Parameter Value="{Binding ElementName=ImageViewCanvas}" />
                                                         </cal:ActionMessage>
                                                     </i:EventTrigger>
                                                     <i:EventTrigger EventName="PreviewMouseDown">
                                                         <cal:ActionMessage MethodName="ShowImage">
                                                             <cal:Parameter Value="$source" />
+                                                            <cal:Parameter Value="{Binding ElementName=ImageViewCanvas}" />
                                                         </cal:ActionMessage>
                                                     </i:EventTrigger>
                                                 </i:Interaction.Triggers>
                                             </Image>
                                         </Grid>
                                     </Border>
-                                    <!--<Image Source="{Binding FileName}" Width="{Binding Width}" Height="{Binding Height}" />-->
                                 </DataTemplate>
                             </ListView.ItemTemplate>
-                            <!--<Rectangle Margin="5" Width="100" Height="100" Fill="Beige" />
-                            <Rectangle Margin="5" Width="100" Height="100" Fill="PowderBlue" />
-                            <Rectangle Margin="5" Width="100" Height="100" Fill="#FF9ACD32" />
-                            <Rectangle Margin="5" Width="100" Height="100" Fill="#FFFF6347" />
-                            <Rectangle Margin="5" Width="100" Height="100" Fill="#FF6495ED" />
-                            <Rectangle Margin="5" Width="100" Height="100" Fill="#FFFFA500" />
-                            <Rectangle Margin="5" Width="100" Height="100" Fill="#FFFFD700" />
-                            <Rectangle Margin="5" Width="100" Height="100" Fill="#FFFF4500" />
-                            <Rectangle Margin="5" Width="100" Height="100" Fill="#FF316915" />
-                            <Rectangle Margin="5" Width="100" Height="100" Fill="#FF8E32A7" />
-                            <Rectangle Margin="5" Width="100" Height="100" Fill="#FFECBADC" />
-                            <Rectangle Margin="5" Width="100" Height="100" Fill="#FFE6D84F" />-->
                         </ListView>
                     </surface:SurfaceScrollViewer>
                 </Grid>
@@ -139,6 +128,7 @@
                             </i:Interaction.Triggers>
                         </InkCanvas>
                     </Grid>
+                    
                 </StackPanel>
             </StackPanel>
         </Grid>
@@ -219,21 +209,15 @@
             </ItemsControl>
         </Grid>
         <Grid Grid.Row="1" x:Name="ControllerGrid" Grid.Column="1">
-            <Grid.Background>
-                <RadialGradientBrush GradientOrigin="1, 1" Center="0.6,0.5" RadiusX="1" RadiusY="1">
-                    <RadialGradientBrush.GradientStops>
-                        <GradientStop Color="Red" Offset="0" />
-                        <GradientStop Color="Black" Offset="0.20" />
-                        <GradientStop Color="Yellow" Offset="0.40" />
-                        <GradientStop Color="Pink" Offset="0.60" />
-                        <GradientStop Color="Blue" Offset="0.80" />
-                        <GradientStop Color="Green" Offset="1.0" />
-                    </RadialGradientBrush.GradientStops>
-                </RadialGradientBrush>
-            </Grid.Background>
-            <Canvas Margin="10, 0, 0, 0" Grid.Row="1" Grid.Column="1" Background="{StaticResource Slice_2}">
-                <Image Source="pack://application:,,,/ShinePhoto.Icons;Component/light/appbar.switch.off.png" Canvas.Bottom="3" Canvas.Right="18" cal:Message.Attach="[Event MouseUp] = [Action ShutDown]" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition Width="32" />
+            </Grid.ColumnDefinitions>
+            <Canvas Background="{StaticResource Slice_2}">
+                <Image Source="pack://application:,,,/ShinePhoto.Icons;Component/light/appbar.switch.off.png" Canvas.Bottom="3" Canvas.Right="8" cal:Message.Attach="[Event MouseUp] = [Action ShutDown]" />
             </Canvas>
+            <Canvas cal:Message.Attach="[Event ManipulationStarting] = [Action ManipulationStarting($source, $eventArgs)];[Event ManipulationInertiaStarting] = [Action ManipulationInertiaStarting($source, $eventArgs)];[Event ManipulationDelta] = [Action ManipulationDelta($source, $eventArgs)]" Grid.Column="1" x:Name="ImageViewCanvas" />
+            <!--<uc:ImageViewUserControl Grid.Column="1" Background="Transparent" x:Name="ImageViewCanvas" />-->
         </Grid>
     </Grid>
 </UserControl>

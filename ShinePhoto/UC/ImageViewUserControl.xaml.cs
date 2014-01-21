@@ -17,7 +17,7 @@ namespace ShinePhoto.UC
     /// <summary>
     /// ImageViewUserControl.xaml 的交互逻辑
     /// </summary>
-    public partial class ImageViewUserControl : UserControl
+    public partial class ImageViewUserControl : RulerCanvas
     {
         public ImageViewUserControl()
         {

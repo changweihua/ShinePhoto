@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Ink;
 
 using ShinePhoto.Extensions;
+using System.Windows.Media;
 
 namespace ShinePhoto.ViewModels
 {
@@ -183,7 +184,7 @@ namespace ShinePhoto.ViewModels
 
         private int _clickCount = 0;
 
-        public void ShowImage(object source)
+        public void ShowImage(object source, object container)
         {
             _clickCount += 1;
 
@@ -200,6 +201,13 @@ namespace ShinePhoto.ViewModels
                 timer.IsEnabled = false;
                 _clickCount = 0;
                 LogManager.GetLog(typeof(SignatureAlbumViewModel)).Info("图片被双击了");
+                //(new ShinePhoto.UC.ImageViewUserControl()).
+                var canvas = container as Canvas;
+                var image = source as Image;
+                if (canvas != null && image != null)
+                {
+                    canvas.Children.Add(CreateImage(image.Tag.ToString()));
+                }
             }
         }
 
@@ -354,7 +362,116 @@ namespace ShinePhoto.ViewModels
 
         #endregion
 
+        #region 图片展示
+
+        public void ManipulationInertiaStarting(object sender, ManipulationInertiaStartingEventArgs e)
+        {
+            LogManager.GetLog(typeof(SignatureAlbumViewModel)).Info("ManipulationInertiaStarting");
+            e.TranslationBehavior = new InertiaTranslationBehavior()
+            {
+                InitialVelocity = e.InitialVelocities.LinearVelocity,
+                DesiredDeceleration = 10.0 * 96.0 / (1000.0 * 1000.0)
+            };
+
+            e.ExpansionBehavior = new InertiaExpansionBehavior()
+            {
+                InitialVelocity = e.InitialVelocities.ExpansionVelocity,
+                DesiredDeceleration = 0.1 * 96 / 1000.0 * 1000.0
+            };
+
+            e.RotationBehavior = new InertiaRotationBehavior()
+            {
+                InitialVelocity = e.InitialVelocities.AngularVelocity,
+                DesiredDeceleration = 720 / (1000.0 * 1000.0)
+            };
+            e.Handled = true;
+        }
+
+        public void ManipulationStarting(object container, ManipulationStartingEventArgs e)
+        {
+            LogManager.GetLog(typeof(SignatureAlbumViewModel)).Info("ManipulationStarting");
+            var uie = e.OriginalSource as UIElement;
+            if (uie != null)
+            {
+                if (last != null) Canvas.SetZIndex(last, 0);
+                Canvas.SetZIndex(uie, 2);
+                last = uie;
+            }
+
+            e.ManipulationContainer = (container as Canvas);
+            e.Handled = true;
+        }
+
+        public void ManipulationDelta(object sender, ManipulationDeltaEventArgs e)
+        {
+            LogManager.GetLog(typeof(SignatureAlbumViewModel)).Info("ManipulationDelta");
+            try
+            {
+                var element = e.Source as FrameworkElement;
+                if (element != null)
+                {
+
+                    var deltaManipulation = e.DeltaManipulation;
+                    var matrix = ((MatrixTransform)element.RenderTransform).Matrix;
+                    //var matrix = ((MatrixTransform)(element.RenderTransform.Clone())).Matrix;
+                    // find the old center; arguaby this could be cached 
+                    Point center = new Point(element.ActualWidth / 2, element.ActualHeight / 2);
+                    // transform it to take into account transforms from previous manipulations 
+                    center = matrix.Transform(center);
+                    //this will be a Zoom. 
+                    matrix.ScaleAt(deltaManipulation.Scale.X, deltaManipulation.Scale.Y, center.X, center.Y);
+                    // Rotation 
+                    matrix.RotateAt(e.DeltaManipulation.Rotation, center.X, center.Y);
+                    //Translation (pan) 
+                    matrix.Translate(e.DeltaManipulation.Translation.X, e.DeltaManipulation.Translation.Y);
+                    
+                    ((MatrixTransform)element.RenderTransform).Matrix = matrix;
+
+                    e.Handled = true;
+
+                    if (e.IsInertial)
+                    {
+                        Rect containingRect = new Rect(((FrameworkElement)e.ManipulationContainer).RenderSize);
+
+                        Rect shapeBounds = element.RenderTransform.TransformBounds(new Rect(element.RenderSize));
+
+                        if (e.IsInertial && !containingRect.Contains(shapeBounds))
+                        {
+                            //Report that we have gone over our boundary 
+                            e.ReportBoundaryFeedback(e.DeltaManipulation);
+
+                            e.Complete();
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLog(typeof(SignatureAlbumViewModel)).Info(ex.Message);
+            }
+            
+        }
+
+        #endregion
+
         #region 方法
+
+        Image CreateImage(string path)
+        {
+            
+            Image image = new Image();
+            //MatrixTransform matrixTransform = new MatrixTransform(new Matrix(1.5929750047527, 0.585411309251951, -0.585411309251951, 1.5929750047527, 564.691807426081, 79.4658072348299));
+            //image.RenderTransform = matrixTransform;
+            image.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
+            image.Width = 300;
+            image.Height = 200;
+            image.IsManipulationEnabled = true;
+            image.SetValue(Canvas.RightProperty, 200.0);
+            image.SetValue(Canvas.BottomProperty, 200.0);
+            image.RenderTransform = new MatrixTransform();
+
+            return image;
+        }
 
         long CalculateFolderSize(string folderName)
         {
@@ -400,6 +517,8 @@ namespace ShinePhoto.ViewModels
         #endregion
 
         #region 属性
+
+        UIElement last;
 
         private Dictionary<GestureRecognitionResult, string> _dict = new Dictionary<GestureRecognitionResult, string>();
         private long _folderSize = 0;
