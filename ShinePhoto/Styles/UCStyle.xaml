@@ -1,7 +1,35 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:uc="clr-namespace:ShinePhoto.UC">
- 
+    <Style x:Key="FlyingImage">
+        <Setter Property="Canvas.Left" Value="448" />
+        <Setter Property="Canvas.Top" Value="156" />
+        <Style.Triggers>
+            <EventTrigger RoutedEvent="Image.Loaded">
+                <EventTrigger.Actions>
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation  
+                                         Duration="0:0:2"  
+                                         Storyboard.TargetProperty="Width"
+                                        From="0" To="1024"  />
+                            <DoubleAnimation  
+                                         Duration="0:0:2"  
+                                         Storyboard.TargetProperty="Height"
+                                        From="0" To="768"  />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger.Actions>
+            </EventTrigger>
+        </Style.Triggers>
+    </Style>
+
+    <!-- 虚线 -->
+    <LinearGradientBrush x:Key="DottedHorizontalSeparatorBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Color="#c7c8c9" Offset="0.5" />
+        <GradientStop Color="Transparent" Offset="0.501" />
+    </LinearGradientBrush>
+
     <Style x:Key="ImageButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>

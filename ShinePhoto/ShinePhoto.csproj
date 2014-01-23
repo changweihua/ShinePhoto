@@ -145,6 +145,9 @@
     <Compile Include="UC\DockPanelContainer.cs" />
     <Compile Include="UC\DragEventArgs.cs" />
     <Compile Include="UC\FishEyePanel.cs" />
+    <Compile Include="UC\FlatUserControl.xaml.cs">
+      <DependentUpon>FlatUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\FlipUserControl.xaml.cs">
       <DependentUpon>FlipUserControl.xaml</DependentUpon>
     </Compile>
@@ -162,12 +165,19 @@
     <Compile Include="UC\LoadingUserControl.xaml.cs">
       <DependentUpon>LoadingUserControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UC\MessageBoxUserControl.xaml.cs">
+      <DependentUpon>MessageBoxUserControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\NhsButton.cs" />
+    <Compile Include="UC\RadialPanel.cs" />
     <Compile Include="UC\RoundButton.xaml.cs">
       <DependentUpon>RoundButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="UC\RulerCanvas.cs" />
     <Compile Include="UC\ThumbEx.cs" />
+    <Compile Include="UC\Vectors\PinModule.xaml.cs">
+      <DependentUpon>PinModule.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UC\WaitingProgress.xaml.cs">
       <DependentUpon>WaitingProgress.xaml</DependentUpon>
     </Compile>
@@ -180,12 +190,15 @@
     <Compile Include="ViewModels\LeftViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\MessageBoxViewModel.cs" />
+    <Compile Include="ViewModels\MessageViewModel.cs" />
     <Compile Include="ViewModels\RegistViewModel.cs" />
     <Compile Include="ViewModels\RightViewModel.cs" />
     <Compile Include="ViewModels\SettingViewModel.cs" />
     <Compile Include="ViewModels\ShineDisplayViewModel.cs" />
     <Compile Include="ViewModels\SignatureAlbumViewModel.cs" />
     <Compile Include="ViewModels\SplashViewModel.cs" />
+    <Compile Include="ViewModels\SystemCogViewModel.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
     <Compile Include="Views\AdView.xaml.cs">
       <DependentUpon>AdView.xaml</DependentUpon>
@@ -208,6 +221,12 @@
     <Compile Include="Views\MainView.xaml.cs">
       <DependentUpon>MainView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MessageBoxView.xaml.cs">
+      <DependentUpon>MessageBoxView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MessageView.xaml.cs">
+      <DependentUpon>MessageView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RegistView.xaml.cs">
       <DependentUpon>RegistView.xaml</DependentUpon>
     </Compile>
@@ -225,6 +244,9 @@
     </Compile>
     <Compile Include="Views\SplashView.xaml.cs">
       <DependentUpon>SplashView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SystemCogView.xaml.cs">
+      <DependentUpon>SystemCogView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserInfoView.xaml.cs">
       <DependentUpon>UserInfoView.xaml</DependentUpon>
@@ -336,6 +358,7 @@
     <Resource Include="Images\flower.jpg" />
     <Resource Include="Images\flower2.jpg" />
     <Resource Include="Images\flower3.jpg" />
+    <Resource Include="Images\ImageViewBG.png" />
     <Content Include="Lang\zh-CN.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -357,11 +380,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Styles\Metro\Dark.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Metro\MetroControls.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Styles\Metro\MetroScrollBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\Metro\MetroListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Metro\OtherMetroTabs.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -378,6 +413,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UC\DockPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\FlatUserControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -401,7 +440,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UC\MessageBoxUserControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UC\RoundButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UC\Vectors\PinModule.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -437,6 +484,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\MessageBoxView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MessageView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RegistView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -458,6 +513,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SplashView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SystemCogView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -11,6 +11,7 @@
                 <ResourceDictionary Source="/Styles/FlatStyle.xaml"/>
                 <ResourceDictionary Source="/Styles/UCStyle.xaml"/>
                 <ResourceDictionary Source="/Styles/ink.xaml"/>
+                <!--<ResourceDictionary Source="/Styles/Metro/MetroControls.xaml"/>-->
                 <ResourceDictionary Source="/Styles/Metro/MetroScrollBar.xaml"/>
                 <ResourceDictionary Source="/Styles/Metro/MetroListView.xaml"/>
                 <ResourceDictionary>

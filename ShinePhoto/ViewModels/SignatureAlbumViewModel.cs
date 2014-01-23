@@ -410,7 +410,6 @@ namespace ShinePhoto.ViewModels
                 var element = e.Source as FrameworkElement;
                 if (element != null)
                 {
-
                     var deltaManipulation = e.DeltaManipulation;
                     var matrix = ((MatrixTransform)element.RenderTransform).Matrix;
                     //var matrix = ((MatrixTransform)(element.RenderTransform.Clone())).Matrix;
@@ -456,9 +455,13 @@ namespace ShinePhoto.ViewModels
 
         #region 方法
 
+        /// <summary>
+        /// 创建 Image 控件
+        /// </summary>
+        /// <param name="path"></param>
+        /// <returns></returns>
         Image CreateImage(string path)
         {
-            
             Image image = new Image();
             //MatrixTransform matrixTransform = new MatrixTransform(new Matrix(1.5929750047527, 0.585411309251951, -0.585411309251951, 1.5929750047527, 564.691807426081, 79.4658072348299));
             //image.RenderTransform = matrixTransform;
@@ -466,8 +469,8 @@ namespace ShinePhoto.ViewModels
             image.Width = 300;
             image.Height = 200;
             image.IsManipulationEnabled = true;
-            image.SetValue(Canvas.RightProperty, 200.0);
-            image.SetValue(Canvas.BottomProperty, 200.0);
+            image.SetValue(Canvas.RightProperty, 1920.0 / 2);
+            image.SetValue(Canvas.BottomProperty, 1080.0 / 2);
             image.RenderTransform = new MatrixTransform();
 
             return image;
@@ -489,7 +492,6 @@ namespace ShinePhoto.ViewModels
             {
                 CalculateFolderSize(dir.FullName);
             }
-
 
             return _folderSize;
         } 

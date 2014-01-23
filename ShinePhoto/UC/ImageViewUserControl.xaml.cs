@@ -17,16 +17,30 @@ namespace ShinePhoto.UC
     /// <summary>
     /// ImageViewUserControl.xaml 的交互逻辑
     /// </summary>
-    public partial class ImageViewUserControl : RulerCanvas
+    public partial class ImageViewUserControl : UserControl
     {
+        public string CurrentImage
+        {
+            get { return (string)GetValue(CurrentImageProperty); }
+            set { SetValue(CurrentImageProperty, value); }
+        }
+
+        public static readonly DependencyProperty CurrentImageProperty =
+            DependencyProperty.Register("CurrentImage", typeof(string), typeof(ImageViewUserControl), new UIPropertyMetadata(@"/Images/flower3.jpg"));
+
+        // 创建一个委托，返回类型为void，两个参数
+        public delegate void ImageViewCloseHandler(object sender, EventArgs e);
+        // 将创建的委托和特定事件关联,在这里特定的事件为KeyDown
+        public event ImageViewCloseHandler ImageViewClose;
+
         public ImageViewUserControl()
         {
             InitializeComponent();
-            this.Loaded += (sender, e) => {
+            this.Loaded += (sender, e) =>
+            {
                 canvas.ManipulationStarting += new EventHandler<ManipulationStartingEventArgs>(image_ManipulationStarting);
                 canvas.ManipulationDelta += new EventHandler<ManipulationDeltaEventArgs>(image_ManipulationDelta);
 
-                // inertia 
                 canvas.ManipulationInertiaStarting += new EventHandler<ManipulationInertiaStartingEventArgs>(canvas_ManipulationInertiaStarting);
             };
         }

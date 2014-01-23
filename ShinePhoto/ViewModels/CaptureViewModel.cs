@@ -1147,8 +1147,6 @@ namespace ShinePhoto.ViewModels
         //    inkC.SignCanvas.Strokes.Add(stroke);
         //}
 
-        private int intervalLen = 5;
-
         /// <summary>
         /// 在InkCanvas上画弯虚线
         /// 在InkCanvas_StrokeCollected方法的参数属性中可以获得线上的点的坐标。
