@@ -216,7 +216,8 @@
             <Canvas Background="{StaticResource Slice_2}">
                 <Image Source="pack://application:,,,/ShinePhoto.Icons;Component/light/appbar.switch.off.png" Canvas.Bottom="3" Canvas.Right="8" cal:Message.Attach="[Event MouseUp] = [Action ShutDown]" />
             </Canvas>
-            <Canvas cal:Message.Attach="[Event ManipulationStarting] = [Action ManipulationStarting($source, $eventArgs)];[Event ManipulationInertiaStarting] = [Action ManipulationInertiaStarting($source, $eventArgs)];[Event ManipulationDelta] = [Action ManipulationDelta($source, $eventArgs)]" Grid.Column="1" x:Name="ImageViewCanvas" />
+            <Canvas Grid.Column="1" Background="Transparent" x:Name="ImageViewCanvas" />
+            <!--<Canvas cal:Message.Attach="[Event ManipulationStarting] = [Action ManipulationStarting($source, $eventArgs)];[Event ManipulationInertiaStarting] = [Action ManipulationInertiaStarting($source, $eventArgs)];[Event ManipulationDelta] = [Action ManipulationDelta($source, $eventArgs)]" Grid.Column="1" x:Name="ImageViewCanvas" />-->
             <!--<uc:ImageViewUserControl Grid.Column="1" Background="Transparent" x:Name="ImageViewCanvas" />-->
         </Grid>
     </Grid>

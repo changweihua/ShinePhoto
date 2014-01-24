@@ -85,6 +85,8 @@ namespace ShinePhoto
             //Application
             //LogManager.GetLog(typeof(AppBootstrapper)).Info("\r\n操作系统信息\r\n序列号 {0}\r\nCPU 编号 {1}\r\n硬盘编号 {2}\r\n主板编号 {3}\r\n网卡编号 {4}\r\n用户组 {5}\r\n驱动器情况 {6}", SystemInfoHelper.GetSerialNumber(), SystemInfoHelper.GetCpuID(), SystemInfoHelper.GetMainHardDiskId(), SystemInfoHelper.GetMainBoardId(), SystemInfoHelper.GetNetworkAdapterId(), SystemInfoHelper.GetGroupName(), SystemInfoHelper.GetDriverInfo());
 
+            //LogManager.GetLog(typeof(AppBootstrapper)).Info(SystemInfoHelper.GetOSVersionInfo().ProcessorBits);
+
             #region 多语言
 
             System.Globalization.CultureInfo currentCultureInfo = System.Globalization.CultureInfo.CurrentCulture;
@@ -110,41 +112,41 @@ namespace ShinePhoto
 
             #endregion
 
-            base.OnStartup(sender, e);
+            //base.OnStartup(sender, e);
 
-            //try
-            //{
-            //    var splashScreen = IoC.Get<SplashViewModel>();
-            //    var winManager = IoC.Get<IWindowManager>();
+            try
+            {
+                var splashScreen = IoC.Get<SystemCogViewModel>();// IoC.Get<SplashViewModel>();
+                var winManager = IoC.Get<IWindowManager>();
 
-            //    var manager = new MessageWindowManager();
+                var manager = new MessageWindowManager();
 
-            //    var settings = new Dictionary<string, object>
-            //    {
-            //        { "AllowsTransparency", true},
-            //        { "Background", System.Windows.Media.Brushes.Transparent},
-            //        { "WindowStyle", System.Windows.WindowStyle.None},
-            //        { "WindowStartupLocation", System.Windows.WindowStartupLocation.CenterScreen }
-            //    };
+                var settings = new Dictionary<string, object>
+                {
+                    { "AllowsTransparency", true},
+                    { "Background", System.Windows.Media.Brushes.Transparent},
+                    { "WindowStyle", System.Windows.WindowStyle.None},
+                    { "WindowStartupLocation", System.Windows.WindowStartupLocation.CenterScreen }
+                };
 
-            //    bool? flag = manager.ShowDialog(splashScreen, null, settings);
+                bool? flag = manager.ShowDialog(splashScreen, null, settings);
 
-            //    //bool? flag = winManager.ShowDialog(splashScreen);
+                //bool? flag = winManager.ShowDialog(splashScreen);
 
-            //    if (flag.Value)
-            //    {
-            //        LogManager.GetLog(typeof(AppBootstrapper)).Info("程序初始化成功");
-            //        base.OnStartup(sender, e);
-            //    }
-            //    else
-            //    {
-            //        LogManager.GetLog(typeof(AppBootstrapper)).Info("程序初始化失败");
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    LogManager.GetLog(typeof(AppBootstrapper)).Info("初始化发生异常 {0}", ex.Message);
-            //}
+                if (flag.Value)
+                {
+                    LogManager.GetLog(typeof(AppBootstrapper)).Info("程序初始化成功");
+                    base.OnStartup(sender, e);
+                }
+                else
+                {
+                    LogManager.GetLog(typeof(AppBootstrapper)).Info("程序初始化失败");
+                }
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLog(typeof(AppBootstrapper)).Info("初始化发生异常 {0}", ex.Message);
+            }
 
         }
 

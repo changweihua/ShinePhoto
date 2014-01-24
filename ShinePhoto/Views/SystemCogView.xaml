@@ -22,6 +22,58 @@
                 </Grid>
             </Border>
             <Grid Grid.Row="1" Background="White">
+                <TabControl Template="{DynamicResource OfficeTabControl}" Name="tabSteps">
+                    <TabItem Header="基本设置" IsSelected="True">
+                        <StackPanel Margin="5">
+                            <ToggleButton Style="{DynamicResource MetroToggleButtonStyle}" Content="123" />
+                        </StackPanel>
+                    </TabItem>
+                    <TabItem Header="用户设置">
+                        <TextBlock>Recent content tab</TextBlock>
+                    </TabItem>
+                    <TabItem Header="备份设置">
+                        <TextBlock>New content tab</TextBlock>
+                    </TabItem>
+                    <TabItem Header="打印设置">
+                        
+                    </TabItem>
+                    <TabItem Header="待定功能">
+                        <TextBlock>Save &amp; send content tab</TextBlock>
+                    </TabItem>
+                    <TabItem>
+                        <TabItem.Header>
+                            <StackPanel Orientation="Horizontal">
+                                <Image VerticalAlignment="Center" Tag="0" Width="32" Height="32" Source="pack://application:,,,/ShinePhoto.Icons;Component/light/appbar.tree.leaf.png" />
+                                <TextBlock Margin="5, 0, 0, 0" TextBlock.FontFamily="{StaticResource WenQuan}" VerticalAlignment="Center" Text="关于我们" />
+                            </StackPanel>
+                        </TabItem.Header>
+                        <TextBlock>Info content</TextBlock>
+                    </TabItem>
+                </TabControl>
+                
+                <!--<TabControl>
+                    <TabItem Header="123" Tag="888">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="0.2*" />
+                                <ColumnDefinition Width="0.8*" />
+                            </Grid.ColumnDefinitions>
+                            <ListBox x:Name="CategoryItems" >
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <VirtualizingStackPanel />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Foreground="Red" Text="{Binding}" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Grid>
+                    </TabItem>
+                </TabControl>-->
+                
             </Grid>
         </Grid>
     </Border>

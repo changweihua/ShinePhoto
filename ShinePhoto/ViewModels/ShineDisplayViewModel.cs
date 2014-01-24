@@ -10,6 +10,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Printing;
 
 namespace ShinePhoto.ViewModels
 {
@@ -54,16 +55,52 @@ namespace ShinePhoto.ViewModels
             if (view != null && image != null)
             {
                 LogManager.GetLog(typeof(ShineDisplayViewModel)).Info("开始显示图片");
-                ShinePhoto.UC.ImageViewUserControl ivus = new UC.ImageViewUserControl();
-                ivus.canvas.Children.Add(CreateImage(image.Tag.ToString()));
-                ivus.SetValue(Canvas.RightProperty, -10.0);
-                ivus.SetValue(Canvas.BottomProperty, -15.0);
-                view.ImageViewCanvas.Children.Add(ivus);
 
-                ivus.CloseButton.Click += (sender, e) =>
+                CurrentImageSource = image.Tag.ToString();
+                
+                //ShinePhoto.UC.ImageViewUserControl ivus = new UC.ImageViewUserControl();
+                //ivus.canvas.Children.Add(CreateImage(image.Tag.ToString()));
+                //ivus.SetValue(Canvas.RightProperty, -10.0);
+                //ivus.SetValue(Canvas.BottomProperty, -15.0);
+                //view.ImageViewCanvas.Children.Add(ivus);
+
+                //ivus.CloseButton.Click += (sender, e) =>
+                //{
+                //    view.ImageViewCanvas.Children.Remove(ivus);
+                //};
+            }
+        }
+
+        public void Print(object source)
+        {
+            var view = GetView() as ShinePhoto.Views.ShineDisplayView;
+            if (view != null )
+            {
+                LogManager.GetLog(typeof(ShineDisplayViewModel)).Info("开始打印照片");
+
+                //初始化PrintDialog
+                var printDialog = new PrintDialog();
+
+                //从本地计算机中获取所有打印机对象(PrintQueue)
+                var printers = new LocalPrintServer().GetPrintQueues();
+
+                //选择一个打印机
+                var selectedPrinter = printers.FirstOrDefault(p => p.Name == "Microsoft XPS Document Writer");
+
+                if (selectedPrinter == null)
                 {
-                    view.ImageViewCanvas.Children.Remove(ivus);
-                };
+                    MessageBox.Show("没有找到Microsoft XPS Document Writer打印机");
+                    return;
+                }
+
+                //设置打印机
+                printDialog.PrintQueue = selectedPrinter;
+
+                //创建要打印的内容
+                var size = new Size(printDialog.PrintableAreaWidth, printDialog.PrintableAreaHeight);
+
+                //打印
+                printDialog.PrintVisual(view.ToPrintedImage, "照片");
             }
         }
 
@@ -225,7 +262,6 @@ namespace ShinePhoto.ViewModels
             image.RenderTransform = new MatrixTransform();
             image.SetValue(Canvas.LeftProperty, (1920 - 1024) / 2.0);
             image.SetValue(Canvas.TopProperty, (1080 - 768) / 2.0);
-            image.Style = Application.Current.FindResource("FlyingImage") as Style;
 
             return image;
         }
@@ -279,6 +315,21 @@ namespace ShinePhoto.ViewModels
         #endregion
 
         #region 属性
+
+        private string _currentImageSource = "";
+
+        public string CurrentImageSource
+        {
+            get
+            {
+                return _currentImageSource;
+            }
+            set
+            {
+                _currentImageSource = value;
+                NotifyOfPropertyChange(() => CurrentImageSource);
+            }
+        }
 
         /// <summary>
         /// 程序品牌 Logo 高度

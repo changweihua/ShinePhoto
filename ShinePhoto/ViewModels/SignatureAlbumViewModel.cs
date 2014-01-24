@@ -17,6 +17,7 @@ using System.Windows.Ink;
 
 using ShinePhoto.Extensions;
 using System.Windows.Media;
+using ShinePhoto.Views;
 
 namespace ShinePhoto.ViewModels
 {
@@ -202,11 +203,27 @@ namespace ShinePhoto.ViewModels
                 _clickCount = 0;
                 LogManager.GetLog(typeof(SignatureAlbumViewModel)).Info("图片被双击了");
                 //(new ShinePhoto.UC.ImageViewUserControl()).
-                var canvas = container as Canvas;
+                //var canvas = container as Canvas;
+                //var image = source as Image;
+                //if (canvas != null && image != null)
+                //{
+                //    canvas.Children.Add(CreateImage(image.Tag.ToString()));
+                //}
+                var view = GetView() as ShinePhoto.Views.SignatureAlbumView;
                 var image = source as Image;
-                if (canvas != null && image != null)
+                if (view != null && image != null)
                 {
-                    canvas.Children.Add(CreateImage(image.Tag.ToString()));
+                    LogManager.GetLog(typeof(SignatureAlbumView)).Info("开始显示图片");
+                    ShinePhoto.UC.ImageViewUserControl ivus = new UC.ImageViewUserControl();
+                    ivus.canvas.Children.Add(CreateImage(image.Tag.ToString()));
+                    ivus.SetValue(Canvas.RightProperty, -10.0);
+                    ivus.SetValue(Canvas.BottomProperty, -15.0);
+                    view.ImageViewCanvas.Children.Add(ivus);
+
+                    ivus.CloseButton.Click += (sender, e) =>
+                    {
+                        view.ImageViewCanvas.Children.Remove(ivus);
+                    };
                 }
             }
         }
@@ -462,16 +479,26 @@ namespace ShinePhoto.ViewModels
         /// <returns></returns>
         Image CreateImage(string path)
         {
-            Image image = new Image();
+            //Image image = new Image();
             //MatrixTransform matrixTransform = new MatrixTransform(new Matrix(1.5929750047527, 0.585411309251951, -0.585411309251951, 1.5929750047527, 564.691807426081, 79.4658072348299));
             //image.RenderTransform = matrixTransform;
+            //image.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
+            //image.Width = 300;
+            //image.Height = 200;
+            //image.IsManipulationEnabled = true;
+            //image.SetValue(Canvas.RightProperty, 1920.0 / 2);
+            //image.SetValue(Canvas.BottomProperty, 1080.0 / 2);
+            //image.RenderTransform = new MatrixTransform();
+
+            Image image = new Image();
             image.Source = new System.Windows.Media.Imaging.BitmapImage(new Uri(path, UriKind.RelativeOrAbsolute));
-            image.Width = 300;
-            image.Height = 200;
+            image.Width = 1024;
+            image.Height = 768;
             image.IsManipulationEnabled = true;
-            image.SetValue(Canvas.RightProperty, 1920.0 / 2);
-            image.SetValue(Canvas.BottomProperty, 1080.0 / 2);
             image.RenderTransform = new MatrixTransform();
+            image.SetValue(Canvas.LeftProperty, (1920 - 1024) / 2.0);
+            image.SetValue(Canvas.TopProperty, (1080 - 768) / 2.0);
+            image.Style = Application.Current.FindResource("FlyingImage") as Style;
 
             return image;
         }

@@ -54,13 +54,16 @@
                         <RowDefinition />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+                    <Grid Background="Transparent">
+                        <Image x:Name="ToPrintedImage" Source="{Binding CurrentImageSource}" />
+                    </Grid>
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition />
                             <ColumnDefinition Width="15" />
                             <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Button Content="打印" Template="{DynamicResource MetroButton}"  FontFamily="{DynamicResource WenQuan}"  Style="{DynamicResource LightButton}" />
+                        <Button cal:Message.Attach="[Click] = [Print($source)]" Content="打印" Template="{DynamicResource MetroButton}"  FontFamily="{DynamicResource WenQuan}"  Style="{DynamicResource LightButton}" />
                         <Button Grid.Column="2" Content="删除" Template="{DynamicResource MetroButton}"  FontFamily="{DynamicResource WenQuan}"  Style="{DynamicResource LightButton}" />
                     </Grid>
                 </Grid>
@@ -211,8 +214,8 @@
                 <Image Source="pack://application:,,,/ShinePhoto.Icons;Component/light/appbar.switch.off.png" Canvas.Bottom="3" Canvas.Right="6" cal:Message.Attach="[Event MouseUp] = [Action ShutDown]" />
                 <Image Source="pack://application:,,,/ShinePhoto.Icons;Component/light/appbar.cog.png" Canvas.Bottom="1" Canvas.Right="95" cal:Message.Attach="[Event MouseUp] = [Action SystemCog]" />
             </Canvas>
-            <!--<Canvas cal:Message.Attach="[Event ManipulationStarting] = [Action ManipulationStarting($source, $eventArgs)];[Event ManipulationInertiaStarting] = [Action ManipulationInertiaStarting($source, $eventArgs)];[Event ManipulationDelta] = [Action ManipulationDelta($source, $eventArgs)]" Grid.Column="1" x:Name="ImageViewCanvas" />-->
-            <Canvas Grid.Column="1" Background="Transparent" x:Name="ImageViewCanvas" />
+            <Canvas cal:Message.Attach="[Event ManipulationStarting] = [Action ManipulationStarting($source, $eventArgs)];[Event ManipulationInertiaStarting] = [Action ManipulationInertiaStarting($source, $eventArgs)];[Event ManipulationDelta] = [Action ManipulationDelta($source, $eventArgs)]" Grid.Column="1" x:Name="ImageViewCanvas" />
+            <!--<Canvas Grid.Column="1" Background="Transparent" x:Name="ImageViewCanvas" />-->
         </Grid>
     </Grid>
 </UserControl>

@@ -85,6 +85,7 @@ namespace ShinePhoto.ViewModels
         {
             //ShellViewModel = message.ShellView;
             var type = message.ModuleType;
+
             ShellViewModel = IoC.GetInstance(type, "") as IShellView;
             Debug.WriteLine("新模块编号" + message.ModuleName);
         }

@@ -5,6 +5,7 @@ using System.Text;
 using System.ComponentModel;
 using System.Reflection;
 using System.Dynamic;
+using JCS;
 
 namespace ShinePhoto.ConsoleOut
 {
@@ -23,13 +24,30 @@ namespace ShinePhoto.ConsoleOut
             //var str = @"C:\Users\ChangWeihua\Pictures\Eye-Fi\2013-12-13";
             //Console.WriteLine(str.Substring(str.LastIndexOf('\\')));
 
-            Gender f = (Gender)Enum.Parse(typeof(Gender), "Female");
-            Console.WriteLine(f.GetDescriptionByName<Gender>());
+            //Gender f = (Gender)Enum.Parse(typeof(Gender), "Female");
+            //Console.WriteLine(f.GetDescriptionByName<Gender>());
 
-            using (DBContainer container=new DBContainer())
-            {
+            string name = "Microsoft XPS Document Writer";
 
-            }
+            PrinterHelper.GetPrinter(out name).ForEach(_ => Console.WriteLine(_));
+            Console.WriteLine("------------------------------------------------");
+            EnumPrintersCLass.MyEnumPrinters(EnumPrintersCLass.PrinterEnumFlags.PRINTER_ENUM_CONNECTIONS).ToList().ForEach(_ => Console.WriteLine(_.pName));
+
+            StringBuilder sb = new StringBuilder(String.Empty);
+            sb.AppendLine("Operation System Information");
+            sb.AppendLine("----------------------------");
+            sb.AppendLine(String.Format("Name = {0}", OSVersionInfo.Name));
+            sb.AppendLine(String.Format("Edition = {0}", OSVersionInfo.Edition));
+            if (OSVersionInfo.ServicePack != string.Empty)
+                sb.AppendLine(String.Format("Service Pack = {0}", OSVersionInfo.ServicePack));
+            else
+                sb.AppendLine("Service Pack = None");
+            sb.AppendLine(String.Format("Version = {0}", OSVersionInfo.VersionString));
+            sb.AppendLine(String.Format("ProcessorBits = {0}", OSVersionInfo.ProcessorBits));
+            sb.AppendLine(String.Format("OSBits = {0}", OSVersionInfo.OSBits));
+            sb.AppendLine(String.Format("ProgramBits = {0}", OSVersionInfo.ProgramBits));
+
+            Console.WriteLine(sb.ToString()); 
 
             Console.ReadKey(true);
         }

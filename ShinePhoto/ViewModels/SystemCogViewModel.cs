@@ -13,26 +13,38 @@ namespace ShinePhoto.ViewModels
     [Export(typeof(SystemCogViewModel))]
     public class SystemCogViewModel : Screen
     {
+        //private BindableCollection<string> _categoryItems;
+
+        //public BindableCollection<string> CategoryItems {
+        //    get {
+        //        return _categoryItems;
+        //    }
+        //    set {
+        //        _categoryItems = value;
+        //        NotifyOfPropertyChange(() => CategoryItems);
+        //    }
+        //}
+
+        public BindableCollection<string> CategoryItems { get; private set; }
+
         public SystemCogViewModel()
         {
-            //if (Execute.InDesignMode)
-                //LoadDesignData();
-
-            //LoadDesignData();
+            if (Execute.InDesignMode)
+                LoadDesignData();
+            
         }
 
         private void LoadDesignData()
         {
-            var rd1 = System.Windows.Application.LoadComponent(new Uri(@"Styles\Metro\Dark.xaml", UriKind.Relative)) as System.Windows.ResourceDictionary;
-            var rd3 = System.Windows.Application.LoadComponent(new Uri(@"Styles\Metro\MetroControls.xaml", UriKind.Relative)) as System.Windows.ResourceDictionary;
-            var rd2 = System.Windows.Application.LoadComponent(new Uri(@"Styles\Metro\OtherMetroTabs.xaml", UriKind.Relative)) as System.Windows.ResourceDictionary;
-            if (rd1 != null && rd2 != null)
+            System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback((state) =>
             {
-                LogManager.GetLog(typeof(SystemCogViewModel)).Info("成功加载");
-                Application.Current.Resources.MergedDictionaries.Add(rd1);
-                Application.Current.Resources.MergedDictionaries.Add(rd2);
-                Application.Current.Resources.MergedDictionaries.Add(rd3);
-            }
+                CategoryItems = new BindableCollection<string>();
+                var arr = Enumerable.Range(1, 5).ToArray();
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    CategoryItems.Add(arr[i].ToString());
+                }
+            }));
         }
 
 

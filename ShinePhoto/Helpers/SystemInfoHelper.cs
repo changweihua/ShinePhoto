@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Management;
+using JCS;
+using ShinePhoto.Models;
 
 namespace ShinePhoto.Helpers
 {
@@ -127,6 +129,21 @@ namespace ShinePhoto.Helpers
                 }
             }
             return result;
+        }
+
+        public static OSVersionInfoModel GetOSVersionInfo()
+        {
+            OSVersionInfoModel model = new OSVersionInfoModel {
+                Edition = OSVersionInfo.Edition,
+                ServicePack = OSVersionInfo.ServicePack ?? "None",
+                Name = OSVersionInfo.Name,
+                OSBits = OSVersionInfo.OSBits.ToString(),
+                ProcessorBits = OSVersionInfo.ProcessorBits.ToString(),
+                ProgramBits = OSVersionInfo.ProgramBits.ToString(),
+                Version = OSVersionInfo.Version.ToString()
+            };
+
+            return model;
         }
     }
 }

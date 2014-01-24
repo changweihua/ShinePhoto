@@ -14,6 +14,9 @@
                 <!--<ResourceDictionary Source="/Styles/Metro/MetroControls.xaml"/>-->
                 <ResourceDictionary Source="/Styles/Metro/MetroScrollBar.xaml"/>
                 <ResourceDictionary Source="/Styles/Metro/MetroListView.xaml"/>
+                <ResourceDictionary Source="/Styles/OfficeTab.xaml"/>
+                <!--<ResourceDictionary Source="/Styles/Metro/MetroControls.xaml"/>-->
+                <!--<ResourceDictionary Source="/Styles/RoundedButton.xaml"/>-->
                 <ResourceDictionary>
                     <local:AppBootstrapper x:Key="bootstrapper" />
                 </ResourceDictionary>
